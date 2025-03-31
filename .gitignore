@@ -1,11 +1,29 @@
-HELP.md
-.gradle
+# ===============================
+# 💻 기본 설정 (로컬 + GitHub 병합)
+# ===============================
+
+# === Build output ===
+.gradle/
 build/
-!gradle/wrapper/gradle-wrapper.jar
+target/
+out/
+bin/
 !**/src/main/**/build/
 !**/src/test/**/build/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-### STS ###
+# === Compiled class files ===
+*.class
+
+# === Logs ===
+*.log
+
+# === IDE 설정 ===
+
+## STS / Eclipse ##
 .apt_generated
 .classpath
 .factorypath
@@ -13,25 +31,33 @@ build/
 .settings
 .springBeans
 .sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
-### IntelliJ IDEA ###
-.idea
+## IntelliJ IDEA ##
+.idea/
 *.iws
 *.iml
 *.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### NetBeans ###
+## NetBeans ##
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+## VS Code ##
 .vscode/
+
+# === Java 관련 ===
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# === 기타 ===
+HELP.md
+hs_err_pid*
+replay_pid*
