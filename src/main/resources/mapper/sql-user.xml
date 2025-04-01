@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.Lupang.mapper.UserMapper">
+	<select id="select" parameterType="string" resultType="user">
+		select * from user_table where u_id=#{u_id}
+	</select>
+	<insert id="insert" parameterType="user">
+		INSERT INTO user_table (
+		u_id, name, password, address, tel, email,
+		photo, reg_date, user_role, seller_role, del, sr_id
+		) VALUES (
+		#{u_id}, #{name}, #{password}, #{address}, #{tel}, #{email},
+		#{photo}, now(), #{user_role}, 'n','n', #{sr_id})
+	</insert>
+	<update id="insertPhoto" parameterType="list">
+	  <foreach collection="list" item="user" separator=";">
+	    UPDATE user_table
+	    SET photo = #{user.photo}
+	    WHERE u_id = #{user.u_id}
+	  </foreach>
+</update>
+</mapper>

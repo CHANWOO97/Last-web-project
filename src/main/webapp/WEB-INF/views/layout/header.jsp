@@ -11,8 +11,8 @@
             <a class="navbar-brand" href="/">Lupang</a>
             
             <div class="ms-auto d-flex gap-3">
-                <a class="nav-link" href="">로그인</a>
-                <a class="nav-link" href="">회원가입</a>
+                <a class="nav-link" href="./layout/home">로그인</a>
+                <a class="nav-link" href="../user/joinForm">회원가입</a>
                 <a class="nav-link" href="../chanwoo">고객센터</a>
             </div>
         </div>
