@@ -1,3 +1,16 @@
+-- 테이블 삭제
+DROP TABLE board_category;
+DROP TABLE board;
+DROP TABLE user_table;
+DROP TABLE cart;
+DROP TABLE cart_items;
+DROP TABLE seller_request;
+DROP TABLE items_category;
+DROP TABLE items;
+DROP TABLE sale;
+DROP TABLE items;
+DROP TABLE sale_items;
+
 -- 게시판 카테고리 테이블
 CREATE TABLE board_category (
     bc_id VARCHAR(255) NOT NULL COMMENT '게시판 카테고리 ID',
@@ -5,12 +18,13 @@ CREATE TABLE board_category (
     description VARCHAR(255),
     PRIMARY KEY (bc_id)
 );
+SELECT * FROM board_category;
 
 -- 게시판 테이블
 CREATE TABLE board (
     b_id VARCHAR(255) NOT NULL COMMENT '게시글 ID',
-    bc_id VARCHAR(255) NOT NULL COMMENT '게시판 카테고리 ID (FK: board_category.board_category_id)',
-    u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.user_id)',
+    bc_id VARCHAR(255) NOT NULL COMMENT '게시판 카테고리 ID (FK: board_category.bc_id)',
+    u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',
     title VARCHAR(255),
     content VARCHAR(255),
     created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP COMMENT '작성 일시',
@@ -18,6 +32,7 @@ CREATE TABLE board (
     status CHAR(1) NOT NULL DEFAULT 'n' COMMENT '활성화(n)/삭제(y)',
     PRIMARY KEY (b_id)
 );
+SELECT * FROM board;
 
 -- 사용자 테이블
 CREATE TABLE user_table (
@@ -31,26 +46,29 @@ CREATE TABLE user_table (
     user_role VARCHAR(255) COMMENT '사용자/관리자 구분',
     seller_role VARCHAR(255) NOT NULL DEFAULT 'n' COMMENT '판매자 신청 상태 (n/y)',
     del CHAR(1) DEFAULT 'n' COMMENT '삭제 여부',
-    request_id VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID (FK: seller_request_table.request_id)',
+    request_id VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     PRIMARY KEY (u_id)
 );
+SELECT * FROM user_table;
 
 -- 장바구니 테이블
 CREATE TABLE cart (
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID',
     c_date TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    u_id VARCHAR(255) NOT NULL COMMENT '사용자 ID (FK: user_table.user_id)',
+    u_id VARCHAR(255) NOT NULL COMMENT '사용자 ID (FK: user_table.u_id)',
     PRIMARY KEY (c_id)
 );
+SELECT * FROM cart;
 
 -- 장바구니-상품 연결 테이블
 CREATE TABLE cart_items (
     ci_id VARCHAR(255) NOT NULL COMMENT '복합키 형식 ID',
-    ci_code VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: product_table.product_code)',
-    c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: shopping_cart_table.cart_id)',
+    ci_code VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items_table.i_id)',
+    c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart_table.c_id)',
     quantity INT NOT NULL COMMENT '상품 수량',
     PRIMARY KEY (ci_id)
 );
+SELECT * FROM cart_items;
 
 -- 판매 요청 테이블
 CREATE TABLE seller_request (
@@ -61,6 +79,7 @@ CREATE TABLE seller_request (
     i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items.i_id)',
     PRIMARY KEY (sr_id)
 );
+SELECT * FROM seller_request;
 
 -- 상품 카테고리 테이블
 CREATE TABLE items_category (
@@ -68,6 +87,7 @@ CREATE TABLE items_category (
     ic_name VARCHAR(255),
     PRIMARY KEY (ic_id)
 );
+SELECT * FROM items_category;
 
 -- 상품 테이블
 CREATE TABLE items (
@@ -82,6 +102,7 @@ CREATE TABLE items (
     description TEXT,
     PRIMARY KEY (i_id)
 );
+SELECT * FROM items;
 
 -- 구매 테이블
 CREATE TABLE sale (
@@ -91,12 +112,14 @@ CREATE TABLE sale (
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart.c_id)',
     PRIMARY KEY (s_id)
 );
+SELECT * FROM sale;
 
 -- 판매된 상품 테이블
 CREATE TABLE sale_items (
     si_id VARCHAR(255) NOT NULL COMMENT '복합키 형식 ID',
-    s_id VARCHAR(255) NOT NULL COMMENT '구매 ID (FK: shopping_sale_table.sale_id)',
+    s_id VARCHAR(255) NOT NULL COMMENT '구매 ID (FK: sale_table.s_id)',
     i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items.i_id)',
     quantity INT,
     PRIMARY KEY (si_id)
 );
+SELECT * FROM sale_items;
