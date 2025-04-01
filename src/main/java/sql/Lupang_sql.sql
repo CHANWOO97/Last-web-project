@@ -42,14 +42,15 @@ CREATE TABLE user_table (
     address VARCHAR(255),
     tel VARCHAR(255),
     email VARCHAR(255),
+    photo VARCHAR(255),
     reg_date TIMESTAMP NULL COMMENT '가입일',
     user_role VARCHAR(255) COMMENT '사용자/관리자 구분',
     seller_role VARCHAR(255) NOT NULL DEFAULT 'n' COMMENT '판매자 신청 상태 (n/y)',
     del CHAR(1) DEFAULT 'n' COMMENT '삭제 여부',
-    request_id VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
+    sr_id VARCHAR(255) COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     PRIMARY KEY (u_id)
 );
-SELECT * FROM user_table;
+SELECT * FROM user_table where u_id = 'test';
 
 -- 장바구니 테이블
 CREATE TABLE cart (
@@ -123,3 +124,7 @@ CREATE TABLE sale_items (
     PRIMARY KEY (si_id)
 );
 SELECT * FROM sale_items;
+
+insert into user_table (u_id,name,password,address,tel,email,reg_date,user_role,seller_role,del)
+values('test','영섭','1','안산','010-4207-2642','smile0537@naver.com',now(),'사용자','n','n');
+
