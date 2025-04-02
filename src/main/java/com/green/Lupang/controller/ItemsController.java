@@ -48,4 +48,10 @@ public class ItemsController {
 		model.addAttribute("ic_name", ic_name);
 		return "items/itemsByCategory";
 	}	
+	@GetMapping("items/itemsDetail")
+		public void itemsDetail(@RequestParam("i_id") String i_id, Model model) {
+		Items items = is.select(i_id);
+		model.addAttribute("items", items);
+		
+	}
 }

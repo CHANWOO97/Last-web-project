@@ -21,4 +21,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="itemCountByCategory" resultType="int">
  		select count(*) from items where ic_id = #{ic_id}
 	</select>
+<!-- 카테고리 상세페이지 데이터-->
+	<select id="select" parameterType="String" resultType="items">
+		select * from items where i_id=#{i_id}
+	</select>
 </mapper>

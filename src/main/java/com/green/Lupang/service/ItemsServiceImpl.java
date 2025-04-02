@@ -35,4 +35,8 @@ public class ItemsServiceImpl implements ItemsService{
 	public int itemCountByCategory(String ic_id) {
 		return im.itemCountByCategory(ic_id);
 	}
+	@Override
+	public Items select(String i_id) {
+		return im.select(i_id);
+	}
 }
