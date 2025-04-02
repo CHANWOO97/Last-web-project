@@ -3,7 +3,6 @@
 <%@ include file="../setting/include.jsp" %>
 <!DOCTYPE html><html><head><meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/resources/css/home.css">
 </head>
 <body>
 <%@ include file="./headerHome.jsp" %>
