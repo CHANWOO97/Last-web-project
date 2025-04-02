@@ -10,6 +10,7 @@ public class Items {
     private String ic_id; // VARCHAR(255) NOT NULL COMMENT '카테고리 ID (FK: items_category.ic_id)',
     private String name; // VARCHAR(255),
     private String size; // VARCHAR(10) NOT NULL DEFAULT 'M' COMMENT '사이즈 (S/M/L)',
+    private String photo; // VARCHAR(255);
     private String location; // VARCHAR(255) NOT NULL,
     private int  stock; // INT NOT NULL,
     private int price; // INT NOT NULL,

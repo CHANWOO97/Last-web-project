@@ -1,5 +1,9 @@
 package com.green.Lupang.service;
 
-public interface ItemsService {
+import java.util.List;
 
+import com.green.Lupang.dto.ItemsCategory;
+
+public interface ItemsService {
+	List<ItemsCategory> ic_list();
 }
