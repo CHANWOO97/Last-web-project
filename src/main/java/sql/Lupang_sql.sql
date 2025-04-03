@@ -8,7 +8,6 @@ DROP TABLE seller_request;
 DROP TABLE items_category;
 DROP TABLE items;
 DROP TABLE sale;
-DROP TABLE items;
 DROP TABLE sale_items;
 
 -- 게시판 카테고리 테이블
@@ -64,7 +63,7 @@ SELECT * FROM cart;
 -- 장바구니-상품 연결 테이블
 CREATE TABLE cart_items (
     ci_id VARCHAR(255) NOT NULL COMMENT '복합키 형식 ID',
-    ci_code VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items_table.i_id)',
+    i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items_table.i_id)',
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart_table.c_id)',
     quantity INT NOT NULL COMMENT '상품 수량',
     PRIMARY KEY (ci_id)
