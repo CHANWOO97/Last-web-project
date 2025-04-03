@@ -17,4 +17,6 @@ public interface ItemsMapper {
 	int itemCountByCategory(String ic_id);
 
 	String ic_name(String ic_id);
+
+	Items select(String i_id);
 }
