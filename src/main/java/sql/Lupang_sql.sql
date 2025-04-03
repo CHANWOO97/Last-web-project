@@ -92,10 +92,11 @@ SELECT * FROM items_category;
 
 -- 상품 테이블
 CREATE TABLE items (
-   	i_id VARCHAR(255) NOT NULL COMMENT '상품코드',
+   	i_id INT NOT NULL AUTO_INCREMENT COMMENT '상품코드 (자동 증가)',
     ic_id VARCHAR(255) NOT NULL COMMENT '카테고리 ID (FK: items_category.ic_id)',
     name VARCHAR(255),
-    size VARCHAR(10) NOT NULL DEFAULT 'M' COMMENT '사이즈 (S/M/L)',
+    size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)',
+    photo VARCHAR(255),
     location VARCHAR(255) NOT NULL,
     stock INT NOT NULL,
     price INT NOT NULL,
@@ -103,6 +104,9 @@ CREATE TABLE items (
     description TEXT,
     PRIMARY KEY (i_id)
 );
+
+-- 트리거 종료 표시를 위한 DELIMITER 복구
+DELIMITER ;
 SELECT * FROM items;
 
 -- 구매 테이블

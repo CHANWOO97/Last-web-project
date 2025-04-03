@@ -1,0 +1,82 @@
+.lupang-header {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  padding: 0 20px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 100px;
+}
+
+/* 카테고리 버튼 */
+.category-button {
+  background-color: #2b7cff;
+  color: white;
+  font-weight: bold;
+  width: 90px;
+  height: 60px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 로고 */
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* 검색 영역 */
+.search-area {
+  flex-grow: 1;
+  max-width: 650px;
+}
+
+.search-area .input-group > select,
+.search-area .input-group > input,
+.search-area .input-group > .input-group-text {
+  height: 40px;
+}
+
+.search-area select {
+  max-width: 90px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.search-area input {
+  flex-grow: 1;
+  border-left: none;
+  border-right: none;
+}
+
+.search-area .input-group-text:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* 아이콘 정렬 */
+.icon-group {
+  display: flex;
+  gap: 20px;
+}
+
+.icon-group div {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #333;
+}
+
+.icon-group i {
+  font-size: 1.5rem;
+  display: block;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
