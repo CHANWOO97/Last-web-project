@@ -17,11 +17,13 @@
 					class="nav-link" href="../user/joinForm">회원가입</a>
 
 				<!-- ✅ dropdown 감싸기 -->
-				<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 고객센터 </a>
-				<ul class="dropdown-menu">
-					<li><a class="dropdown-item" href="/board/boardForm">구매 문의</a></li>
-					<li><a class="dropdown-item" href="/board/boardForm">Q&A</a></li>
-				</ul>
+				<div class="dropdown">	
+					<a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 고객센터 </a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/board/boardForm">구매 문의</a></li>
+						<li><a class="dropdown-item" href="/board/boardForm">Q&A</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
