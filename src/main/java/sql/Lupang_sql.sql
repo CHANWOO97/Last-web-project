@@ -104,6 +104,10 @@ CREATE TABLE items (
     description TEXT,
     PRIMARY KEY (i_id)
 );
+ALTER TABLE items
+MODIFY COLUMN i_id INT NOT NULL AUTO_INCREMENT COMMENT '상품코드 (자동 증가)';
+ALTER TABLE items
+MODIFY COLUMN size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)';
 
 -- 트리거 종료 표시를 위한 DELIMITER 복구
 DELIMITER ;
@@ -131,4 +135,6 @@ SELECT * FROM sale_items;
 
 insert into user_table (u_id,name,password,address,tel,email,reg_date,user_role,seller_role,del)
 values('test','영섭','1','안산','010-4207-2642','smile0537@naver.com',now(),'사용자','n','n');
+
+select * from user_table where u_id='test'; 
 

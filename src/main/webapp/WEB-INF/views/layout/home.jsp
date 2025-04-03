@@ -5,7 +5,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="./headerHome.jsp" %>
+<c:if test="${not empty id }">
+	<%@ include file="./headerLoginHome.jsp" %>
+</c:if>
+<c:if test="${empty id }">
+	<%@ include file="./headerHome.jsp" %>
+</c:if>
 	<!-- 배너자리  -->
 <div id="banner" class="carousel slide" data-bs-ride="carousel">
 		<div class="carousel-indicators">

@@ -13,9 +13,8 @@
 			<a class="navbar-brand" href="/">Lupang</a>
 
 			<div class="ms-auto d-flex gap-3 align-items-center">
-				<a class="nav-link" href="../user/loginForm">로그인</a> <a
-					class="nav-link" href="../user/joinForm">회원가입</a>
-
+				<span class="badge rounded-pill bg-primary text-white px-3 py-2">${id } 님</span>
+				<a class="nav-link" href="#">로그아웃</a>
 				<!-- ✅ dropdown 감싸기 -->
 				<div class="dropdown">
 					<a class="nav-link dropdown-toggle" href="#" role="button"
@@ -79,7 +78,7 @@
 
 				<!-- 장바구니 아이콘 -->
 				<div class="text-center">
-					<a href="/views/items/itemsCart" class="text-decoration-none text-dark"> <i
+					<a href="/items/itemsCart" class="text-decoration-none text-dark"> <i
 						class="bi bi-cart fs-4"></i><br> <span
 						style="font-size: 0.85rem;">장바구니</span>
 					</a>
