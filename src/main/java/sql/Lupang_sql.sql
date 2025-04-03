@@ -8,7 +8,6 @@ DROP TABLE seller_request;
 DROP TABLE items_category;
 DROP TABLE items;
 DROP TABLE sale;
-DROP TABLE items;
 DROP TABLE sale_items;
 
 -- 게시판 카테고리 테이블
