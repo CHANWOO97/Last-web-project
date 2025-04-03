@@ -46,6 +46,11 @@ public class UserController {
 		}
 		model.addAttribute("result", result);
 	}
+	@GetMapping("/user/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "/user/logout";
+	}
 	@GetMapping("/user/joinForm")
 	public void joinForm() {}
 	@PostMapping("/user/join") 
