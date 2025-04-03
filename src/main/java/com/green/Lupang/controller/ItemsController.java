@@ -18,6 +18,8 @@ import jakarta.servlet.http.HttpSession;
 public class ItemsController {
 	@Autowired
 	private ItemsService is;
+	
+	
 	@GetMapping("/items/itemsByCategory")
 	public String itemsByCategory(Model model, 
 			@RequestParam(value = "ic_id" , defaultValue = "") String ic_id, 
