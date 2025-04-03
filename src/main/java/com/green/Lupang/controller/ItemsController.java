@@ -19,6 +19,14 @@ public class ItemsController {
 	@Autowired
 	private ItemsService is;
 	
+	@GetMapping("/items/itemsCart")	
+	public String itemsCart(Model model, HttpSession session) {		
+		String id = (String)session.getAttribute("id");
+		// 카테고리 리스트 데이터... 
+		List<ItemsCategory> ic_list = is.ic_list();
+		model.addAttribute("ic_list", ic_list);
+		return "items/itemsCart";
+	}
 	
 	@GetMapping("/items/itemsByCategory")
 	public String itemsByCategory(Model model, 
