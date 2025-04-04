@@ -26,8 +26,7 @@ body {
 	color: #0d6efd;
 }
 
-@
-keyframes fadeIn {from { opacity:0;
+@keyframes fadeIn {from { opacity:0;
 	transform: translateY(20px);
 }
 
@@ -96,14 +95,14 @@ to {
 		var uploadfiles = [];
 		
 		// 클릭하면 파일 탐색기 열기
-		$('#drop, #thumbnails').on('click', function () {
+		$('#drop, #photo').on('click', function () {
 			  // 이미지가 아직 없는 경우에만 열기
-			  if ($('#thumbnails').children().length === 0) {
+			  if ($('#photo').children().length === 0) {
 		  $('#fileInput').click();
 		  }
 		});
 		// ❌ 버튼 클릭 시 업로드 제거 & 이벤트 전파 차단
-		$("#thumbnails").on('click', function(e) {
+		$("#photo").on('click', function(e) {
 		  var $target = $(e.target);
 		  if ($target.hasClass('close')) {
 		    e.stopPropagation(); //  클릭 이벤트 전파 중단
@@ -111,8 +110,9 @@ to {
 		    uploadfiles[idx].upload = 'disable'; // 삭제된 항목은 업로드 금지
 		    $target.parent().remove(); // x를 클릭한 그림 삭제
 		 // 이미지가 더 없으면 아이콘 다시 보여주기
-		    if ($('#thumbnails').children().length === 0) {
+		    if ($('#photo').children().length === 0) {
 		      $('#uploadIcon').show();
+		      uploadfiles = []; // 배열도 초기화
 		    }
 		  }
 		});
@@ -139,6 +139,9 @@ to {
 			formData.append('name', frm.name.value);
 			formData.append('email', frm.email.value);
 			formData.append('password', frm.password.value);
+			formData.append('tel', frm.tel.value);
+			formData.append('address', frm.address.value);
+			
 			$.each(uploadfiles, function(i, file) {
 				if (file.upload != 'disable') // 사용하지 않는 파일은 제외하고
 					formData.append('file',file,file.name);
@@ -162,7 +165,7 @@ to {
 		      $('#uploadIcon').hide();
 				var div = '<div class="thumb"><div class="close" data-idx="'+idx+
 					'">❌</div><img src="'+e.target.result+ '" title="'+escape(f.name)+'"/></div>';
-				$("#thumbnails").append(div);
+				$("#photo").append(div);
 			};
 		})(file,idx);
 		reader.readAsDataURL(file);
@@ -239,6 +242,24 @@ to {
             <input type="text" name="name" class="form-control" required="required">
           </div>
         </div>
+        <!-- 주소 입력 -->
+		<div class="mb-3 row">
+		  <label class="col-sm-4 col-form-label">
+		    <i class="bi bi-geo-alt-fill me-2 text-primary"></i>주소
+		  </label>
+		  <div class="col-sm-8">
+		    <input type="text" name="address" class="form-control" required="required" placeholder="도로명 주소 또는 지번 주소 입력">
+		  </div>
+		</div>
+		<!-- 전화번호 입력 -->
+		<div class="mb-3 row">
+		  <label class="col-sm-4 col-form-label">
+		    <i class="bi bi-telephone-fill me-2 text-success"></i>전화번호
+		  </label>
+		  <div class="col-sm-8">
+		    <input type="text" name="tel" class="form-control" required="required" placeholder="010-1234-5678">
+		  </div>
+		</div>
         <!-- 이메일 입력 -->
         <div class="mb-3 row">
           <label class="col-sm-4 col-form-label">
@@ -263,7 +284,7 @@ to {
 			    <i class="bi bi-upload" style="font-size: 1.5rem;"></i><br>
 			    <div>사진을 올려 주세요</div>
 			  </div>
-			  <div id="thumbnails" class="mt-2"></div>
+			  <div id="photo" class="mt-2"></div>
             </div>
           </div>
         </div>
