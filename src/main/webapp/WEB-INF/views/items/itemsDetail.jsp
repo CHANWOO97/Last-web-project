@@ -18,9 +18,23 @@ function clk() {
   document.getElementById("qt").innerText = qty;
   document.getElementById("saleprice").innerText = (price * qty).toLocaleString() + "원";
 }
+function innerCart() {
+	  const itemCode = "${items.i_id}"; // JSP에서 상품코드
+	  const quantity = parseInt(document.getElementById("quantity").value);
+	  $.post('/items/innerCart', 'i_id='+itemCode+'&quantity='+quantity, function(data){
+		  alert(data); 
+		  // data -> java에서 보내는 실패 성공 여부
+	  })	  	 
+}
 </script>
 </head>
 <body>
+<c:if test="${not empty id }">
+	<%@ include file="../layout/headerLoginHome.jsp" %>
+</c:if>
+<c:if test="${empty id }">
+	<%@ include file="../layout/headerHome.jsp" %>
+</c:if>
 	<div class="container text-center">
     <h2 class="text-primary">상품상세보기</h2><br><br>
     <table class="table table-bordered table-info">
@@ -36,7 +50,7 @@ function clk() {
     </table>
     <div align="right">
     <span class="btn btn-info"><input type="number" name="quantity" min="1" max="99" value="1" size="2" id="quantity" onchange="clk()"></span>
-    <a class="btn btn-info" href="./items/itemsCart">장바구니 담기</a>
+    <a class="btn btn-info" onclick="innerCart()">장바구니 담기</a>
     <a class="btn btn-success" href="./items/sale">구매하기</a>
     </div>
 </div>

@@ -2,9 +2,12 @@ package com.green.Lupang.dto;
 
 import java.sql.Date;
 
+import org.apache.ibatis.type.Alias;
+
 import lombok.Data;
 
 @Data
+@Alias("cart")
 public class Cart {
 	private String c_id; // VARCHAR(255) NOT NULL COMMENT '장바구니 ID',
     private Date c_date; // TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,

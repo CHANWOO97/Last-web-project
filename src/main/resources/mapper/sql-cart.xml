@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.Lupang.mapper.CartMapper">
+	<!-- cart 테이블용 -->	
+	<select id="findByUserId" parameterType="String" resultType="cart">
+		select * from cart where u_id=#{u_id}
+	</select>
+	<insert id="cartSave" parameterType="map">
+		insert into cart values (#{c_id}, now(), #{u_id})		
+	</insert>
+	
+	<!-- cart_items 테이블용 -->
+	<select id="findByCartIdAndItemCode" parameterType="map" resultType="cart_items">
+		select * from cart_items where c_id=#{c_id} and i_id=#{i_id}
+	</select>
+	<!-- 상품상세페이지에서 수량 변경 업데이트 -->
+	<update id="cartItemsUpdate" parameterType="cart_items">
+		update cart_items set quantity=#{quantity} where ci_id=#{ci_id}
+	</update>
+	<!-- 장바구니에서 수량 변경 업데이트 -->
+	<update id="updateQuantity" parameterType="cart_items">
+		update cart_items set quantity=#{quantity} where c_id=#{c_id} and i_id=#{i_id}
+	</update>
+	<insert id="cartItemsSave" parameterType="map">
+		insert into cart_items values (#{ci_id}, #{i_id}, #{c_id}, #{quantity})
+	</insert>
+	<!--cart_items 테이블에서 검색할 장바구니에 해당하는 상품들을 전부 가져옴 -->
+	<select id="findByCartId" parameterType="String" resultType="cart_items">
+		select * from cart_items where c_id=#{c_id}
+	</select>
+	<!-- cart_items 테이블에서 장바구니에 해당하는 상품 삭제 -->
+	<delete id="deleteItem" parameterType="cart_items">
+		delete from cart_items where c_id = #{c_id} and i_id = #{i_id}
+	</delete>
+</mapper>

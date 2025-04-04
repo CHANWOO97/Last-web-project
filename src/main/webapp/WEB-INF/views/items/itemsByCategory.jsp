@@ -21,7 +21,12 @@
 </style>
 </head>
 <body>
-	<%@ include file="../layout/headerHome.jsp"%>
+<c:if test="${not empty id }">
+	<%@ include file="../layout/headerLoginHome.jsp" %>
+</c:if>
+<c:if test="${empty id }">
+	<%@ include file="../layout/headerHome.jsp" %>
+</c:if>
 
 	<div class="container mt-4">
 		<h2>${ic_name }</h2>

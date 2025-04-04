@@ -630,3 +630,4 @@ VALUES
 
 SELECT * FROM items_category;
 delete from items_category;
+delete from items;
