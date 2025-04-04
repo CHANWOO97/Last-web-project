@@ -10,5 +10,5 @@ public interface UserMapper {
 	User select(String u_id);
 	int insert(User user);
 	void insertPhoto(List<User> photo);
-
+	User u_id(String id);
 }
