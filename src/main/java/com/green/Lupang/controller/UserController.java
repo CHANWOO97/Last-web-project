@@ -31,7 +31,7 @@ public class UserController {
 	private BCryptPasswordEncoder bpe;
 	@GetMapping("/user/loginForm")
 	public String loginForm() {
-		return "/user/loginForm";
+		return "user/loginForm";
 	}
 	@PostMapping("/user/login")
 	public void login(User user, HttpSession session, Model model) {
@@ -54,7 +54,7 @@ public class UserController {
 	@GetMapping("/user/joinForm")
 	public void joinForm() {}
 	@PostMapping("/user/join") 
-	public String join2(User user, Model model, MultipartHttpServletRequest mhr) throws IOException {
+	public String join(User user, Model model, MultipartHttpServletRequest mhr) throws IOException {
 		int result = 0;
 		User user2 = us.select(user.getU_id());
 		if (user2 == null) {
@@ -78,7 +78,8 @@ public class UserController {
 			String encPass = bpe.encode(user.getPassword());
 			user.setPassword(encPass);
 			result = us.insert(user);
-			if (result > 0) us.insertPhoto(photo);
+			if (result > 0 && photo.size() > 0) {
+			    us.insertPhoto(photo);}
 		} else result = -1; // 이미 있는 데이터
 		model.addAttribute("result", result);
 		return "/user/join";
@@ -92,5 +93,4 @@ public class UserController {
 		else msg = "사용중인 아이디 입니다";
 		return msg;
 	}
-	
 }
