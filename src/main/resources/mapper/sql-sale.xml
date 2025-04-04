@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.Lupang.mapper.SaleMapper">
+	<!-- 구매코드 저장 -->
+	<insert id="saleSave" parameterType="sale">
+		insert into sale (s_id, c_id, receiver, tel, address) 
+			values(#{s_id}, #{c_id}, #{receiver}, #{tel}, #{address})
+	</insert>
+	<insert id="saleItemSave" parameterType="sale_items">
+		insert into sale_items values(#{si_id}, #{s_id}, #{i_id}, #{quantity})
+	</insert>
+</mapper>

@@ -51,7 +51,7 @@
 		})
 	});	});
 	$(function() { 
-	$('#orderForm').on('submit', function(e) {
+	$('#orderForm').on('submit', function(e) {		
 	  const checked = $('.item-check:checked');
 	  if (checked.length === 0) {
 	    alert('주문할 상품을 선택해주세요!');
