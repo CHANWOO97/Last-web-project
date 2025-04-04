@@ -17,12 +17,19 @@
 		<div class="container">
 			<a class="navbar-brand" href="/">Lupang</a>
 			<div class="ms-auto d-flex gap-3 align-items-center">
-				<c:if test="${empty id }"> <!-- 로그인 되었을때 로그인/회원가입 보이기 -->
+				<c:if test="${empty id }"> <!-- 로그인 안 되었을때 로그인/회원가입 보이기 -->
 					<a class="nav-link" href="../user/loginForm">로그인</a>
 					<a class="nav-link" href="../user/joinForm">회원가입</a>
 				</c:if>
-				<c:if test="${not empty id}"> <!-- 로그인 되었을때 로그아웃 보이기 -->
-				<span class="badge rounded-pill bg-primary text-white px-3 py-2">${id } 님</span>
+				<c:if test="${not empty id}"> <!-- 로그인 되었을때 사진/로그인/로그아웃 보이기 -->
+				<c:choose>
+				  <c:when test="${not empty photo}">
+				    <img src="/resources/images/user_photo/${photo}" class="rounded-circle" width="40" height="40">
+				  </c:when>
+				  <c:otherwise>
+				    <img src="/resources/images/user_photo/user_base_photo.png" class="rounded-circle" width="40" height="40">
+				  </c:otherwise>
+				</c:choose>
 					<c:if test="${id != 'admin'}">
 						<a class="nav-link" href="../user/logout">로그아웃</a>
 						<div>
@@ -88,6 +95,7 @@
 						style="font-size: 0.85rem;">마이쿠팡</span>
 					</a>
 					<ul class="dropdown-menu text-center">
+						<li><a class="dropdown-item" href="/user/mypage">마이페이지</a></li>
 						<li><a class="dropdown-item" href="#">주문목록</a></li>
 						<li><a class="dropdown-item" href="#">취소/반품</a></li>
 						<li><a class="dropdown-item" href="#">찜리스트</a></li>
