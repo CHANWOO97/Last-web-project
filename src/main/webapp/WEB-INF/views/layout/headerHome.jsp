@@ -78,7 +78,7 @@
 
 				<!-- 장바구니 아이콘 -->
 				<div class="text-center">
-					<a href="/views/items/itemsCart" class="text-decoration-none text-dark"> <i
+					<a href="/items/itemsCart" class="text-decoration-none text-dark"> <i
 						class="bi bi-cart fs-4"></i><br> <span
 						style="font-size: 0.85rem;">장바구니</span>
 					</a>

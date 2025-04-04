@@ -22,6 +22,7 @@
 					<a class="nav-link" href="../user/joinForm">회원가입</a>
 				</c:if>
 				<c:if test="${not empty id}"> <!-- 로그인 되었을때 로그아웃 보이기 -->
+				<span class="badge rounded-pill bg-primary text-white px-3 py-2">${id } 님</span>
 					<c:if test="${id != 'admin'}">
 						<a class="nav-link" href="../user/logout">로그아웃</a>
 						<div>
@@ -92,10 +93,9 @@
 						<li><a class="dropdown-item" href="#">찜리스트</a></li>
 					</ul>
 				</div>
-
 				<!-- 장바구니 아이콘 -->
 				<div class="text-center">
-					<a href="#" class="text-decoration-none text-dark"> <i
+					<a href="/items/itemsCart" class="text-decoration-none text-dark"> <i
 						class="bi bi-cart fs-4"></i><br> <span
 						style="font-size: 0.85rem;">장바구니</span>
 					</a>
