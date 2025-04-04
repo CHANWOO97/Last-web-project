@@ -43,9 +43,13 @@ public class UserController {
 		else if (bpe.matches(user.getPassword(), user2.getPassword())) {
 			result = 1; // id와 암호가 일치
 			session.setAttribute("id", user.getU_id());
+			User user3 = us.u_id(user.getU_id());
+			if ( user3.getPhoto() == null ||  user3.getPhoto().equals(""))
+				session.setAttribute("photo", "user_base_photo.png");
+			else session.setAttribute("photo", user3.getPhoto());
 		}
 		model.addAttribute("result", result);
-	}
+	}	
 	@GetMapping("/user/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -60,7 +64,7 @@ public class UserController {
 		if (user2 == null) {
 			List<MultipartFile> list = mhr.getFiles("file");
 			List<User> photo = new ArrayList<>();
-			String real = mhr.getServletContext().getRealPath("/resources/images");
+			String real = mhr.getServletContext().getRealPath("/resources/images/user_photo");
 			for(MultipartFile mf : list) {
 				User mp = new User();
 				String fileName1 = mf.getOriginalFilename();
@@ -93,4 +97,11 @@ public class UserController {
 		else msg = "사용중인 아이디 입니다";
 		return msg;
 	}
+	@GetMapping("/user/mypage")
+	public void mypage(HttpSession session, Model model) {
+		 String u_id = (String) session.getAttribute("id");
+		    User user = us.select(u_id);
+		    model.addAttribute("user", user);		
+	}
+	
 }

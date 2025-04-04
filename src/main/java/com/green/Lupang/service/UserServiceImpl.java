@@ -29,4 +29,9 @@ public class UserServiceImpl implements UserService{
 		um.insertPhoto(photo);
 	}
 
+	@Override
+	public User u_id(String id) {
+		return um.u_id(id);
+	}
+
 }

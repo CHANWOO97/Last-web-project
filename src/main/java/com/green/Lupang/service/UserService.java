@@ -12,4 +12,7 @@ public interface UserService {
 
 	void insertPhoto(List<User> photo);
 
+	User u_id(String id);
+
+
 }
