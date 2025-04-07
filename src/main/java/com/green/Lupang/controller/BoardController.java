@@ -32,6 +32,5 @@ public class BoardController {
 			Items items = im.select(i_id);
 			model.addAttribute("items", items);
 		}
-		System.out.println("i_id = "+i_id);
 	}
 }

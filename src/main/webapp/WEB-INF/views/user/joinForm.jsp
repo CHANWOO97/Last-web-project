@@ -269,7 +269,6 @@ to {
             <input type="email" name="email" class="form-control" required="required">
           </div>
         </div>
-        <!-- 회원사진 드래그 앤 드롭 업로드 영역 -->
         <div class="mb-4 row">
           <label class="col-sm-4 col-form-label">
             <i class="bi bi-image me-2"></i>회원사진

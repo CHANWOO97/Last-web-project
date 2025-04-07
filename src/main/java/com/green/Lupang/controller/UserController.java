@@ -117,8 +117,8 @@ public class UserController {
 		model.addAttribute("user", user);
 	}
 	@PostMapping("/user/mypageEdit")
-	public void mypageEdit(HttpSession session, Model model, User user) throws IOException {
-		String fileName1 = user.getFile().getOriginalFilename();
+	public void mypageEdit(HttpSession session, Model model, User user, @RequestParam("file") MultipartFile file) throws IOException {
+		String fileName1 = file.getOriginalFilename();
 		if (fileName1 != null && !fileName1.equals("")) { // 그림파일 수정
 			UUID uuid = UUID.randomUUID();
 			String fileName = uuid+fileName1.substring(fileName1.lastIndexOf("."));

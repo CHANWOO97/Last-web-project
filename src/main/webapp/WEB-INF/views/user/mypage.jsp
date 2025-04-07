@@ -35,8 +35,6 @@
 	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 </style>
-</head>
-<body>
 	<script>
 		function PasswordMatch() {
 			const pw = document.getElementById("password").value;
@@ -62,16 +60,16 @@
 				submitBtn.disabled = true;
 			}
 		}
-	</script>
+		</script>
+</head>
+<body>
 	<form action="/user/mypageEdit" method="post" enctype="multipart/form-data" name="frm" onsubmit="return chk()">
 		<input type="hidden" name="u_id" value="${user.u_id}"> 
 		<input type="hidden" name="reg_date" value="${user.reg_date}">
 		<div class="container mypage-container">
 			<div class="profile-card">
 				<div class="d-flex align-items-center mb-4">
-					<label for="fileInput"> <img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4"
-						style="cursor: pointer;">
-					</label> <input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage(this)">
+						<img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4">
 					<div>
 						<h3 class="mb-0">${user.name}님</h3>
 						<small class="text-muted">${user.user_role == 'admin' ? '관리자' : '일반 사용자'}</small>
@@ -125,8 +123,12 @@
 					<p class="info-title mb-1">판매자 상태</p>
 					<p class="info-value" class="form-control">
 						<c:choose>
-							<c:when test="${user.seller_role == 'y'}">✅ 판매자 등록 완료</c:when>
-							<c:otherwise>판매자 신청가능</c:otherwise>
+							<c:when test="${user.seller_role == 'y'}">
+								✅ 판매자 등록 완료
+							</c:when>
+							<c:otherwise>
+								<a href="/seller/sellerForm" class="btn btn-sm btn-outline-success ms-2">판매자 신청하러 가기</a>
+							</c:otherwise>
 						</c:choose>
 					</p>
 				</div>
