@@ -44,7 +44,6 @@ public class UserController {
 			result = 1; // id와 암호가 일치
 			session.setAttribute("id", user.getU_id());
 			User user3 = us.select(user.getU_id());
-			System.out.println("사진?"+user3);
 			if ( user3.getPhoto() == null ||  user3.getPhoto().equals(""))
 				session.setAttribute("photo", "user_base_photo.png");
 			else session.setAttribute("photo", user3.getPhoto());
