@@ -20,5 +20,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    SET photo = #{user.photo}
 	    WHERE u_id = #{user.u_id}
 	  </foreach>
-</update>
+	</update>
+	<update id="update" parameterType="user">
+		update user_table set name=#{name}, password=#{password}, address=#{address}, tel=#{tel}, email=#{email}, photo=#{photo} where u_id=#{u_id}
+	</update>
+	
 </mapper>
