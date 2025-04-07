@@ -3,6 +3,7 @@ package com.green.Lupang.dto;
 import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -21,4 +22,7 @@ public class User {
     private String seller_role; // VARCHAR(255) NOT NULL DEFAULT 'n' COMMENT '판매자 신청 상태 (n/y)',
     private String del; // CHAR(1) DEFAULT 'n' COMMENT '삭제 여부',
     private String sr_id; // VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
+    
+    // upload
+    private MultipartFile file;
 }

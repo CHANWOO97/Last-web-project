@@ -29,10 +29,12 @@ public class UserController {
 	private UserService us;
 	@Autowired
 	private BCryptPasswordEncoder bpe;
+
 	@GetMapping("/user/loginForm")
 	public String loginForm() {
 		return "user/loginForm";
 	}
+
 	@PostMapping("/user/login")
 	public void login(User user, HttpSession session, Model model) {
 		int result = 0;
@@ -44,20 +46,25 @@ public class UserController {
 			result = 1; // id와 암호가 일치
 			session.setAttribute("id", user.getU_id());
 			User user3 = us.select(user.getU_id());
-			if ( user3.getPhoto() == null ||  user3.getPhoto().equals(""))
+			if (user3.getPhoto() == null || user3.getPhoto().equals(""))
 				session.setAttribute("photo", "user_base_photo.png");
-			else session.setAttribute("photo", user3.getPhoto());
+			else
+				session.setAttribute("photo", user3.getPhoto());
 		}
 		model.addAttribute("result", result);
-	}	
+	}
+
 	@GetMapping("/user/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "/user/logout";
 	}
+
 	@GetMapping("/user/joinForm")
-	public void joinForm() {}
-	@PostMapping("/user/join") 
+	public void joinForm() {
+	}
+
+	@PostMapping("/user/join")
 	public String join(User user, Model model, MultipartHttpServletRequest mhr) throws IOException {
 		int result = 0;
 		User user2 = us.select(user.getU_id());
@@ -65,15 +72,15 @@ public class UserController {
 			List<MultipartFile> list = mhr.getFiles("file");
 			List<User> photo = new ArrayList<>();
 			String real = mhr.getServletContext().getRealPath("/resources/images/user_photo");
-			for(MultipartFile mf : list) {
+			for (MultipartFile mf : list) {
 				User mp = new User();
 				String fileName1 = mf.getOriginalFilename();
 				UUID uuid = UUID.randomUUID();
-				String fileName = uuid+fileName1.substring(fileName1.lastIndexOf("."));
+				String fileName = uuid + fileName1.substring(fileName1.lastIndexOf("."));
 				mp.setPhoto(fileName);
 				mp.setU_id(user.getU_id());
 				photo.add(mp);
-				FileOutputStream fos = new FileOutputStream(new File(real+"/"+fileName));
+				FileOutputStream fos = new FileOutputStream(new File(real + "/" + fileName));
 				fos.write(mf.getBytes());
 				fos.close();
 //				user.setFileName(fileName);  // 하나만 member저장
@@ -83,25 +90,47 @@ public class UserController {
 			user.setPassword(encPass);
 			result = us.insert(user);
 			if (result > 0 && photo.size() > 0) {
-			    us.insertPhoto(photo);}
-		} else result = -1; // 이미 있는 데이터
+				us.insertPhoto(photo);
+			}
+		} else
+			result = -1; // 이미 있는 데이터
 		model.addAttribute("result", result);
 		return "/user/join";
 	}
+
 	@PostMapping(value = "/user/idChk", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String idChk(@RequestParam(value = "u_id", defaultValue = "") String u_id) {
 		String msg = "";
 		User user = us.select(u_id);
-		if (user == null) msg = "사용 가능한 아이디입니다";
-		else msg = "사용중인 아이디 입니다";
+		if (user == null)
+			msg = "사용 가능한 아이디입니다";
+		else
+			msg = "사용중인 아이디 입니다";
 		return msg;
 	}
+
 	@GetMapping("/user/mypage")
 	public void mypage(HttpSession session, Model model) {
-		 String u_id = (String) session.getAttribute("id");
-		    User user = us.select(u_id);
-		    model.addAttribute("user", user);		
+		String u_id = (String) session.getAttribute("id");
+		User user = us.select(u_id);
+		model.addAttribute("user", user);
 	}
-	
+	@PostMapping("/user/mypageEdit")
+	public void mypageEdit(HttpSession session, Model model, User user) throws IOException {
+		String fileName1 = user.getFile().getOriginalFilename();
+		if (fileName1 != null && !fileName1.equals("")) { // 그림파일 수정
+			UUID uuid = UUID.randomUUID();
+			String fileName = uuid+fileName1.substring(fileName1.lastIndexOf("."));
+			user.setPhoto(fileName);
+			String real = "/resources/images/user_photo";
+			FileOutputStream fos = new FileOutputStream(new File(real+"/"+fileName));
+			fos.write(user.getFile().getBytes());
+			fos.close();
+		}
+		String enPass = bpe.encode(user.getPassword());
+		user.setPassword(enPass);
+		int result = us.update(user);
+		model.addAttribute("result", result);
+	}
 }

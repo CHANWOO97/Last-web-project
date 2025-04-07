@@ -14,5 +14,6 @@ public interface UserService {
 
 	User u_id(String id);
 
+	int update(User user);
 
 }

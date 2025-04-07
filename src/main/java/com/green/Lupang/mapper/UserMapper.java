@@ -11,4 +11,5 @@ public interface UserMapper {
 	int insert(User user);
 	void insertPhoto(List<User> photo);
 	User u_id(String id);
+	int update(User user);
 }
