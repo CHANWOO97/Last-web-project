@@ -23,10 +23,10 @@
 			<!-- 왼쪽 텍스트 -->
 			<div class="col-md-6">
 				<h1 class="display-5 fw-bold">고객센터</h1>
-				<p class="lead">무엇을 도와드릴까요? 구매 전 상담부터 Q&A까지 한 번에!</p>
+				<p class="lead">무엇을 도와드릴까요? 구매 전 상담부터 Q&A까지 한 번에!</p> 
 				<div class="d-grid gap-2 d-md-flex">
-					<button id="toggleBtn" class="btn btn-primary me-md-2">구매문의</button>
-					<button class="btn btn-outline-secondary">Q&A</button>
+					<a href="/board/saleQuestionForm?i_id=${items.i_id}" class="btn btn-primary me-md-2">구매문의</a> 
+					<a href="/board/list" class="btn btn-outline-secondary">Q&A</a>
 				</div>
 			</div>
 			<!-- 오른쪽 이미지 (미리보기 영역) -->
