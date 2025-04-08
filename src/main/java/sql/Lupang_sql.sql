@@ -122,6 +122,7 @@ CREATE TABLE sale (
     receiver VARCHAR(100),
     tel VARCHAR(50),
 	address VARCHAR(255);
+	total INT NOT NULL,
     PRIMARY KEY (s_id)
 );
 SELECT * FROM sale;
@@ -129,6 +130,8 @@ ALTER TABLE sale
 ADD COLUMN receiver VARCHAR(100),
 ADD COLUMN tel VARCHAR(50),
 ADD COLUMN address VARCHAR(255);
+
+ALTER TABLE sale ADD COLUMN total INT NOT NULL;
 
 -- 구매 상품 관계 (판매된 상품 테이블)
 CREATE TABLE sale_items (
@@ -138,11 +141,5 @@ CREATE TABLE sale_items (
     quantity INT,
     PRIMARY KEY (si_id)
 );
-SELECT * FROM sale_items;
 
-insert into user_table (u_id,name,password,address,tel,email,reg_date,user_role,seller_role,del)
-values('test','영섭','1','안산','010-4207-2642','smile0537@naver.com',now(),'사용자','n','n');
-
-select * from user_table where u_id='test';
-select * from user_table where u_id='k1';
 
