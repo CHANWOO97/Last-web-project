@@ -4,28 +4,29 @@
 <title>루팡! | 장바구니</title>
 <%@ include file="../setting/include.jsp"%>        
 <script type="text/javascript">
+	$(document).ready(function() {
+	  updateTotalPrice();
+	});
 	function showToast(msg) {
 	  let toast = $('#toast');
 	  toast.text(msg).removeClass('d-none');
 	  setTimeout(() => toast.addClass('d-none'), 1500);	  
 	}
 	function updateTotalPrice() {
-		  let total = 0;
-		  console.log(total);
-		  $('.quantity-input').each(function() {
-		    const qty = parseInt($(this).val());
-		    const price = parseInt($(this).data('price'));
-		    total += qty * price;
-		  });
-		  $('#total-price').text(total.toLocaleString() + '원');
+	  let total = 0;
+	  $('.item-check:checked').each(function() {
+		const $card = $(this).closest('.card');
+	    const price = parseInt($card.find('.quantity-input').data('price'));
+	    const qty = parseInt($card.find('.quantity-input').val());
+	    total += price * qty;
+	  });
+	  $('#total-price').text(total.toLocaleString() + '원');
 	};
 	$(function (){
 	// 수량 변경
 	$('.quantity-input').on('change', function(){		
 		const i_id = $(this).data('iid');
 		const quantity = $(this).val();
-//		console.log("👉 수량 변경 감지됨");
-//	    console.log("i_id:", i_id, "quantity:", quantity);
 		$.post('/cart/updateQuantity', {i_id, quantity}, function(response){			
 			if(response === 'success'){
 				showToast('수량이 변경되었습니다.');		
@@ -34,6 +35,9 @@
 				alert('변경 실패');
 			}
 		});	
+	});
+	$('.item-check').on('change', function() {
+		  updateTotalPrice();
 	});
 	});
 	$(function() { 
