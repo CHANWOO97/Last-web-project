@@ -17,6 +17,7 @@ import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleItems;
 import com.green.Lupang.dto.User;
 import com.green.Lupang.service.CartService;
+import com.green.Lupang.service.IamportService;
 import com.green.Lupang.service.ItemsService;
 import com.green.Lupang.service.SaleService;
 import com.green.Lupang.service.UserService;
@@ -33,6 +34,8 @@ public class SaleController {
 	private ItemsService is;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private IamportService ims;
 	
 	@PostMapping("/itemsOrder/order")
 	public String itemsOrder(@RequestParam("selectedItems") List<String> selectedItems, Model model, HttpSession session) {
@@ -82,9 +85,16 @@ public class SaleController {
 		return "itemsOrder/pay";
 	}
 	@GetMapping("/itemsOrder/orderSuccess")
-	public String orderSuccess(@RequestParam("saleId") String s_id , Model model) {
+	public String orderSuccess(@RequestParam("saleId") String s_id , @RequestParam("imp_uid") String impUid,
+            					@RequestParam("merchant_uid") String merchantUid,	Model model) {
 		// 1. 주문 상태 업데이트
 		Sale sale = ss.findById(s_id);
+		// 결제를 위한 결제 서비스 로직 메서드
+		boolean isPaid = ims.verifyPayment(impUid, merchantUid, sale.getTotal());
+		if (!isPaid) {
+	        model.addAttribute("error", "결제 검증 실패");
+	        return "error/paymentError";
+	    }
 		sale.setS_status("y"); // 주문 상태 y 로 바꿈
 		ss.updateStatus(sale);
 		Sale sale2 = ss.findById(sale.getS_id());
@@ -97,9 +107,22 @@ public class SaleController {
 		return "itemsOrder/orderSuccess";
 	}
 	@GetMapping("/itemsOrder/orderList")
-	public String orderList(HttpSession session, Model model) {
+	public String orderList(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		String id = (String)session.getAttribute("id");
-		List<Sale> orderList = ss.findAllByUserId(id);
+		int pageSize = 12; // 한 페이지당 보여줄 상품 수
+		int offset = (page - 1) * pageSize;
+		
+		List<Sale> orderList = ss.findAllByUserId(id, offset, pageSize); // 페이징된 상품 목록
+		int totalCount = ss.saleCountByOrder(id); // 전체 주문 수량
+		int totalPage = (int) Math.ceil((double)totalCount / pageSize);
+		int blockSize = 10; // 보여줄 블록 패이지 수 1, 2, 3, 4
+		int startPage = ((page - 1) / blockSize) * blockSize + 1;
+		int endPage = Math.min(startPage + blockSize - 1, totalPage);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("orderList", orderList);
 		return "itemsOrder/orderList";
 	}

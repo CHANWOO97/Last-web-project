@@ -1,6 +1,8 @@
 package com.green.Lupang.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +43,17 @@ public class SaleServiceImpl implements SaleService{
 	}
 
 	@Override
-	public List<Sale> findAllByUserId(String id) {
-		return sm.findAllByUserId(id);
+	public List<Sale> findAllByUserId(String id, int offset, int pageSize) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("u_id", id);
+		map.put("offset", offset);
+		map.put("pageSize", pageSize);
+		return sm.findAllByUserId(map);
+	}
+
+	@Override
+	public int saleCountByOrder(String id) {
+		// TODO Auto-generated method stub
+		return sm.saleCountByOrder(id);
 	}
 }

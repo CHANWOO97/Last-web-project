@@ -11,5 +11,6 @@ public interface SaleService {
 	Sale findById(String s_id);
 	void updateStatus(Sale sale);
 	List<SaleItems> getSaleItems(String s_id);
-	List<Sale> findAllByUserId(String id);
+	List<Sale> findAllByUserId(String id, int offset, int pageSize);
+	int saleCountByOrder(String id);
 }

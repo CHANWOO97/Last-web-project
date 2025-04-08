@@ -62,7 +62,7 @@
 </head>
 <body class="bg-light">
 <div class="container py-5">
-  <h1 class="fw-bold mb-4">
+  <h1 class="fw-bold mb-4" style="max-width: 960px; margin: 0 auto;">
     <a href="/" class="text-decoration-none text-dark">Lupang</a>
   </h1>
   

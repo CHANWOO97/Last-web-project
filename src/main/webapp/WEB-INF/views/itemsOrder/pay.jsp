@@ -43,51 +43,66 @@
 <!-- 최신 SDK만 유지 -->
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <script>
-  const IMP = window.IMP;
-  IMP.init("imp11142041"); // 식별코드
+const IMP = window.IMP;
+IMP.init("imp11142041"); // 아임포트 가맹점 식별코드
 
-  let selectedPG = "tosspayments"; // 기본값
+let selectedPG = "tosspayments"; // 기본값
 
-  // 결제수단 버튼 클릭 시
-  document.querySelectorAll(".pg-btn").forEach(btn => {
-    btn.addEventListener("click", function () {
-      selectedPG = this.dataset.pg;
-      document.querySelectorAll(".pg-btn").forEach(b => b.classList.remove("btn-secondary", "text-white"));
-      this.classList.add("btn-secondary", "text-white");
-    });
+// ✅ 결제 수단 선택 버튼 클릭 시 스타일 + PG 설정
+document.querySelectorAll(".pg-btn").forEach(btn => {
+  btn.addEventListener("click", function () {
+    selectedPG = this.dataset.pg;
+
+    document.querySelectorAll(".pg-btn").forEach(b =>
+      b.classList.remove("btn-secondary", "text-white")
+    );
+    this.classList.add("btn-secondary", "text-white");
   });
+});
 
-  // ✅ 결제 버튼 클릭 시 실행
-  document.getElementById("payBtn").addEventListener("click", function () {
-    const uid = "ORDER_" + new Date().getTime(); // 유니크한 주문번호
+// ✅ 결제 버튼 클릭
+document.getElementById("payBtn").addEventListener("click", function () {
+  const uid = "ORDER_" + new Date().getTime(); // 유니크 주문번호
 
-    const paymentData = {
-      pg: selectedPG,
-      pay_method: "card",
-      merchant_uid: uid,
-      name: "Lupang 상품 결제",
-      amount: ${sale.total},
-      buyer_email: "${email}",
-      buyer_name: "${sale.receiver}",
-      buyer_tel: "${sale.tel}",
-      buyer_addr: "${sale.address}",
-      m_redirect_url: "http://localhost/itemsOrder/orderSuccess"
-    };
+  const paymentData = {
+    pg: selectedPG,
+    pay_method: "card",
+    merchant_uid: uid,
+    name: "Lupang 상품 결제",
+    amount: ${sale.total},
+    buyer_email: "${email}",
+    buyer_name: "${sale.receiver}",
+    buyer_tel: "${sale.tel}",
+    buyer_addr: "${sale.address}",
+   // m_redirect_url: "http://localhost:8080/itemsOrder/orderSuccess" // 모바일 리디렉션
+    m_redirect_url:	"https://httpbin.org/get"
+  };
 
-    // ✅ 토스인 경우에만 channelKey 삽입
-    if (selectedPG === "tosspayments") {
-      paymentData.channelKey = "channel-key-928be15b-0c71-4947-8983-c9a62aaa2a4e";
-    }
+  // ✅ 신모듈용 채널키 (토스, 유플 등)
+  //if ("tosspayments".includes(selectedPG)) {
+  //  paymentData.channelKey = "channel-key-928be15b-0c71-4947-8983-c9a62aaa2a4e"; 
+  //}
+  // 신모듈(m_redirect_url) 환경에서는 이 콜백 무시됨
+  if (selectedPG === "tosspayments") {
+	  paymentData.channelKey = "channel-key-928be15b-0c71-4947-8983-c9a62aaa2a4e"; 
+  }
+  // ✅ 결제 요청
+  IMP.request_pay(paymentData, function (rsp) {
+	 console.log("결제 요청 결과:", rsp);
 
-    IMP.request_pay(paymentData, function (rsp) {
-      if (rsp.success) {
-        location.href = "/itemsOrder/orderSuccess?saleId="+"${s_id}";
-      } else {
-        alert("❌ 결제가 취소되었습니다: " + rsp.error_msg);
-        console.log("❗ rsp:", rsp);
-      }
-    });
+    // 구버전 PG인 경우에만 콜백 확인
+    if (rsp.success || rsp.imp_uid) {
+    // 👉 imp_uid가 존재하면 결제 성공으로 간주
+    const redirectUrl = "/itemsOrder/orderSuccess"
+                      + "?saleId=${s_id}"
+                      + "&imp_uid=" + rsp.imp_uid
+                      + "&merchant_uid=" + rsp.merchant_uid;
+    location.href = redirectUrl;
+  } else {
+    alert("결제가 실패했습니다: " + rsp.error_msg);
+  }
   });
+});
 </script>
 </body>
 </html>

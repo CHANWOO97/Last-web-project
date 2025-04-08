@@ -21,4 +21,8 @@ public class Sale {
     private String address;
     // total가격
     private int total;
+    // 상품관련
+    private String photo;
+    private String name;
+    
 }

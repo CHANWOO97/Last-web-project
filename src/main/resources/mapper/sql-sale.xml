@@ -18,9 +18,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select si.i_id, i.name, i.photo, i.price, si.quantity from sale_items si
 			join items i on si.i_id=i.i_id where si.s_id=#{s_id}
 	</select>
-	<select id="findAllByUserId" parameterType="String" resultType="sale">
-		select * from sale;
+	<select id="saleCountByOrder" parameterType="String" resultType="Integer">
+		select count(*) from sale 
+			where c_id in (select c_id from cart where u_id=#{u_id})
 	</select>
+	<!-- join 문 헷갈려서 대문자 사용 -->
+	<select id="findAllByUserId" parameterType="map" resultType="sale">
+		select s.*, i.photo, i.name from sale s LEFT JOIN sale_items si ON s.s_id = si.s_id
+							  LEFT JOIN items i ON si.i_id = i.i_id 
+							  where s.c_id in (select c_id from cart where u_id=#{u_id})
+							  order by s.s_date desc limit #{pageSize} offset #{offset}
+							  <!-- group by s.s_id -->
+	</select>	
 	<update id="updateStatus" parameterType="sale">
 		update sale set s_status=#{s_status} where s_id=#{s_id} 
 	</update>
