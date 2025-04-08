@@ -84,6 +84,22 @@ public class SaleController {
 		model.addAttribute("email", user.getEmail());
 		return "itemsOrder/pay";
 	}
+	@GetMapping("/mypage/orderDetail")
+	public String orderDetail(@RequestParam("saleId") String s_id, Model model) {
+		// 1. 주문 상태 업데이트
+		Sale sale = ss.findById(s_id);
+
+		sale.setS_status("y"); // 주문 상태 y 로 바꿈
+		ss.updateStatus(sale);
+		Sale sale2 = ss.findById(sale.getS_id());
+		
+		// 2. 주문 상세 보여주기 위해 조회
+	    List<SaleItems> saleItems = ss.getSaleItems(s_id);		
+		model.addAttribute("s_id", s_id);
+		model.addAttribute("saleItems", saleItems);
+		model.addAttribute("sale", sale2);
+		return "itemsOrder/orderSuccess";
+	}
 	@GetMapping("/itemsOrder/orderSuccess")
 	public String orderSuccess(@RequestParam("saleId") String s_id , @RequestParam("imp_uid") String impUid,
             					@RequestParam("merchant_uid") String merchantUid,	Model model) {
