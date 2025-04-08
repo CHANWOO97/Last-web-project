@@ -59,6 +59,7 @@ CREATE TABLE cart (
     PRIMARY KEY (c_id)
 );
 SELECT * FROM cart;
+delete from cart;
 
 -- 장바구니-상품 연결 테이블
 CREATE TABLE cart_items (
@@ -118,11 +119,18 @@ CREATE TABLE sale (
     s_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '구매일',
     s_status CHAR(1) DEFAULT 'n' COMMENT '구매 상태 (n: 미결제)',
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart.c_id)',
+    receiver VARCHAR(100),
+    tel VARCHAR(50),
+	address VARCHAR(255);
     PRIMARY KEY (s_id)
 );
 SELECT * FROM sale;
+ALTER TABLE sale
+ADD COLUMN receiver VARCHAR(100),
+ADD COLUMN tel VARCHAR(50),
+ADD COLUMN address VARCHAR(255);
 
--- 판매된 상품 테이블
+-- 구매 상품 관계 (판매된 상품 테이블)
 CREATE TABLE sale_items (
     si_id VARCHAR(255) NOT NULL COMMENT '복합키 형식 ID',
     s_id VARCHAR(255) NOT NULL COMMENT '구매 ID (FK: sale_table.s_id)',
@@ -135,5 +143,6 @@ SELECT * FROM sale_items;
 insert into user_table (u_id,name,password,address,tel,email,reg_date,user_role,seller_role,del)
 values('test','영섭','1','안산','010-4207-2642','smile0537@naver.com',now(),'사용자','n','n');
 
-select * from user_table where u_id='test'; 
+select * from user_table where u_id='test';
+select * from user_table where u_id='k1';
 

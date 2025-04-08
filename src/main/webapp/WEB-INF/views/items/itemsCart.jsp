@@ -37,7 +37,7 @@
 	});
 	});
 	$(function() { 
-	// 삭제
+	// 삭제  // form 안에서는 input 태그 권장
 	$('.delete-btn').on('click', function(){
 		if (!confirm('이 상품을 장바구니에서 제거할까요? 😢')) return;
 		const i_id = $(this).data('iid');
@@ -51,13 +51,13 @@
 		})
 	});	});
 	$(function() { 
-	$('#orderForm').on('submit', function(e) {
+	$('#orderForm').on('submit', function(e) {		
 	  const checked = $('.item-check:checked');
 	  if (checked.length === 0) {
 	    alert('주문할 상품을 선택해주세요!');
 	    e.preventDefault();
 	  }
-	});	});
+	});});
 </script>
 </head>
 <body class="bg-light">
@@ -113,7 +113,7 @@
               <input type="number" value="${item.quantity}" min="1"
                 class="form-control text-center mb-2 quantity-input"
                 data-iid="${item.i_id}" data-price="${item.price}">
-              <button class="btn btn-outline-danger btn-sm delete-btn" data-iid="${item.i_id}">삭제</button>
+              <input type="button" class="btn btn-outline-danger btn-sm delete-btn" data-iid="${item.i_id}" value="삭제">
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@
           </span>
         </div>
         <!-- 선택된 상품만 주문 -->
-        <button type="submit" class="btn btn-primary px-4 fw-bold">🛍 선택 상품 주문하기</button>
+        <input type="submit" class="btn btn-primary px-4 fw-bold" value="🛍 선택 상품 주문하기">
       </div>
     </form>
     <!-- ✅ FORM 끝 -->

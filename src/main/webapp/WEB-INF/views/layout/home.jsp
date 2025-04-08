@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../setting/include.jsp" %>
 <!DOCTYPE html><html><head><meta charset="UTF-8">
-<title>Insert title here</title>
+<title>루팡!</title>
 </head>
 <body>
 <c:if test="${not empty id }">
