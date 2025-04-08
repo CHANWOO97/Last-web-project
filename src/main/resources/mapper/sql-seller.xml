@@ -3,5 +3,20 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.Lupang.mapper.SellerMapper">
-
+	<insert id="insert" parameterType="seller">
+		<selectKey keyProperty="sr_id" order="BEFORE"
+			resultType="integer">
+			select nvl(max(sr_id), 0) + 1 from seller_request
+		</selectKey>
+		insert into seller_request (sr_id, sr_state, srq_at, i_id)
+		values
+		(#{sr_id}, 'n', now(), #{i_id})
+	</insert>
+	<select id="seller_list" resultType="seller">
+		select * from seller_request
+	</select>
+	<select id="selectByUid" parameterType="string" resultType="seller">
+		select * from seller_request where u_id = #{u_id} 
+		ORDER BY srq_at DESC LIMIT 1
+	</select>
 </mapper>

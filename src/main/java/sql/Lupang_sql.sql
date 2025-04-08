@@ -77,6 +77,8 @@ CREATE TABLE seller_request (
     sr_state CHAR(1) DEFAULT 'n' COMMENT '승인 상태 (n/y)',
     srq_at TIMESTAMP NULL COMMENT '요청 날짜',
     srw_at TIMESTAMP NULL COMMENT '승인 날짜',
+    sr_ev VARCHAR(255) COMMENT '판매자 증빙(사업자번호 입력, evidence)',
+    srw_pev VARCHAR(255) COMMENT '판매자 증빙(사업자등록증 사진, photo_evidence)',
     i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items.i_id)',
     PRIMARY KEY (sr_id)
 );
@@ -141,5 +143,5 @@ CREATE TABLE sale_items (
     quantity INT,
     PRIMARY KEY (si_id)
 );
-
-
+select * from user_table;
+update user_table set password='$2a$10$sDZh5UaUynUDAqf41Sz2suGd1E.KTzO3thkCJdc7XOTxU8wAsX.lK' where u_id='test11';
