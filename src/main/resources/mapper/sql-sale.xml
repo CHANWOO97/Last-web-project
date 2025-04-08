@@ -5,10 +5,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.green.Lupang.mapper.SaleMapper">
 	<!-- 구매코드 저장 -->
 	<insert id="saleSave" parameterType="sale">
-		insert into sale (s_id, c_id, receiver, tel, address) 
-			values(#{s_id}, #{c_id}, #{receiver}, #{tel}, #{address})
+		insert into sale (s_id, c_id, receiver, tel, address, total, s_date) 
+			values(#{s_id}, #{c_id}, #{receiver}, #{tel}, #{address}, #{total}, now())
 	</insert>
 	<insert id="saleItemSave" parameterType="sale_items">
 		insert into sale_items values(#{si_id}, #{s_id}, #{i_id}, #{quantity})
-	</insert>
+	</insert>	
+	<select id="findById" parameterType="String" resultType="sale">
+		select * from sale where s_id=#{s_id}
+	</select>
+	<select id="getSaleItems" parameterType="String" resultType="sale_items">
+		select si.i_id, i.name, i.photo, i.price, si.quantity from sale_items si
+			join items i on si.i_id=i.i_id where si.s_id=#{s_id}
+	</select>
+	<select id="findAllByUserId" parameterType="String" resultType="sale">
+		select * from sale;
+	</select>
+	<update id="updateStatus" parameterType="sale">
+		update sale set s_status=#{s_status} where s_id=#{s_id} 
+	</update>
 </mapper>

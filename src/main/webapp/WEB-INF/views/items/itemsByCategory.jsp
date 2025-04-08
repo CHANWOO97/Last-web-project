@@ -46,7 +46,7 @@
 								<div class="card-body">
 									<h5 class="card-title">${item.name}</h5>
 									<p class="card-text description">${item.description}</p>
-									<p class="card-text fw-bold text-danger">${item.price}원</p>
+									<p class="card-text fw-bold text-danger"><fmt:formatNumber value="${item.price}"></fmt:formatNumber> 원</p>
 									<a href="/items/itemsDetail?i_id=${item.i_id}"
 										class="btn btn-outline-primary btn-sm">상세보기</a>
 								</div>

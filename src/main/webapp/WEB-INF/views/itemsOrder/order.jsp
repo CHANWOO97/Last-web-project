@@ -45,7 +45,7 @@
   </div>
 
   <!-- 주문자 정보 -->
-  <form action="/itemsOrder/orderSuccess" method="post">
+  <form action="/itemsOrder/pay" method="post">
     <div class="row mb-3">
       <div class="col-md-6">
         <label for="receiver" class="form-label fw-bold">수령인 이름</label>
@@ -64,15 +64,13 @@
 
     <!-- hidden 상품 정보 -->
     <c:forEach var="item" items="${saleItems}">
-      <input type="hidden" name="selectedItems" value="${item.i_id}_${item.quantity}" />
+      <input type="hidden" name="selectedItems" value="${item.i_id}_${item.quantity}">
     </c:forEach>
     <input type="hidden" name="total" value="${total}" />
 
     <!-- 버튼 -->
     <div class="text-end">
-      <button type="submit" class="btn btn-success px-4 py-2 fw-bold">
-        ✅ 주문하기
-      </button>
+      <input type="submit" class="btn btn-success px-4 py-2 fw-bold" value="✅ 주문하기">     
     </div>
   </form>
 </div>	
