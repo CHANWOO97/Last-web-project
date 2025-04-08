@@ -39,4 +39,9 @@ public class UserServiceImpl implements UserService{
 		return um.update(user);
 	}
 
+	@Override
+	public void updateSrId(String u_id, String sr_id) {
+		
+	}
+
 }

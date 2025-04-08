@@ -117,19 +117,30 @@ public class UserController {
 		model.addAttribute("user", user);
 	}
 	@PostMapping("/user/mypageEdit")
-	public void mypageEdit(HttpSession session, Model model, User user, @RequestParam("file") MultipartFile file) throws IOException {
-		String fileName1 = file.getOriginalFilename();
+	public void mypageEdit(HttpSession session, Model model, User user) throws IOException {
+		String u_id = (String) session.getAttribute("id");
+	    User existingUser = us.select(u_id); // 기존 정보 불러오기
+
+	    // 비밀번호 입력이 없으면 기존 값 유지
+	    if (user.getPassword() == null || user.getPassword().isBlank()) {
+	        user.setPassword(existingUser.getPassword());
+	    } else {
+	        String enPass = bpe.encode(user.getPassword());
+	        user.setPassword(enPass);
+	    }
+		String fileName1 = user.getFile().getOriginalFilename();
 		if (fileName1 != null && !fileName1.equals("")) { // 그림파일 수정
 			UUID uuid = UUID.randomUUID();
 			String fileName = uuid+fileName1.substring(fileName1.lastIndexOf("."));
 			user.setPhoto(fileName);
-			String real = "/resources/images/user_photo";
+			String real = session.getServletContext().getRealPath("/resources/images/user_photo");
 			FileOutputStream fos = new FileOutputStream(new File(real+"/"+fileName));
 			fos.write(user.getFile().getBytes());
 			fos.close();
-		}
-		String enPass = bpe.encode(user.getPassword());
-		user.setPassword(enPass);
+		}else {
+	        // 새 파일 없으면 기존 사진 유지
+	        user.setPhoto(existingUser.getPhoto());
+	    }
 		int result = us.update(user);
 		model.addAttribute("result", result);
 	}
