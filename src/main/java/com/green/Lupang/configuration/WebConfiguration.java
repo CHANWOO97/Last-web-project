@@ -19,6 +19,7 @@ public class WebConfiguration implements WebMvcConfigurer{
 		//ex) list.add("/**/layout/home");
 		list.add("/**/items/itemsCart");
 		list.add("/**/itemsOrder/order");
+		list.add("/**/itemsOrder/orderList");
 		registry.addInterceptor(new SessionChk()).addPathPatterns(list);
 		// addPathPatterns()에 추가된 경로는 인터셉터를 적용할 경로 (session 체크)
 	}
