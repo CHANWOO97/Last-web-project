@@ -38,6 +38,35 @@
       document.getElementById("selectedItemInput").value = selectedItem;
       document.getElementById("orderForm").submit();
     }
+	// Ajax 토글 코드 (찜 추가 / 삭제)
+    $(function() {
+    	  $('.wishlist-btn').on('click', function () {
+    	    const button = $(this);
+    	    const i_id = button.data('iid');
+    		console.log('데이터 타입', typeof(i_id))
+    		console.log('i_id = ', i_id)
+    	    $.ajax({
+    	      url: '/wishlist/toggle',
+    	      type: 'POST',
+    	      data: { i_id },
+    	      success: function(response) {
+    	        if (response.status === 'added') {
+    	          button.addClass('btn-danger').removeClass('btn-outline-danger');
+    	          button.html('<i class="bi bi-heart-fill"></i>');
+    	        } else if (response.status === 'removed') {
+    	          button.removeClass('btn-danger').addClass('btn-outline-danger');
+    	          button.html('<i class="bi bi-heart"></i>');
+    	        }
+    	        else {
+    		          alert('로그인이 필요합니다 😥');
+    		    }
+		      },
+		      error: function () {
+		    	 alert('요청 중 오류가 발생했습니다 😥');        
+		      }
+    	    });
+    	  });
+    	});
   </script>
 </head>
 
@@ -80,15 +109,30 @@
 					</div>
 					<!-- 버튼 -->
 					<div class="d-grid gap-2">
-						<button class="btn btn-outline-primary fw-bold py-2" onclick="innerCart()">🛒 장바구니 담기</button>
-						<form id="orderForm" method="post" action="/itemsOrder/order">
-							<input type="hidden" name="selectedItems" id="selectedItemInput" />
-							<button type="button" class="btn btn-success fw-bold py-2"	onclick="submitOrder()">✅ 지금 구매</button>
-						</form>
+					  <div class="d-flex align-items-center gap-2 flex-wrap">					    
+					    <!-- 찜하기 버튼 -->
+					    <button type="button" class="btn ${isWishlisted ? 'btn-danger' : 'btn-outline-danger'} wishlist-btn d-flex align-items-center justify-content-center px-3 py-2"
+					      data-iid="${items.i_id}">
+					      <i class="bi ${isWishlisted ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
+					    </button>					
+					    <!-- 장바구니 담기 버튼 -->
+					    <button type="button" class="btn btn-outline-primary fw-bold px-3 py-2" onclick="innerCart()">
+					      🛒 장바구니 담기
+					    </button>					
+					    <!-- 지금 구매 버튼 -->
+					    <form id="orderForm" method="post" action="/itemsOrder/order" class="mb-0">
+					      <input type="hidden" name="selectedItems" id="selectedItemInput" />
+					      <button type="button" class="btn btn-success fw-bold px-3 py-2" onclick="submitOrder()">
+					        ✅ 지금 구매
+					      </button>
+					    </form>
+					
+					  </div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
 </html>
