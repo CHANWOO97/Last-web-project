@@ -39,4 +39,17 @@ public class ItemsServiceImpl implements ItemsService{
 	public Items select(String i_id) {
 		return im.select(i_id);
 	}
+	@Override
+	public List<Items> searchItemList(String keyword, int offset, int pageSize) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("keyword", keyword);
+		map.put("offset", offset);
+		map.put("pageSize", pageSize);
+		return im.searchItemList(map);
+	}
+	@Override
+	public int countSearchItems(String query) {
+		// TODO Auto-generated method stub
+		return im.countSearchItems(query);
+	}
 }

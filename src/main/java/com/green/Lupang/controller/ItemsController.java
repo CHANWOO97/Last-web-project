@@ -51,7 +51,6 @@ public class ItemsController {
 		model.addAttribute("cartItems", cartItems);
 		return "items/itemsCart";
 	}
-	
 	@GetMapping("/items/itemsByCategory")
 	public String itemsByCategory(Model model, HttpSession session,
 			@RequestParam(value = "ic_id" , defaultValue = "") String ic_id, 
@@ -107,5 +106,28 @@ public class ItemsController {
 		model.addAttribute("items", items);		
 		model.addAttribute("ic_list", ic_list);
 		model.addAttribute("id", id);		
-}
+	}
+	
+	@GetMapping("/items/search")
+	public String searchItems(@RequestParam("q") String query,
+	                          @RequestParam(value = "page", defaultValue = "1") int page,
+	                          Model model) {
+	    int pageSize = 12;
+	    int offset = (page - 1) * pageSize;
+
+	    List<Items> itemList = is.searchItemList(query, offset, pageSize);
+	    int totalCount = is.countSearchItems(query);
+	    int totalPage = (int) Math.ceil((double)totalCount / pageSize);
+	    int blockSize = 10;
+	    int startPage = ((page - 1) / blockSize) * blockSize + 1;
+	    int endPage = Math.min(startPage + blockSize - 1, totalPage);
+
+	    model.addAttribute("q", query);
+	    model.addAttribute("itemList", itemList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    return "items/search";
+	}
 }
