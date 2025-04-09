@@ -94,7 +94,7 @@
 						<li><a class="dropdown-item" href="/user/mypage">마이페이지</a></li>
 						<li><a class="dropdown-item" href="/itemsOrder/orderList">주문목록</a></li>
 						<li><a class="dropdown-item" href="#">취소/반품</a></li>
-						<li><a class="dropdown-item" href="#">찜리스트</a></li>
+						<li><a class="dropdown-item" href="/items/wishlist">찜리스트</a></li>
 					</ul>
 				</div>
 				<!-- 장바구니 아이콘 -->
