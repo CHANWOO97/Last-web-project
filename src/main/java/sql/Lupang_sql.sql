@@ -142,4 +142,13 @@ CREATE TABLE sale_items (
     PRIMARY KEY (si_id)
 );
 
+-- 찜하기 기능 위시리스트(wishlist) 테이블 추가 구현
+CREATE TABLE wishlist (
+    w_id INT AUTO_INCREMENT PRIMARY KEY,
+    u_id VARCHAR(255) NOT NULL, -- FK: user.id
+    i_id i_id VARCHAR(100) NOT NULL,          -- FK: items.i_id
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (u_id, i_id)         -- 중복 찜 방지
+);
+select * from user_table where u_id='k1';
 
