@@ -33,7 +33,7 @@
 					<c:if test="${id != 'admin'}">
 						<a class="nav-link" href="../user/logout">로그아웃</a>
 						<div>
-							<a class="nav-link" href="#" role="button" aria-expanded="false"> 판매자 신청 </a>
+							<a class="nav-link" href="/seller/sellerRequestForm" role="button" aria-expanded="false"> 판매자 신청 </a>
 						</div>
 					</c:if>
 					<c:if test="${id == 'admin'}"> <!-- 'admin'으로 로그인 되었을때 관리자페이지 보이기 -->
