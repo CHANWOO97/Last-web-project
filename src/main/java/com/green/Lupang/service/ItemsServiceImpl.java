@@ -64,4 +64,12 @@ public class ItemsServiceImpl implements ItemsService{
 	public String getmaxi_id() {
 		return im.getmaxi_id();
 	}
+	@Override
+	public int update(Items items) {
+		return im.update(items);
+	}
+	@Override
+	public int delete(String i_id) {
+		return im.delete(i_id);
+	}
 }

@@ -29,4 +29,8 @@ public interface ItemsMapper {
 	int insert(Items items);
 
 	String getmaxi_id();
+
+	int update(Items items);
+
+	int delete(String i_id);
 }

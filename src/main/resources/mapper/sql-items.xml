@@ -60,9 +60,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (#{ic_id}, #{name}, #{size}, #{photo}, #{location}, #{stock}, #{price},
 		#{description})
 	</insert>
+	
 	<select id="getmaxi_id" resultType="string">
 		select max(i_id) from items
 	</select>
-	
+	<!-- 판매자 상품 수정 -->
+	<update id="update" parameterType="items">
+		update items set ic_id=#{ic_id}, name=#{name}, size=#{size}, photo=#{photo}, location=#{location}, stock=#{stock}, price=#{price},
+		description=#{description} where i_id = #{i_id} 
+	</update>
+	<!-- 판매자 상품 삭제 -->
+	<delete id="delete" parameterType="string">
+		delete from items where i_id = #{i_id}
+	</delete>
 
 </mapper>
