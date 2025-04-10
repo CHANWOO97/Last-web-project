@@ -18,4 +18,6 @@ public interface UserService {
 
 	void updateSr_id(User user);
 
+	int delete(String u_id);
+
 }

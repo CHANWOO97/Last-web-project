@@ -86,8 +86,6 @@
 					<!-- 클릭 가능한 이미지 -->
 					<img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4"
 						onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
-					<%-- <img id="preview"
-						src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4" onclick=""> --%>
 					<div>
 						<h3 class="mb-0">${user.name}님</h3>
 						<small class="text-muted">${user.user_role == 'admin' ? '관리자' : '일반 사용자'}</small>
@@ -115,7 +113,8 @@
 				<div class="col-md-6">
 					<p class="info-title mb-1">비밀번호 확인</p>
 					<p class="info-value">
-						<input type="password" id="password2" class="form-control" oninput="PasswordMatch()"> <small id="pwMatchMsg" class="text-danger"></small>
+						<input type="password" id="password2" class="form-control" oninput="PasswordMatch()"> 
+						<small id="pwMatchMsg" class="text-danger"></small>
 					</p>
 				</div>
 				<div class="col-md-6">
@@ -153,7 +152,8 @@
 					</p>
 				</div>
 				<div class="mt-4 d-flex justify-content-end gap-2">
-					<input type="submit" value="회원정보 수정" class="btn btn-primary"> 
+					<input type="submit" value="회원정보 수정" class="btn btn-primary">
+					<a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a>
 					<a href="/layout/home" class="btn btn-secondary">뒤로가기</a>
 				</div>
 			</div>

@@ -143,4 +143,11 @@ public class UserController {
 		int result = us.update(user);
 		model.addAttribute("result", result);
 	}
+	@GetMapping("/user/userDelete")
+	public void userDelete(HttpSession session, Model model) {
+		String u_id = (String) session.getAttribute("id");
+		int result  = us.delete(u_id);
+		if (result > 0) session.invalidate();
+		model.addAttribute("result", result);
+	}
 }

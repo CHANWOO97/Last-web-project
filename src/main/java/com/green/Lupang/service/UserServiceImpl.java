@@ -44,4 +44,9 @@ public class UserServiceImpl implements UserService{
 		um.updateSr_id(user);
 	}
 
+	@Override
+	public int delete(String u_id) {
+		return um.delete(u_id);
+	}
+
 }
