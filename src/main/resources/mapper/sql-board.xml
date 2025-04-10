@@ -3,5 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.Lupang.mapper.BoardMapper">
-	
+	<select id="select" parameterType="string" resultType="saleQuestion">
+		select * from sale_question where u_id=#{u_id}
+	</select>
 </mapper>

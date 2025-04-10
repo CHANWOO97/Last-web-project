@@ -27,10 +27,11 @@ public class BoardController {
 		
 	}
 	@GetMapping("/board/saleQuestionForm")
-	public void saleQuestionForm(HttpSession session, @RequestParam("i_id") String i_id, Model model) {
-		if(i_id != null) { // 로그인 되어있으면
-			Items items = im.select(i_id);
-			model.addAttribute("items", items);
+	public void saleQuestionForm() {
+		
 		}
+	@GetMapping("/board/qAndAForm")
+	public void qAndAForm(){
 	}
 }
+	
