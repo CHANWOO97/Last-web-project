@@ -23,4 +23,6 @@ public interface ItemsMapper {
 	List<Items> searchItemList(Map<String, Object> map);
 
 	int countSearchItems(String query);
+
+	List<Items> findTopWishItems(int limit);
 }

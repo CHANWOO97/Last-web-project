@@ -57,49 +57,26 @@
 				class="visually-hidden">Next</span>
 		</button>
 </div>
-<!-- 오늘의 발견  -->
-<div class="container">
-<h2>오늘의 발견</h2>
+<!-- 오늘의 발견 -->
 <div class="container my-5">
-  <div class="row g-4">
-    
-    <!-- 배너 아이템 (foreach 사용해야함)-->
-    <div class="col-md-6">
-      <div class="position-relative border rounded overflow-hidden shadow-sm">
-        <a href="#" target="_blank">
-          <img 
-            src="#" 
-            alt="배너 이미지 설명" 
-            class="img-fluid w-100" 
-            style="height: 300px; object-fit: cover;"
-          />
-          <!-- 바로가기 버튼 -->
-          <div class="position-absolute bottom-0 end-0 m-2">
-            <span class="btn btn-sm btn-light shadow">구매하기</span>
+  <h2 class="fw-bold mb-4">오늘의 발견</h2>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <c:forEach var="item" items="${topItems}">
+      <div class="col">
+        <div class="card border-0 shadow-sm h-100">
+          <div class="ratio ratio-16x9 overflow-hidden rounded">
+            <img src="/resources/images/items_photo/${item.photo}" 
+                 alt="${item.name}" 
+                 class="img-fluid object-fit-cover">
           </div>
-        </a>
-      </div>
-    </div>
-    <!-- 또 다른 배너 아이템 복붙 -->
-    <div class="col-md-6">
-      <div class="position-relative border rounded overflow-hidden shadow-sm">
-        <a href="#" target="_blank">
-          <img 
-            src="#" 
-            alt="배너 이미지 설명" 
-            class="img-fluid w-100" 
-            style="height: 300px; object-fit: cover;"
-          />
-          <div class="position-absolute bottom-0 end-0 m-2">
-            <span class="btn btn-sm btn-light shadow">구매하기</span>
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0 text-truncate" style="max-width: 70%;">${item.name}</h5>
+            <a href="/items/itemsDetail?i_id=${item.i_id}" class="btn btn-sm btn-outline-dark">구매하기</a>
           </div>
-        </a>
+        </div>
       </div>
-    </div>
-
+    </c:forEach>
   </div>
-  
-</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <%@ include file="/WEB-INF/views/layout/footer.jsp"%>

@@ -13,4 +13,5 @@ public interface ItemsService {
 	Items select(String i_id);
 	List<Items> searchItemList(String keyword, int offset, int pageSize);
 	int countSearchItems(String query);
+	List<Items> findTopWishItems(int i);
 }

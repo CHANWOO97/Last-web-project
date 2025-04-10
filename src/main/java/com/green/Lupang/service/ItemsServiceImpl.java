@@ -52,4 +52,8 @@ public class ItemsServiceImpl implements ItemsService{
 		// TODO Auto-generated method stub
 		return im.countSearchItems(query);
 	}
+	@Override
+	public List<Items> findTopWishItems(int i) {
+		return im.findTopWishItems(i);
+	}
 }
