@@ -50,7 +50,6 @@ CREATE TABLE user_table (
     sr_id VARCHAR(255) COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     PRIMARY KEY (u_id)
 );
-SELECT * FROM user_table where u_id = 'test';
 
 -- 장바구니 테이블
 CREATE TABLE cart (
@@ -60,7 +59,6 @@ CREATE TABLE cart (
     PRIMARY KEY (c_id)
 );
 SELECT * FROM cart;
-delete from cart;
 
 -- 장바구니-상품 연결 테이블
 CREATE TABLE cart_items (
@@ -74,14 +72,18 @@ SELECT * FROM cart_items;
 
 -- 판매 요청 테이블
 CREATE TABLE seller_request (
-    sr_id VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID',
+    sr_id INT NOT NULL COMMENT '판매자 요청 ID',
+	on_id VARCHAR(255) NOT NULL COMMENT '판매자 이름',
     sr_state CHAR(1) DEFAULT 'n' COMMENT '승인 상태 (n/y)',
-    srq_at TIMESTAMP NULL COMMENT '요청 날짜',
+   	srq_at TIMESTAMP NULL COMMENT '요청 날짜',
     srw_at TIMESTAMP NULL COMMENT '승인 날짜',
-    i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items.i_id)',
+    sr_ev VARCHAR(255) COMMENT '판매자 증빙(사업자번호 입력, evidence)',
+    srw_pev VARCHAR(255) COMMENT '판매자 증빙(사업자등록증 사진, photo_evidence)',
+    ic_id VARCHAR(255) NOT NULL COMMENT '카테고리 ID (FK: items_category.ic_id)',
+    u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',
     PRIMARY KEY (sr_id)
 );
-SELECT * FROM seller_request;
+ALTER TABLE seller_request ADD COLUMN u_id VARCHAR(255) NOT NULL;
 
 -- 상품 카테고리 테이블
 CREATE TABLE items_category (
@@ -109,10 +111,6 @@ ALTER TABLE items
 MODIFY COLUMN i_id INT NOT NULL AUTO_INCREMENT COMMENT '상품코드 (자동 증가)';
 ALTER TABLE items
 MODIFY COLUMN size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)';
-
--- 트리거 종료 표시를 위한 DELIMITER 복구
-DELIMITER ;
-SELECT * FROM items;
 
 -- 구매 테이블
 CREATE TABLE sale (
@@ -151,5 +149,13 @@ CREATE TABLE wishlist (
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (u_id, i_id)         -- 중복 찜 방지
 );
-select * from user_table where u_id='k1';
 
+-- (wishlist) 테이블 추가 구현
+CREATE TABLE seller_items (
+    seller_items_id INT AUTO_INCREMENT PRIMARY KEY,
+    sr_id VARCHAR(255) NOT NULL, -- FK: sr.id
+    i_id VARCHAR(100) NOT NULL,          -- FK: items.i_id
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (sr_id, i_id)         -- 중복 찜 방지
+);
+select * from seller_items
