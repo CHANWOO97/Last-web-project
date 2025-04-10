@@ -3,50 +3,66 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.Lupang.mapper.ItemsMapper">
-<!-- 카테고리 분류 데이터 리스트  -->
-	<select id="ic_list" resultType="ItemsCategory"> 
+	<!-- 카테고리 분류 데이터 리스트 -->
+	<select id="ic_list" resultType="ItemsCategory">
 		select * from items_category
 	</select>
-<!-- 카테고리 분류 이름 검색 -->	
-	<select id="ic_name" parameterType="String" resultType="String"> 
+	<!-- 카테고리 분류 이름 검색 -->
+	<select id="ic_name" parameterType="String" resultType="String">
 		select ic_name from items_category where ic_id = #{ic_id}
 	</select>
-<!-- 카테고리 분류 상품 데이터 -->
+	<!-- 카테고리 분류 상품 데이터 -->
 	<select id="itemList" parameterType="map" resultType="items">
-  		select * from items	where ic_id = #{ic_id}
-	 	order by i_id desc
- 		limit #{pageSize} offset #{offset}
+		select * from items where ic_id = #{ic_id}
+		order by i_id desc
+		limit #{pageSize} offset #{offset}
 	</select>
-<!-- 카테고리 분류 상품 데이터 개수-->
+	<!-- 카테고리 분류 상품 데이터 개수 -->
 	<select id="itemCountByCategory" resultType="int">
- 		select count(*) from items where ic_id = #{ic_id}
+		select count(*) from items where ic_id = #{ic_id}
 	</select>
-<!-- 카테고리 상세페이지 데이터-->
-<!-- 각 상품 아이디를 통해 조회 -->
+	<!-- 카테고리 상세페이지 데이터 -->
+	<!-- 각 상품 아이디를 통해 조회 -->
 	<select id="select" parameterType="String" resultType="items">
-		select * from items where i_id=#{i_id}
+		select *
+		from items where i_id=#{i_id}
 	</select>
-<!-- 검색 기능 -->
-	<select id="searchItemList" parameterType="map" resultType="items">
-		select * from items where name like concat('%', #{keyword}, '%')
-			order by reg_date desc limit #{pageSize} offset #{offset}
+	<!-- 검색 기능 -->
+	<select id="searchItemList" parameterType="map"
+		resultType="items">
+		select * from items where name like concat('%', #{keyword},
+		'%')
+		order by reg_date desc limit #{pageSize} offset #{offset}
 	</select>
-	<select id="countSearchItems" parameterType="String" resultType="Integer">
-  		select count(*) from items
-  			where name like concat('%', #{query}, '%')
+	<select id="countSearchItems" parameterType="String"
+		resultType="Integer">
+		select count(*) from items
+		where name like concat('%', #{query}, '%')
 	</select>
-<!-- 찜하기 상위 4 순위로 상품 정보 가져오기-->
-	<select id="findTopWishItems" parameterType="Integer" resultType="items">
-		select i.*, count(w.i_id) as wish_count from wishlist w 
-			JOIN items i ON w.i_id = i.i_id 
-			group by w.i_id
-			order by wish_count DESC
-			limit #{limit};
+	<!-- 찜하기 상위 4 순위로 상품 정보 가져오기 -->
+	<select id="findTopWishItems" parameterType="Integer"
+		resultType="items">
+		select i.*, count(w.i_id) as wish_count from wishlist w
+		JOIN items i ON w.i_id = i.i_id
+		group by w.i_id
+		order by wish_count DESC
+		limit #{limit};
 	</select>
-<!-- 날짜 필터 적용한 경우 -->	
-<!-- <select id="findTopWishItems" parameterType="Integer" resultType="items">
+	<!-- 날짜 필터 적용한 경우 -->
+	<!-- <select id="findTopWishItems" parameterType="Integer" resultType="items"> 
 		select * from items where i_id in (select i_id, count(*) as count from wishlist 
-									where reg_date >= now() - INTERVAL 30 DAY group by i_id 
-									order by count desc limit #{limit})
-	</select>  -->
+		where reg_date >= now() - INTERVAL 30 DAY group by i_id order by count desc 
+		limit #{limit}) </select> -->
+
+	<insert id="insert" parameterType="items">
+		INSERT INTO items (ic_id, name, size, photo, location, stock, price,
+		description)
+		VALUES (#{ic_id}, #{name}, #{size}, #{photo}, #{location}, #{stock}, #{price},
+		#{description})
+	</insert>
+	<select id="getmaxi_id" resultType="string">
+		select max(i_id) from items
+	</select>
+	
+
 </mapper>

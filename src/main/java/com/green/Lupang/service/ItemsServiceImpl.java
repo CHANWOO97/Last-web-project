@@ -56,4 +56,12 @@ public class ItemsServiceImpl implements ItemsService{
 	public List<Items> findTopWishItems(int i) {
 		return im.findTopWishItems(i);
 	}
+	@Override
+	public int insert(Items items) {
+		return im.insert(items);
+	}
+	@Override
+	public String getmaxi_id() {
+		return im.getmaxi_id();
+	}
 }

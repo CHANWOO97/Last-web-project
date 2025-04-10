@@ -3,6 +3,7 @@ package com.green.Lupang.dto;
 import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
 
@@ -19,4 +20,7 @@ public class Items {
     private int price; // INT NOT NULL,
     private Date reg_date; // TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     private String description; // TEXT,
+    
+    // 파일저장
+    private MultipartFile file;
 }

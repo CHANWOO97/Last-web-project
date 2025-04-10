@@ -25,4 +25,8 @@ public interface ItemsMapper {
 	int countSearchItems(String query);
 
 	List<Items> findTopWishItems(int limit);
+
+	int insert(Items items);
+
+	String getmaxi_id();
 }
