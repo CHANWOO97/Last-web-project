@@ -120,7 +120,6 @@ public class UserController {
 	public void mypageEdit(HttpSession session, Model model, User user) throws IOException {
 		String u_id = (String) session.getAttribute("id");
 	    User existingUser = us.select(u_id); // 기존 정보 불러오기
-
 	    // 비밀번호 입력이 없으면 기존 값 유지
 	    if (user.getPassword() == null || user.getPassword().isBlank()) {
 	        user.setPassword(existingUser.getPassword());

@@ -24,5 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" parameterType="user">
 		update user_table set name=#{name}, password=#{password}, address=#{address}, tel=#{tel}, email=#{email}, photo=#{photo} where u_id=#{u_id}
 	</update>
-	
+	<update id="updateSr_id" parameterType="user">
+		update user_table set sr_id=#{sr_id} where u_id=#{u_id}
+	</update>
 </mapper>

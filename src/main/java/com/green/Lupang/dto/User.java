@@ -21,7 +21,7 @@ public class User {
     private String user_role; // VARCHAR(255) COMMENT '사용자/관리자 구분',
     private String seller_role; // VARCHAR(255) NOT NULL DEFAULT 'n' COMMENT '판매자 신청 상태 (n/y)',
     private String del; // CHAR(1) DEFAULT 'n' COMMENT '삭제 여부',
-    private String sr_id; // VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
+    private int sr_id; // VARCHAR(255) NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     
     // upload
     private MultipartFile file; // 그림파일

@@ -16,6 +16,6 @@ public interface UserService {
 
 	int update(User user);
 
-	void updateSrId(String u_id, String sr_id);
+	void updateSr_id(User user);
 
 }

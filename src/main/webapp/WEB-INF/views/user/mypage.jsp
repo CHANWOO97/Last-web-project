@@ -76,7 +76,8 @@
 	<form action="/user/mypageEdit" method="post" enctype="multipart/form-data" name="frm" onsubmit="return chk()">
 		<input type="hidden" name="u_id" value="${user.u_id}"> 
 		<input type="hidden" name="reg_date" value="${user.reg_date}">
-		<input type="hidden" name="name" value="${user.name}">	
+		<input type="hidden" name="name" value="${user.name}">		
+		
 		<!-- 숨겨진 프로필 이미지 업로드 input -->
 		<input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage(event)">
 		<div class="container mypage-container">
@@ -141,10 +142,13 @@
 						<c:choose>
 							<c:when test="${user.seller_role == 'y'}">
 								✅ 판매자 등록 완료
+								<a href="/seller/sellerItmes?sr_id=${user.sr_id}" class="btn btn-sm btn-outline-success ms-2">상품등록</a>
+								<a href="/seller/sellerItemsChk" class="btn btn-sm btn-outline-success ms-2">내 상품 보러가기</a>
 							</c:when>
 							<c:otherwise>
 								<a href="/seller/sellerRequestForm" class="btn btn-sm btn-outline-success ms-2">판매자 신청하러 가기</a>
 							</c:otherwise>
+							
 						</c:choose>
 					</p>
 				</div>

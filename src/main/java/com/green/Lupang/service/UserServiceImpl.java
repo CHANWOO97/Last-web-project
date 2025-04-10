@@ -40,8 +40,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void updateSrId(String u_id, String sr_id) {
-		
+	public void updateSr_id(User user) {
+		um.updateSr_id(user);
 	}
 
 }
