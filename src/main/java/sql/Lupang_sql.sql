@@ -9,6 +9,7 @@ DROP TABLE items_category;
 DROP TABLE items;
 DROP TABLE sale;
 DROP TABLE sale_items;
+DROP TABLE wishlist;
 
 -- 게시판 카테고리 테이블
 CREATE TABLE board_category (
@@ -146,7 +147,7 @@ CREATE TABLE sale_items (
 CREATE TABLE wishlist (
     w_id INT AUTO_INCREMENT PRIMARY KEY,
     u_id VARCHAR(255) NOT NULL, -- FK: user.id
-    i_id i_id VARCHAR(100) NOT NULL,          -- FK: items.i_id
+    i_id VARCHAR(100) NOT NULL,          -- FK: items.i_id
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     UNIQUE (u_id, i_id)         -- 중복 찜 방지
 );
