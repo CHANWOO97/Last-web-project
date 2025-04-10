@@ -6,17 +6,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="seller">
 		<selectKey keyProperty="sr_id" order="BEFORE"
 			resultType="integer">
-			select nvl(max(sr_id), 0) + 1 from seller_request
+			select ifnull(max(sr_id), 0) + 1 from seller_request
 		</selectKey>
-		insert into seller_request (sr_id, sr_state, srq_at, i_id)
+		insert into seller_request (sr_id, sr_state, srq_at, on_id, sr_ev,
+		srw_pev, ic_id, u_id)
 		values
-		(#{sr_id}, 'n', now(), #{i_id})
+		(#{sr_id}, 'n', now(), #{on_id}, #{sr_ev},
+		#{srw_pev}, #{ic_id}, #{u_id})
 	</insert>
+	
+	
 	<select id="seller_list" resultType="seller">
 		select * from seller_request
 	</select>
-	<select id="selectByUid" parameterType="string" resultType="seller">
-		select * from seller_request where u_id = #{u_id} 
+	<select id="selectByUid" parameterType="string"
+		resultType="seller">
+		select * from seller_request where sr_id = #{sr_id}
 		ORDER BY srq_at DESC LIMIT 1
 	</select>
+	<select id="select_id" parameterType="string"
+		resultType="seller">
+		SELECT s.*, c.ic_name
+		FROM seller_request s
+		JOIN
+		items_category c ON s.ic_id = c.ic_id
+		WHERE s.sr_id = #{sr_id}
+	</select>
+	<select id="getsrid" parameterType="string" resultType="integer">
+		select sr_id from
+		seller_request where u_id=#{u_id}
+	</select>
+	
+	<!-- <select id="select_id" parameterType="string" resultType="seller"> 
+		select * from seller_request where sr_id=#{sr_id} </select> -->
+		
+		<!-- 상품 - 판매자 관계테이블 -->
+	<insert id="insetSellrItems" parameterType="selleritems">
+		insert into seller_items (sr_id, i_id) values(#{sr_id}, #{i_id})
+	</insert>
 </mapper>

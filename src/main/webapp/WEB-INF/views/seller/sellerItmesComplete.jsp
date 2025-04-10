@@ -5,13 +5,13 @@
 </head><body>
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
-			alert("판매자 승인요청이 신청되었습니다")
-			location.href="/seller/sellerRequestForm"
+			alert("상품등록 되었습니다")
+			location.href="/seller/sellerItemsChk"
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">
 		<script type="text/javascript">
-			alert("판매자 승인요청이 취소되었습니다")
+			alert("상품등록이 취소 되었습니다.")
 			history.go(-1)
 		</script>
 	</c:if>
