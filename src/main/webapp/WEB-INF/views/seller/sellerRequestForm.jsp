@@ -18,7 +18,7 @@
 		<form action="/seller/sellerRequest" method="post" enctype="multipart/form-data">
 			<input type="hidden" name="u_id" value="${u_id}">
 			<div class="mb-3">
-				<label class="form-label">대표자 이름</label> <input type="text" name="owner_name" class="form-control" required="required" value="${user.name}">
+				<label class="form-label">대표자 이름</label> <input type="text" name="sr_id" class="form-control" required="required" value="${user.name}">
 			</div>
 			<div class="mb-3">
 				<label class="form-label">사업자등록번호</label> <input type="text" name="sr_ev" class="form-control" required="required">

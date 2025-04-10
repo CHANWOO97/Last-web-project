@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.Lupang.mapper.WishListMapper">
+	<!-- 찜목록 -->
+	<select id="getWishlistByUserId" parameterType="String" resultType="wishlist">
+		 select w.*, i.name, i.photo, i.price from wishlist w
+    		JOIN items i ON w.i_id = i.i_id
+    		where w.u_id = #{u_id}	order by w.reg_date desc 
+	</select>
+	<!-- 찜기능 -->
+	<select id="exists" parameterType="wishlist" resultType="int">
+		select count(*) from wishlist where u_id=#{u_id} and i_id=#{i_id}
+	</select>
+	<insert id="add" parameterType="wishlist">
+		insert into wishlist (u_id, i_id) values (#{u_id}, #{i_id})
+	</insert>
+	<delete id="remove" parameterType="wishlist">
+		delete from wishlist where u_id=#{u_id} and i_id=#{i_id}
+	</delete>
+</mapper>

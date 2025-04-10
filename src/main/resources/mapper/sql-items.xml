@@ -26,4 +26,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="select" parameterType="String" resultType="items">
 		select * from items where i_id=#{i_id}
 	</select>
+<!-- 검색 기능 -->
+	<select id="searchItemList" parameterType="map" resultType="items">
+		select * from items where name like concat('%', #{keyword}, '%')
+			order by reg_date desc limit #{pageSize} offset #{offset}
+	</select>
+	<select id="countSearchItems" parameterType="String" resultType="Integer">
+  		select count(*) from items
+  			where name like concat('%', #{query}, '%')
+	</select>
 </mapper>

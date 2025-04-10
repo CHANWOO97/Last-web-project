@@ -1,6 +1,8 @@
 package com.green.Lupang.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,7 @@ import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.service.CartService;
 import com.green.Lupang.service.ItemsService;
+import com.green.Lupang.service.WishListService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,6 +28,8 @@ public class ItemsController {
 	private ItemsService is;
 	@Autowired
 	private CartService cs;
+	@Autowired
+	private WishListService wls;
 	
 	@PostMapping("/cart/updateQuantity")
 	@ResponseBody
@@ -51,13 +56,12 @@ public class ItemsController {
 		model.addAttribute("cartItems", cartItems);
 		return "items/itemsCart";
 	}
-	
 	@GetMapping("/items/itemsByCategory")
 	public String itemsByCategory(Model model, HttpSession session,
 			@RequestParam(value = "ic_id" , defaultValue = "") String ic_id, 
 			@RequestParam(value = "page", defaultValue = "1") int page) 
 	{
-		String id = (String)session.getAttribute("id");
+		String id = (String)session.getAttribute("id");		
 		int pageSize = 12; // 한 페이지당 보여줄 상품 수
 		int offset = (page - 1) * pageSize;
 		
@@ -73,6 +77,15 @@ public class ItemsController {
 		int startPage = ((page - 1) / blockSize) * blockSize + 1;
 		int endPage = Math.min(startPage + blockSize - 1, totalPage);
 		
+		// 찜 여부 map 생성 (i_id → true/false)
+		Map<String, Boolean> wishlistMap = new HashMap<>();
+		if (id != null) {
+		    for (Items item : itemList) {
+		        boolean isWishlisted = wls.exists(id, item.getI_id());
+		        wishlistMap.put(item.getI_id(), isWishlisted);
+		    }
+		}
+		model.addAttribute("wishlistMap", wishlistMap);		
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("currentPage", page);
@@ -104,8 +117,48 @@ public class ItemsController {
 		Items items = is.select(i_id);
 		// 카테고리 리스트 데이터... 
 		List<ItemsCategory> ic_list = is.ic_list();
+		boolean isWishlisted = false;
+		if (id != null) {
+			isWishlisted = wls.exists(id, items.getI_id());
+		}
+		model.addAttribute("isWishlisted", isWishlisted);	
 		model.addAttribute("items", items);		
 		model.addAttribute("ic_list", ic_list);
 		model.addAttribute("id", id);		
-}
+	}
+	
+	@GetMapping("/items/search")
+	public String searchItems(@RequestParam("q") String query,
+	                          @RequestParam(value = "page", defaultValue = "1") int page,
+	                          Model model, HttpSession session) {
+		String id = (String)session.getAttribute("id");
+	    int pageSize = 12;
+	    int offset = (page - 1) * pageSize;
+	    List<ItemsCategory> ic_list = is.ic_list();
+	    List<Items> itemList = is.searchItemList(query, offset, pageSize);
+	    int totalCount = is.countSearchItems(query);
+	    int totalPage = (int) Math.ceil((double)totalCount / pageSize);
+	    int blockSize = 10;
+	    int startPage = ((page - 1) / blockSize) * blockSize + 1;
+	    int endPage = Math.min(startPage + blockSize - 1, totalPage);
+	    
+	 // 찜 여부 map 생성 (i_id → true/false)
+ 		Map<String, Boolean> wishlistMap = new HashMap<>();
+ 		if (id != null) {
+ 		    for (Items item : itemList) {
+ 		        boolean isWishlisted = wls.exists(id, item.getI_id());
+ 		        wishlistMap.put(item.getI_id(), isWishlisted);
+ 		    }
+ 		}
+ 		model.addAttribute("wishlistMap", wishlistMap);	
+
+	    model.addAttribute("q", query);	    
+		model.addAttribute("ic_list", ic_list);
+	    model.addAttribute("itemList", itemList);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPage", totalPage);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    return "items/search";
+	}
 }

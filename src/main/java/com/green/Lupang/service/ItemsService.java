@@ -11,4 +11,6 @@ public interface ItemsService {
 	int itemCountByCategory(String ic_id);
 	String ic_name(String ic_id);
 	Items select(String i_id);
+	List<Items> searchItemList(String keyword, int offset, int pageSize);
+	int countSearchItems(String query);
 }

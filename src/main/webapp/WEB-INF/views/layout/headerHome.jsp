@@ -50,14 +50,10 @@
 			</div>
 
 			<!-- 검색창 -->
-			<form class="search-area input-group flex-grow-1 me-4" action="#"
-				method="get">
-				<input type="text" name="q" class="form-control"
-					placeholder="찾고 싶은 상품을 검색해보세요!"> <span
-					class="input-group-text"><i class="bi bi-mic"></i></span>
-				<button class="input-group-text" type="submit">
-					<i class="bi bi-search"></i>
-				</button>
+			<form class="search-area input-group flex-grow-1 me-4" action="/items/search" method="get">
+				<input type="text" name="q" class="form-control" placeholder="찾고 싶은 상품을 검색해보세요!"> 
+				<span class="input-group-text"><i class="bi bi-mic"></i></span>
+				<button class="input-group-text" type="submit"><i class="bi bi-search"></i></button>
 			</form>
 
 			<!-- 우측 아이콘 -->
@@ -72,7 +68,7 @@
 					<ul class="dropdown-menu text-center">
 						<li><a class="dropdown-item" href="/itemsOrder/orderList">주문목록</a></li>
 						<li><a class="dropdown-item" href="#">취소/반품</a></li>
-						<li><a class="dropdown-item" href="#">찜리스트</a></li>
+						<li><a class="dropdown-item" href="/items/wishlist">찜리스트</a></li>
 					</ul>
 				</div>
 
