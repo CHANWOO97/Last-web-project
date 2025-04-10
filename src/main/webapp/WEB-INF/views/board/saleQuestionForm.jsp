@@ -7,16 +7,18 @@
   <title>구매 문의</title>
 </head>
 <body>
+<%@ include file="../layout/headerLoginBoardHome.jsp"%>
 <div class="container mt-5">
   <h3 class="text-primary mb-4">📦 구매 문의</h3>
 
   <form action="/board/saleQuestion" method="post">
     <!-- 상품명 -->
     <div class="mb-3">
-      <label class="form-label">상품명 ${items}</label>
+      <label class="form-label">상품명 ${items.name}</label>
       <input type="text" name=i_id class="form-control" value="${items.i_id}" readonly="readonly">
     </div>
-
+    
+    
     <!-- 문의자 이름 -->
     <div class="mb-3">
       <label class="form-label">이름</label>
@@ -41,5 +43,6 @@
     </div>
      </form>
 </div>
+<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </body>
 </html>

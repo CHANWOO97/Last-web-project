@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @Alias("seller")
 public class Seller {
-	private Integer sr_id; // VARCHAR(255) NOT NULL COMMENT '판매자 요청 ID',
+	private Integer sr_id; //  NOT NULL COMMENT '판매자 요청 ID',
 	private String on_id; // VARCHAR(255) NOT NULL COMMENT '판매자 이름',
     private String sr_state; // CHAR(1) DEFAULT 'n' COMMENT '승인 상태 (n/y)',
     private Date srq_at; // TIMESTAMP NULL COMMENT '요청 날짜',

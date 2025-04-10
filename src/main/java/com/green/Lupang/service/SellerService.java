@@ -2,6 +2,7 @@ package com.green.Lupang.service;
 
 import java.util.List;
 
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
 
@@ -19,4 +20,6 @@ public interface SellerService {
 	int getsrid(String u_id);
 
 	void insetSellrItems(SellerItems sellerItems);
+
+	List<Items> getItesmsBysrId(int sr_id);
 }

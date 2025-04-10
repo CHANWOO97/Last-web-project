@@ -47,7 +47,7 @@
     <!-- 재고 -->
     <div class="mb-3">
       <label class="form-label">재고 수량</label>
-      <input type="number" name="stock" class="form-control" required>
+      <input type="number" name="stock" class="form-control" required min="1" max="99">
     </div>
      <!-- 원산지 -->
     <div class="mb-3">

@@ -7,42 +7,56 @@
 <title>Insert title here</title>
 </head>
 <style>
-.product-card {
-	border: 1px solid #dee2e6;
-	border-radius: 10px;
-	padding: 15px;
-	transition: box-shadow 0.2s ease-in-out;
-}
-
-.product-card:hover {
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
 .product-img {
-	width: 100%;
-	height: 180px;
+	width: 60px;
+	height: 60px;
 	object-fit: cover;
 	border-radius: 8px;
 }
+
+.table-hover tbody tr:hover {
+	background-color: #f9f9f9;
+}
 </style>
+<script>
+  function chk(message) {
+    return confirm(message); // 확인 누르면 true, 취소 누르면 false
+  }
+</script>
 </head>
 <body>
 	<div class="container mt-5">
-		<h3 class="mb-4">📦 내가 등록한 상품</h3>
-		<div class="row g-4">
-			<c:forEach var="item" items="${myItems}">
-				<div class="col-md-4">
-					<div class="product-card">
-						<img src="/resources/images/item/${item.photo}" class="product-img mb-2" alt="상품 이미지">
-						<h5>${item.name}</h5>
-						<p class="text-muted">${item.size}/ ${item.stock}개 보유</p>
-						<p>
-							<strong>${item.price}원</strong>
-						</p>
-						<a href="/items/detail?i_id=${item.i_id}" class="btn btn-outline-primary btn-sm">상세 보기</a>
-					</div>
-				</div>
-			</c:forEach>
+		<h3 class="mb-4 text-primary">📦 내가 등록한 상품</h3>
+		<table class="table table-bordered table-hover align-middle text-center">
+			<thead class="table-light">
+				<tr>
+					<th>상품코드</th><th>이미지</th><th>상품명</th><th>사이즈</th>
+					<th>재고</th><th>가격</th><th>등록일</th><th>수정</th><th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="item" items="${myItems}">
+					<tr>
+						<td>${item.i_id}</td>
+						<td><img src="/resources/images/items_photo/${item.photo}" alt="상품 이미지" class="product-img"></td>
+						<td class="text-start">${item.name}</td>
+						<td>${item.size}</td>
+						<td>${item.stock}</td>
+						<td><strong><fmt:formatNumber value="${item.price}" type="number" groupingUsed="true" />원</strong></td>
+						<td><fmt:formatDate value="${item.reg_date}" pattern="yyyy-MM-dd" /></td>
+						<td><a href="/seller/itemsUpdateForm?i_id=${item.i_id}" class="btn btn-sm btn-outline-primary">수정</a></td>
+						<td><a href="/seller/itemsDelete?i_id=${item.i_id}" class="btn btn-sm btn-outline-danger" onclick="return chk('정말 삭제하시겠습니까?');">삭제</a></td>
+					</tr>
+				</c:forEach>
+				<c:if test="${empty myItems}">
+					<tr>
+						<td colspan="8" class="text-center text-muted">등록된 상품이 없습니다.</td>
+					</tr>
+				</c:if>
+			</tbody>
+		</table>
+		<div class="mt-4 d-flex justify-content-end gap-2">
+			<a href="/layout/home" class="btn btn-secondary">홈으로</a>
 		</div>
 	</div>
 </body>

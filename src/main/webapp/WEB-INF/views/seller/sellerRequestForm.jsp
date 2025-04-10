@@ -37,7 +37,7 @@
 			</div>
 			<div class="d-flex justify-content-between">
 				<button type="submit" class="btn btn-primary">신청 제출</button>
-				<a href="/user/mypage" class="btn btn-secondary">마이페이지로 돌아가기</a>
+				<a href="javascript:history.back()" class="btn btn-secondary">뒤로가기</a>
 			</div>
 		</form>
 	</div>

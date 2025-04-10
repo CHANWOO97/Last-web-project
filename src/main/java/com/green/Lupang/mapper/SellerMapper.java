@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
 
@@ -16,4 +17,5 @@ public interface SellerMapper {
 	Seller select_id(String sr_id);
 	int getsrid(String u_id);
 	void insetSellrItems(SellerItems sellerItems);
+	List<Items> getItesmsBysrId(int sr_id);
 }

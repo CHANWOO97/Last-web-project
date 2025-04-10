@@ -10,6 +10,7 @@ DROP TABLE items;
 DROP TABLE sale;
 DROP TABLE sale_items;
 DROP TABLE wishlist;
+DROP TABLE sale_question;
 
 -- 게시판 카테고리 테이블
 CREATE TABLE board_category (
@@ -50,6 +51,7 @@ CREATE TABLE user_table (
     sr_id VARCHAR(255) COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     PRIMARY KEY (u_id)
 );
+SELECT * FROM user_table;
 
 -- 장바구니 테이블
 CREATE TABLE cart (
@@ -120,7 +122,7 @@ CREATE TABLE sale (
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart.c_id)',
     receiver VARCHAR(100),
     tel VARCHAR(50),
-	address VARCHAR(255);
+	address VARCHAR(255),
 	total INT NOT NULL,
     PRIMARY KEY (s_id)
 );
@@ -159,3 +161,18 @@ CREATE TABLE seller_items (
     UNIQUE (sr_id, i_id)         -- 중복 찜 방지
 );
 select * from seller_items
+
+-- 구매문의 테이블 추가
+CREATE TABLE sale_question (
+    q_id INT AUTO_INCREMENT PRIMARY KEY,-- 구매문의 ID
+    u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',  
+    i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items_table.i_id)',
+    sr_id INT NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
+    name VARCHAR(100) NOT NULL,         -- 문의자 이름
+    email VARCHAR(100),
+    content TEXT NOT NULL,              -- 문의 내용
+    answer TEXT,                        -- 관리자 답변
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+select * from sale_question
+

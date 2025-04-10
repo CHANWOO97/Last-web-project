@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
 import com.green.Lupang.mapper.SellerMapper;
@@ -39,6 +41,10 @@ public class SellerServiceImpl implements SellerService{
 	@Override
 	public void insetSellrItems(SellerItems sellerItems) {
 		sm.insetSellrItems(sellerItems);
+	}
+	@Override
+	public List<Items> getItesmsBysrId(int sr_id) {
+		return sm.getItesmsBysrId(sr_id);
 	}
 
 }
