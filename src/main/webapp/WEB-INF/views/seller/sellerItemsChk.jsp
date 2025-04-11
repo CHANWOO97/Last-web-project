@@ -50,7 +50,7 @@
 				</c:forEach>
 				<c:if test="${empty myItems}">
 					<tr>
-						<td colspan="8" class="text-center text-muted">등록된 상품이 없습니다.</td>
+						<td colspan="9" class="text-center text-muted">등록된 상품이 없습니다.</td>
 					</tr>
 				</c:if>
 			</tbody>
