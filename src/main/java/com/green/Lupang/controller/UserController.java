@@ -45,6 +45,7 @@ public class UserController {
 		else if (bpe.matches(user.getPassword(), user2.getPassword())) {
 			result = 1; // id와 암호가 일치
 			session.setAttribute("id", user.getU_id());
+		    session.setAttribute("seller_role", user2.getSeller_role());
 			User user3 = us.select(user.getU_id());
 			if (user3.getPhoto() == null || user3.getPhoto().equals(""))
 				session.setAttribute("photo", "user_base_photo.png");

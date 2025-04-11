@@ -25,19 +25,12 @@ public class BoardController {
 	private ItemsMapper im;
 
 	@GetMapping("/board/boardForm")
-	public String boardForm(HttpSession session, Model model) {
-		String id = (String)session.getAttribute("id");
-	    // id 존재 시 User 객체 조회 및 seller_role 설정
-		if (id != null) {
-	        User user = us.select(id); // 유저 1명 조회
-	        model.addAttribute("seller_role", user.getSeller_role());
-		}
+	public String boardForm() {
 	        return "/board/boardForm";
 	}
 
 	@GetMapping("/board/saleQuestionForm")
 	public void saleQuestionForm() {
-
 	}
 
 	@GetMapping("/board/qAndAForm")
