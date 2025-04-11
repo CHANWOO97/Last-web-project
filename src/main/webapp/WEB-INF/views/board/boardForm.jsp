@@ -25,7 +25,8 @@
 				<h1 class="display-5 fw-bold">고객센터</h1>
 				<p class="lead">무엇을 도와드릴까요? 구매 전 상담부터 Q&A까지 한 번에!</p>
 				<div class="d-grid gap-2 d-md-flex">
-					<a href="/board/saleQuestionForm" class="btn btn-primary me-md-2">구매문의</a> <a href="/board/qAndAForm" class="btn btn-outline-secondary">Q&A</a>
+					<a href="/board/saleQuestionForm" class="btn btn-primary me-md-2">구매문의</a> 
+					<a href="/board/qAndAForm" class="btn btn-outline-secondary">Q&A</a>
 				</div>
 			</div>
 			<!-- 오른쪽 이미지 (미리보기 영역) -->

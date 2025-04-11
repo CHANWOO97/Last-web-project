@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../setting/include.jsp"%>
-<!DOCTYPE html><html><head><meta charset="UTF-8">
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/resources/css/headerhome.css">
 <style>
-	a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과 파란색 글씨 변경 */
-		text-decoration: none; 
-		color: black;
-	}
+a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과 파란색 글씨 변경 */
+	text-decoration: none;
+	color: black;
+}
 </style>
 </head>
 <body>
@@ -17,18 +20,28 @@
 		<div class="container">
 			<a class="navbar-brand" href="/">Lupang</a>
 			<div class="ms-auto d-flex gap-3 align-items-center">
-				<c:if test="${empty id }"> <!-- 로그인 되었을때 로그인/회원가입 보이기 -->
+				<c:if test="${empty id }">
+					<!-- 로그인 되었을때 로그인/회원가입 보이기 -->
 					<a class="nav-link" href="../user/loginForm">로그인</a>
 					<a class="nav-link" href="../user/joinForm">회원가입</a>
 				</c:if>
-				<c:if test="${not empty id}"> <!-- 로그인 되었을때 로그아웃 보이기 -->
+				<c:if test="${not empty id}">
+					<!-- 로그인 되었을때 로그아웃 보이기 -->
 					<c:if test="${id != 'admin'}">
 						<a class="nav-link" href="../user/logout">로그아웃</a>
-						<div>
-							<a class="nav-link" href="/seller/sellerRequestForm" role="button" aria-expanded="false"> 판매자 신청 </a>
-						</div>
+						<c:choose>
+							<c:when test="${seller_role == 'y'}">
+								<!-- 판매자 승인 완료 상태 -->
+								<a class="nav-link" href="/seller/sellerItemsChk">내 상품 보러가기</a>
+							</c:when>
+							<c:otherwise>
+								<!-- 아직 신청 안 했거나 승인 대기중 -->
+								<a class="nav-link" href="/seller/sellerRequestForm">판매자 신청</a>
+							</c:otherwise>
+						</c:choose>
 					</c:if>
-					<c:if test="${id == 'admin'}"> <!-- 'admin'으로 로그인 되었을때 관리자페이지 보이기 -->
+					<c:if test="${id == 'admin'}">
+						<!-- 'admin'으로 로그인 되었을때 관리자페이지 보이기 -->
 						<a class="nav-link" href="/user/logout">로그아웃</a>
 						<a class="nav-link" href="/admin/adminForm">관리자페이지</a>
 					</c:if>
