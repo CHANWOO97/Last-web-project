@@ -32,9 +32,16 @@
 				</c:choose>
 					<c:if test="${id != 'admin'}">
 						<a class="nav-link" href="../user/logout">로그아웃</a>
-						<div>
-							<a class="nav-link" href="/seller/sellerRequestForm" role="button" aria-expanded="false"> 판매자 신청 </a>
-						</div>
+						<c:choose>
+							<c:when test="${seller_role == 'y'}">
+								<!-- 판매자 승인 완료 상태 -->
+								<a class="nav-link" href="/seller/sellerItemsChk">내 상품 보러가기</a>
+							</c:when>
+							<c:otherwise>
+								<!-- 아직 신청 안 했거나 승인 대기중 -->
+								<a class="nav-link" href="/seller/sellerRequestForm">판매자 신청</a>
+							</c:otherwise>
+						</c:choose>
 					</c:if>
 					<c:if test="${id == 'admin'}"> <!-- 'admin'으로 로그인 되었을때 관리자페이지 보이기 -->
 						<a class="nav-link" href="../user/logout">로그아웃</a>
