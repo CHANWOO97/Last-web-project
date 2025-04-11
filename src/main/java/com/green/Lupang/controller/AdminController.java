@@ -33,14 +33,21 @@ public class AdminController {
         return "admin/categories";
     }
 
-    // 판매자, 회원 등 팀원 작업은 미리 경로만 잡아놓기
-    @GetMapping("/sellers")
+    // 판매자, 회원, 상품 팀원 작업은 미리 경로만 잡아놓기
+    @GetMapping("/admin/sellers")
     public String sellers() {
         return "admin/sellers";
     }
 
-    @GetMapping("/users")
+    @GetMapping("/admin/users")
     public String users() {
         return "admin/users";
     }
+    
+    @GetMapping("/admin/items")
+    public String items() {
+        return "admin/items";
+    }
+    
+    
 }
