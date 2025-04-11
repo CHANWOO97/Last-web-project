@@ -12,4 +12,5 @@ public interface CartService {
 	List<CartItemDTO> getCartItemsByUserId(String id);
 	void updateQuantity(String id, String i_id, int quantity);
 	void deleteItem(String id, String i_id);
+	void clearCart(String c_id);
 }

@@ -33,4 +33,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteItem" parameterType="cart_items">
 		delete from cart_items where c_id = #{c_id} and i_id = #{i_id}
 	</delete>
+	<!-- 결제 완료 후 cart_items 테이블에서 장바구니에 해당하는 상품 삭제 -->
+	<delete id="clearCart" parameterType="cart_items">
+		delete from cart_items where c_id = #{c_id}
+	</delete>
 </mapper>

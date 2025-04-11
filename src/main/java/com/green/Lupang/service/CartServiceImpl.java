@@ -91,4 +91,8 @@ public class CartServiceImpl implements CartService{
 		cm.deleteItem(ci);
 		
 	}
+	@Override
+	public void clearCart(String c_id) {
+		cm.clearCart(c_id);
+	}
 }

@@ -56,4 +56,10 @@ public class SaleServiceImpl implements SaleService{
 		// TODO Auto-generated method stub
 		return sm.saleCountByOrder(id);
 	}
+
+	@Override
+	public List<Sale> getAdminOrderList() {
+		// TODO Auto-generated method stub
+		return sm.getAdminOrderList();
+	}
 }

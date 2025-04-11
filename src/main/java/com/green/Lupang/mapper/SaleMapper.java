@@ -17,4 +17,5 @@ public interface SaleMapper {
 	List<SaleItems> getSaleItems(String s_id);
 	List<Sale> findAllByUserId(Map<String, Object> map);
 	int saleCountByOrder(String id);
+	List<Sale> getAdminOrderList();
 }

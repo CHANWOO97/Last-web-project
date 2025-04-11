@@ -19,5 +19,6 @@ public interface CartMapper {
 	List<CartItem> findByCartId(String c_id);
 	void updateQuantity(CartItem ci);
 	void deleteItem(CartItem ci);
+	void clearCart(String c_id);
 
 }

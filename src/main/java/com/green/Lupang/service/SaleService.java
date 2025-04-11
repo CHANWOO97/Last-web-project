@@ -13,4 +13,5 @@ public interface SaleService {
 	List<SaleItems> getSaleItems(String s_id);
 	List<Sale> findAllByUserId(String id, int offset, int pageSize);
 	int saleCountByOrder(String id);
+	List<Sale> getAdminOrderList();
 }

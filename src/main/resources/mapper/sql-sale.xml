@@ -5,8 +5,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.green.Lupang.mapper.SaleMapper">
 	<!-- 구매코드 저장 -->
 	<insert id="saleSave" parameterType="sale">
-		insert into sale (s_id, c_id, receiver, tel, address, total, s_date) 
-			values(#{s_id}, #{c_id}, #{receiver}, #{tel}, #{address}, #{total}, now())
+		insert into sale (s_id, u_id, c_id, receiver, tel, address, total, s_date) 
+			values(#{s_id}, #{u_id}, #{c_id}, #{receiver}, #{tel}, #{address}, #{total}, now())
 	</insert>
 	<insert id="saleItemSave" parameterType="sale_items">
 		insert into sale_items values(#{si_id}, #{s_id}, #{i_id}, #{quantity})
@@ -19,18 +19,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			join items i on si.i_id=i.i_id where si.s_id=#{s_id}
 	</select>
 	<select id="saleCountByOrder" parameterType="String" resultType="Integer">
-		select count(*) from sale 
-			where c_id in (select c_id from cart where u_id=#{u_id})
+		select count(*) from sale where u_id = #{u_id}
 	</select>
 	<!-- join 문 헷갈려서 대문자 사용 -->
 	<select id="findAllByUserId" parameterType="map" resultType="sale">
-		select s.*, i.photo, i.name from sale s LEFT JOIN sale_items si ON s.s_id = si.s_id
-							  LEFT JOIN items i ON si.i_id = i.i_id 
-							  where s.c_id in (select c_id from cart where u_id=#{u_id})
-							  order by s.s_date desc limit #{pageSize} offset #{offset}
+		select s.*, i.photo, i.name from sale s 
+				LEFT JOIN sale_items si ON s.s_id = si.s_id
+				LEFT JOIN items i ON si.i_id = i.i_id 
+				where s.u_id = #{u_id}
+				order by s.s_date desc 
+				limit #{pageSize} offset #{offset}
 							  <!-- group by s.s_id -->
 	</select>	
 	<update id="updateStatus" parameterType="sale">
 		update sale set s_status=#{s_status} where s_id=#{s_id} 
 	</update>
+	
+	<!--  관리자 용도 -->
+	<select id="getAdminOrderList" resultType="sale">
+	    SELECT s.s_id, u.name AS customer_name, s.tel, s.address, s.total, s.s_date, s.s_status
+    	FROM sale s
+    	JOIN user_table u ON s.u_id = u.u_id
+    	ORDER BY s.s_date DESC;
+	</select>
 </mapper>

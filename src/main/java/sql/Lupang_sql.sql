@@ -117,6 +117,7 @@ MODIFY COLUMN size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)';
 -- 구매 테이블
 CREATE TABLE sale (
     s_id VARCHAR(255) NOT NULL COMMENT '구매 ID',
+    u_id VARCHAR(255) COMMENT '사용자 ID',
     s_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '구매일',
     s_status CHAR(1) DEFAULT 'n' COMMENT '구매 상태 (n: 미결제)',
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart.c_id)',
@@ -127,12 +128,6 @@ CREATE TABLE sale (
     PRIMARY KEY (s_id)
 );
 SELECT * FROM sale;
-ALTER TABLE sale
-ADD COLUMN receiver VARCHAR(100),
-ADD COLUMN tel VARCHAR(50),
-ADD COLUMN address VARCHAR(255);
-
-ALTER TABLE sale ADD COLUMN total INT NOT NULL;
 
 -- 구매 상품 관계 (판매된 상품 테이블)
 CREATE TABLE sale_items (
@@ -176,3 +171,5 @@ CREATE TABLE sale_question (
 );
 select * from sale_question
 
+-- admin 계정 미리 생성 -- 패스워드 1234 
+insert into user_table (u_id ,name, password) values('admin', '관리자', '$2a$10$ty1UwZwvhK2TPP7Y/cNzV.URmSgXKysy7l4iJl6n5o8s5bMDuXU2e');

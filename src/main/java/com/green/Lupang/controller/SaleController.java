@@ -67,7 +67,9 @@ public class SaleController {
 		User user = us.select(id);
 		String cartId = cs.getOrCreateCartId(id);
 		String saleId = UUID.randomUUID().toString(); // saleid 랜덤값으로 만듬
-		sale.setS_id(saleId); sale.setC_id(cartId); 
+		sale.setU_id(id);
+		sale.setS_id(saleId); 
+		sale.setC_id(cartId); 
 		ss.saleSave(sale); // 구매 코드와 장바구니 코드 저장
 		for (String selectItem : selectedItems) { // selectedItems 값을 ${item.i_id}_${item.quantity} 이렇게 받아옴
 			String [] parts = selectItem.split("_");
@@ -113,10 +115,12 @@ public class SaleController {
 	    }
 		sale.setS_status("y"); // 주문 상태 y 로 바꿈
 		ss.updateStatus(sale);
-		Sale sale2 = ss.findById(sale.getS_id());
+		cs.clearCart(sale.getC_id());
 		
-		// 2. 주문 상세 보여주기 위해 조회
-	    List<SaleItems> saleItems = ss.getSaleItems(s_id);		
+		// 4. 주문 상세 조회 및 페이지 이동
+		Sale sale2 = ss.findById(sale.getS_id());	
+	    List<SaleItems> saleItems = ss.getSaleItems(s_id);	
+	    
 		model.addAttribute("s_id", s_id);
 		model.addAttribute("saleItems", saleItems);
 		model.addAttribute("sale", sale2);

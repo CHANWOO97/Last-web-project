@@ -21,18 +21,21 @@ public class TestSaleData {
 		    
 		    Sale sale = new Sale();
 		    sale.setS_id(saleId);
+		    sale.setU_id("k1");
 		    sale.setC_id("e5743ddb-54e5-4ccd-bf75-b07b97f8bb40");
+		    sale.setS_status("y");
 		    sale.setReceiver("홍길동");
 		    sale.setTel("010-1234-1234");
 		    sale.setAddress("서울시 테스트동");
 		    sale.setTotal(15000 + i * 1000); // 총 금액 예시
 		    ss.saleSave(sale); // <insert id="saleSave">
+		    ss.updateStatus(sale);
 
 		    // 샘플로 상품 1개만 추가
 		    SaleItems item = new SaleItems();
 		    item.setSi_id(UUID.randomUUID().toString());
 		    item.setS_id(saleId);        // sale과 연결
-		    item.setI_id(String.valueOf(721 + i));           // 실제 존재하는 상품 코드
+		    item.setI_id(String.valueOf(900 + i));           // 실제 존재하는 상품 코드
 		    item.setQuantity(1 + i % 3); // 수량 랜덤
 		    ss.saleItemSave(item); // <insert id="saleItemSave">
 		}
