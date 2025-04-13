@@ -46,13 +46,12 @@ CREATE TABLE user_table (
     photo VARCHAR(255),
     reg_date TIMESTAMP NULL COMMENT '가입일',
     user_role VARCHAR(255) COMMENT '사용자/관리자 구분',
-    seller_role VARCHAR(255) NOT NULL DEFAULT 'n' COMMENT '판매자 신청 상태 (n/y)',
+    seller_role CHAR(1) CHECK (seller_role IN ('n', 'w', 'y')) not null DEFAULT 'n' COMMENT '판매자 승인 상태 (n:일반사용자/w:승인대기중/y:판매자승인완료)',
     del CHAR(1) DEFAULT 'n' COMMENT '삭제 여부',
     sr_id VARCHAR(255) COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     PRIMARY KEY (u_id)
 );
 SELECT * FROM user_table;
-
 -- 장바구니 테이블
 CREATE TABLE cart (
     c_id VARCHAR(255) NOT NULL COMMENT '장바구니 ID',
@@ -162,13 +161,13 @@ CREATE TABLE sale_question (
     q_id INT AUTO_INCREMENT PRIMARY KEY,-- 구매문의 ID
     u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',  
     i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items_table.i_id)',
-    sr_id INT NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     name VARCHAR(100) NOT NULL,         -- 문의자 이름
     email VARCHAR(100),
     content TEXT NOT NULL,              -- 문의 내용
     answer TEXT,                        -- 관리자 답변
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+ALTER TABLE sale_question MODIFY COLUMN i_id VARCHAR(255) NULL;
 select * from sale_question
 
 -- admin 계정 미리 생성 -- 패스워드 1234 
