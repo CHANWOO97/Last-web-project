@@ -160,7 +160,7 @@ select * from seller_items
 CREATE TABLE sale_question (
     q_id INT AUTO_INCREMENT PRIMARY KEY,-- 구매문의 ID
     u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',  
-    i_id VARCHAR(255) NOT NULL COMMENT '상품코드 (FK: items_table.i_id)',
+    i_id VARCHAR(255) NULL COMMENT '상품코드 (FK: items_table.i_id)',
     name VARCHAR(100) NOT NULL,         -- 문의자 이름
     email VARCHAR(100),
     content TEXT NOT NULL,              -- 문의 내용
