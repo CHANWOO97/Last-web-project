@@ -58,12 +58,16 @@ public class SellerController {
 			fos.write(seller.getFile().getBytes());
 			fos.close();
 		}
-		seller.setSr_state("n");
-		seller.setSrq_at(new Date());
-		seller.setU_id(u_id);
+		seller.setSr_state("n"); // 승인 상태는 기본 '대기'
+		seller.setSrq_at(new Date()); // 신청 날짜
+		seller.setU_id(u_id); // 로그인한 사용자 ID
 		int result = ss.insert(seller);
+		us.updateSRoleWait(u_id); // 판매자 승인대기상태로
+		session.setAttribute("seller_role", "w"); // w 상태로 세션 갱신
+		
 		int sr_id = ss.getsrid(u_id);
-
+		session.setAttribute("sr_id", sr_id); // 판매자 요청id 세션 갱신
+		
 		User user = new User();
 		user.setSr_id(sr_id);
 		user.setU_id(u_id);
@@ -115,6 +119,8 @@ public class SellerController {
 		int sr_id = user.getSr_id();
 		List<Items> myItems = ss.getItesmsBysrId(sr_id);
 		model.addAttribute("myItems", myItems);
+		model.addAttribute("sr_id", sr_id);
+	
 		return "/seller/sellerItemsChk";
 	}
 

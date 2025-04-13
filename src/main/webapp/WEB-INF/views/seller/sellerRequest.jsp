@@ -6,7 +6,7 @@
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
 			alert("판매자 승인요청이 신청되었습니다")
-			location.href="/seller/sellerRequestForm"
+			location.href="/user/mypage"
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">

@@ -9,6 +9,11 @@
     .container { max-width: 800px; margin: 50px auto; }
   </style>
 </head>
+<script type="text/javascript">
+	function cancleItem(){
+		alert("상품등록이 취소되었습니다.")
+	}
+</script>
 <body>
 <div class="container">
   <h3 class="mb-4">🛒 상품 등록</h3>
@@ -60,7 +65,7 @@
       <label class="form-label">상품 이미지</label>
       <input type="file" name="file" class="form-control" required>
     </div>
-
+    
     <!-- 상세 설명 -->
     <div class="mb-3">
       <label class="form-label">상세 설명</label>
@@ -70,9 +75,10 @@
     <!-- 제출 버튼 -->
     <div class="d-flex justify-content-end gap-2">
       <button type="submit" class="btn btn-primary">등록하기</button>
-      <a href="/user/mypage" class="btn btn-secondary">취소</a>
+      <a href="/user/mypage" class="btn btn-secondary" onclick="cancleItem()">취소</a>
     </div>
   </form>
 </div>
 </body>
+<%@ include file="/WEB-INF/views/layout/footer.jsp"%>
 </html>

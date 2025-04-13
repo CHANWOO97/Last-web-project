@@ -56,6 +56,7 @@
 			</tbody>
 		</table>
 		<div class="mt-4 d-flex justify-content-end gap-2">
+				<a href="/seller/sellerItmes?sr_id=${sr_id}" class="btn btn-success">상품등록</a>
 			<a href="/layout/home" class="btn btn-secondary">홈으로</a>
 		</div>
 	</div>
