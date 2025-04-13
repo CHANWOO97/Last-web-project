@@ -30,4 +30,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="delete" parameterType="String">
 		update user_table set del='y' where u_id=#{u_id};
 	</update>
+	<!-- 판매자 신청 대기표시 -->
+	<update id="updateSRoleWait" parameterType="string">
+		update user_table set seller_role = 'w' where u_id = #{u_id}
+	</update>
 </mapper>

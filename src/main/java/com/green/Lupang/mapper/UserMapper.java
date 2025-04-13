@@ -14,4 +14,5 @@ public interface UserMapper {
 	int update(User user);
 	void updateSr_id(User user);
 	int delete(String u_id);
+	void updateSRoleWait(String u_id);
 }

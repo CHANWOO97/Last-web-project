@@ -141,6 +141,8 @@ public class UserController {
 	        // 새 파일 없으면 기존 사진 유지
 	        user.setPhoto(existingUser.getPhoto());
 	    }
+			// 판매자 승인대기
+		us.updateSRoleWait(u_id);
 		int result = us.update(user);
 		model.addAttribute("result", result);
 	}

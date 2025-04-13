@@ -49,4 +49,10 @@ public class UserServiceImpl implements UserService{
 		return um.delete(u_id);
 	}
 
+	@Override
+	public void updateSRoleWait(String u_id) {
+		um.updateSRoleWait(u_id);
+		
+	}
+
 }

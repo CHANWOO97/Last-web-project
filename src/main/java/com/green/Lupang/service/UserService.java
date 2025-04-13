@@ -20,4 +20,6 @@ public interface UserService {
 
 	int delete(String u_id);
 
+	void updateSRoleWait(String u_id);
+
 }
