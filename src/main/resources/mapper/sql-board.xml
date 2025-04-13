@@ -3,7 +3,12 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.Lupang.mapper.BoardMapper">
-	<select id="select" parameterType="string" resultType="saleQuestion">
+	<select id="select" parameterType="string" resultType="saleques">
 		select * from sale_question where u_id=#{u_id}
 	</select>
+	<!-- 구매문의 페이지에서 문의내용 입력 -->
+	<insert id="insertSaleQuestion" parameterType="saleques">
+		insert into sale_question (u_id, i_id, name, email, content) 
+		values (#{u_id}, #{i_id}, #{name}, #{email}, #{content})
+	</insert>
 </mapper>

@@ -2,10 +2,12 @@ package com.green.Lupang.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.green.Lupang.dto.saleQuestion;
+import com.green.Lupang.dto.SaleQuestion;
 
 @Mapper
 public interface BoardMapper {
 
-	saleQuestion select(String u_id);
+	SaleQuestion select(String u_id);
+
+	Integer insertSaleQuestion(SaleQuestion saleques);
 }

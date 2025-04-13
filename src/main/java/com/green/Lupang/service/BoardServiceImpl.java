@@ -3,7 +3,7 @@ package com.green.Lupang.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.green.Lupang.dto.saleQuestion;
+import com.green.Lupang.dto.SaleQuestion;
 import com.green.Lupang.mapper.BoardMapper;
 
 @Service
@@ -12,7 +12,12 @@ public class BoardServiceImpl implements BoardService{
 	private BoardMapper bm;
 
 	@Override
-	public saleQuestion select(String u_id) {
+	public SaleQuestion select(String u_id) {
 		return bm.select(u_id);
+	}
+
+	@Override
+	public Integer insertSaleQuestion(SaleQuestion saleques) {
+		return bm.insertSaleQuestion(saleques);
 	}
 }

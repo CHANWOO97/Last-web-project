@@ -108,7 +108,7 @@
 				</div>
 			</div>
 			<div class="d-flex justify-content-end gap-2">
-				<a href="/layout/home" class="btn btn-secondary">뒤로가기</a>
+				<a href="javascript:history.back()" class="btn btn-secondary">뒤로가기</a>
 			</div>
 		</div>
 	</div>

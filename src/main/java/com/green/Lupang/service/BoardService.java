@@ -1,9 +1,11 @@
 package com.green.Lupang.service;
 
-import com.green.Lupang.dto.saleQuestion;
+import com.green.Lupang.dto.SaleQuestion;
 
 public interface BoardService {
 
-	saleQuestion select(String u_id);
+	SaleQuestion select(String u_id);
+
+	Integer insertSaleQuestion(SaleQuestion saleques);
 
 }
