@@ -42,4 +42,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	JOIN user_table u ON s.u_id = u.u_id
     	ORDER BY s.s_date DESC;
 	</select>
+	<!-- 구매문의 페이지 사용자가 구매한 물건 조회 -->
+	<select id="getbuyItems" parameterType="String">
+	    SELECT DISTINCT i.*                      -- 중복 제거 후, 상품 테이블의 모든 컬럼 조회
+	    FROM sale s                             
+	    JOIN sale_items si ON s.s_id = si.s_id   
+	    JOIN items i ON si.i_id = i.i_id        
+	    WHERE s.u_id = #{u_id}                   -- 조건: 로그인한 사용자의 ID와 일치하는 주문만 조회
+	</select>
 </mapper>

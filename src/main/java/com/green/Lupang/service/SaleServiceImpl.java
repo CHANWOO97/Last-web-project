@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleItems;
 import com.green.Lupang.mapper.SaleMapper;
@@ -59,7 +60,11 @@ public class SaleServiceImpl implements SaleService{
 
 	@Override
 	public List<Sale> getAdminOrderList() {
-		// TODO Auto-generated method stub
 		return sm.getAdminOrderList();
+	}
+
+	@Override
+	public List<Items> getbuyItems(String u_id) {
+		return sm.getbuyItems(u_id);
 	}
 }

@@ -2,6 +2,7 @@ package com.green.Lupang.service;
 
 import java.util.List;
 
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleItems;
 
@@ -14,4 +15,5 @@ public interface SaleService {
 	List<Sale> findAllByUserId(String id, int offset, int pageSize);
 	int saleCountByOrder(String id);
 	List<Sale> getAdminOrderList();
+	List<Items> getbuyItems(String u_id);
 }

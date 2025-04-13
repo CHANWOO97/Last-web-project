@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleItems;
 
@@ -18,4 +19,5 @@ public interface SaleMapper {
 	List<Sale> findAllByUserId(Map<String, Object> map);
 	int saleCountByOrder(String id);
 	List<Sale> getAdminOrderList();
+	List<Items> getbuyItems(String u_id);
 }

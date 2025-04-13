@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../setting/include.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +13,12 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 }
 </style>
 </head>
+<script>
+	function showAlert() {
+		alert("판매자 신청이 완료되어 승인 대기 중입니다.");
+		return false;
+	}
+</script>
 <body>
 	<!-- 상단 네비게이션 바 -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
@@ -34,8 +39,12 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 								<!-- 판매자 승인 완료 상태 -->
 								<a class="nav-link" href="/seller/sellerItemsChk">내 상품 보러가기</a>
 							</c:when>
+							<c:when test="${seller_role == 'w'}">
+								<!-- 승인 대기중일 때 -->
+								<a class="nav-link text-secondary" href="#" onclick="return showAlert();">판매자 신청</a>
+							</c:when>
 							<c:otherwise>
-								<!-- 아직 신청 안 했거나 승인 대기중 -->
+								<!-- 아직 신청 안 한 상태 -->
 								<a class="nav-link" href="/seller/sellerRequestForm">판매자 신청</a>
 							</c:otherwise>
 						</c:choose>
