@@ -61,7 +61,25 @@
 	    alert('주문할 상품을 선택해주세요!');
 	    e.preventDefault();
 	  }
-	});});
+	});
+	});
+	// 전체 선택 (querySelectorAll 이용) 
+	function toggleSelectAll() {
+	    const checkBox = document.querySelectorAll('.item-check');
+	    const allChecked = Array.from(checkBox).every(cb => cb.checked);	
+	    checkBox.forEach(cb => cb.checked = !allChecked);
+	    // 버튼 텍스트 변경
+	    const toggleBtn = document.querySelector(".toggleBtn")
+	    toggleBtn.value = allChecked ? "🛒 전체 상품 선택하기" : "🛒 전체 상품 선택해제";
+	    if (allChecked) {
+	    	  toggleBtn.classList.remove("btn-outline-danger");
+	    	  toggleBtn.classList.add("btn-outline-secondary");
+	    	} else {
+	    	  toggleBtn.classList.remove("btn-outline-secondary");
+	    	  toggleBtn.classList.add("btn-outline-danger");
+	    	}
+	    updateTotalPrice(); // 총 금액도 다시 계산
+  	}
 </script>
 </head>
 <body class="bg-light">
@@ -138,7 +156,7 @@
 
     <!-- 전체 상품 주문 (모든 상품 강제 주문용 별도 버튼) 미구현-->
     <div class="text-end mt-2">
-      <button class="btn btn-outline-secondary">🛒 전체 상품 구매하기</button>
+      <input type="button" class="btn btn-outline-secondary toggleBtn" onclick="toggleSelectAll()" value="🛒 전체 상품 선택하기">  
     </div>
 
   </div>
