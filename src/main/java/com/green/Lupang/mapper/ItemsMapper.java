@@ -33,4 +33,8 @@ public interface ItemsMapper {
 	int update(Items items);
 
 	int delete(String i_id);
+
+	void insertCategory(ItemsCategory itemsCategory);
+
+	void deleteCategory(String ic_id);
 }

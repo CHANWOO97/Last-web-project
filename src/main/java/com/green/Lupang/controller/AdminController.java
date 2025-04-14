@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
+import com.green.Lupang.service.ItemsService;
 import com.green.Lupang.service.SaleService;
 
 @Controller
 public class AdminController {
 	@Autowired
 	private SaleService ss;
+	@Autowired
+	private ItemsService is;
 	
 	@GetMapping("/admin/adminForm")
     public String adminHome() {
@@ -23,6 +27,7 @@ public class AdminController {
     }
 	
 	// 향후 추가될 기능들
+	// 주문 관리
     @GetMapping("/admin/orders")
     public String adminOrderList(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
     	int pageSize = 12; // 한 페이지당 보여줄 상품 수
@@ -42,6 +47,7 @@ public class AdminController {
         model.addAttribute("orders", ordersList);       
         return "admin/orders";
     }
+    // 주문 관리 업데이트
     @PostMapping("/admin/orderUpdate")
     public String orderUpdate(Model model, Sale sale) {
     	int result = ss.updateStatus(sale);
@@ -49,10 +55,28 @@ public class AdminController {
     	return "/admin/orderUpdate";
     }
     
-
+    // 카테고리 목록 조회
     @GetMapping("/admin/categories")
-    public String categories() {
+    public String categories(Model model) {
+    	List<ItemsCategory> categories = is.ic_list();
+        model.addAttribute("categories", categories);
         return "admin/categories";
+    }
+    // 카테고리 추가
+    @PostMapping("/admin/categories/add")
+    public String addCategory(@RequestParam("ic_id") String ic_id,
+                              @RequestParam("ic_name") String ic_name) {
+    	ItemsCategory ic = new ItemsCategory();
+    	ic.setIc_id(ic_id); ic.setIc_name(ic_name);
+        is.insertCategory(ic);
+        return "redirect:/admin/categories";
+    }
+
+    // 카테고리 삭제
+    @PostMapping("/admin/categories/delete")
+    public String deleteCategory(@RequestParam("ic_id") String ic_id) {
+        is.deleteCategory(ic_id);
+        return "redirect:/admin/categories";
     }
 
     // 판매자, 회원, 상품 팀원 작업은 미리 경로만 잡아놓기

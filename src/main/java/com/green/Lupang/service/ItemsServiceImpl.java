@@ -72,4 +72,13 @@ public class ItemsServiceImpl implements ItemsService{
 	public int delete(String i_id) {
 		return im.delete(i_id);
 	}
+	@Override
+	public void insertCategory(ItemsCategory itemsCategory) {
+		im.insertCategory(itemsCategory);
+		
+	}
+	@Override
+	public void deleteCategory(String ic_id) {
+		im.deleteCategory(ic_id);		
+	}
 }

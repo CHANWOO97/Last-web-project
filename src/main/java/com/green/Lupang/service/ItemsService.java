@@ -18,4 +18,6 @@ public interface ItemsService {
 	String getmaxi_id();
 	int update(Items items);
 	int delete(String i_id);
+	void insertCategory(ItemsCategory itemsCategory);
+	void deleteCategory(String ic_id);
 }
