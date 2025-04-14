@@ -26,5 +26,7 @@ public interface UserService {
 
 	void updateSellerRole_N(String u_id);
 
+	List<User> user_list();
+
 
 }

@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
@@ -101,50 +102,25 @@ public class AdminController {
 
 	// 판매자 요청 승인시
 	@GetMapping("/admin/approveSeller")
-	public String approveSeller(HttpSession session, Model model) {
-		String u_id = (String) session.getAttribute("id");
-
-		// 판매자 정보 먼저 조회
-		User user = us.select(u_id);
-		int sr_id = user.getSr_id();
-
+	public String approveSeller(HttpSession session, Model model, @RequestParam("sr_id") int sr_id,
+			@RequestParam("u_id") String u_id) {
 		// DB에 승인 처리
 		ses.approve(sr_id); // 판매자 승인 (sr_state = 'y')
 		us.updateSellerRole_Y(u_id); // 유저 테이블 승인 (seller_role = 'y')
-
-		// 업데이트 후 최신 정보 다시 조회
-		User updatedUser = us.select(u_id);
-		int result = 0;
-		if ("y".equals(updatedUser.getSeller_role())) {
-			result = 1;
-		}
-
-		model.addAttribute("result", result);
-		return "admin/approveSeller";
+		model.addAttribute("sr_id",sr_id);
+		return "redirect:/admin/sellers";
 	}
-
 	// 판매자 승인 취소시
 	@GetMapping("/admin/rejectSeller")
-	public String rejectSeller(HttpSession session, Model model) {
-		String u_id = (String) session.getAttribute("id");
-
-		// 기존 정보 조회
-		User user = us.select(u_id);
-		int sr_id = user.getSr_id();
-
-		// DB에서 거절 처리
-		ses.reject(sr_id); // sr_state = 'r'
-		us.updateSellerRole_N(u_id); // seller_role = 'n'
-
-		// 다시 최신 정보로 확인
-		User updatedUser = us.select(u_id);
-		int result = 0;
-		if ("n".equals(updatedUser.getSeller_role())) {
-			result = 2;
-		}
-
-		model.addAttribute("result", result);
-		return "admin/rejectSeller";
+	public String rejectSeller(HttpSession session, Model model, @RequestParam("sr_id") int sr_id,
+			@RequestParam("u_id") String u_id) {
+		// 관리자 승인 취소 시 판매요청자에게 메세지 전달 (세션에 메시지 저장) => /user/mypage
+		session.setAttribute("cancelMessage"+ u_id, "관리자에 의해 판매자 신청이 취소되었습니다.");
+		// DB에 승인 처리
+		ses.reject(sr_id); // 판매자 승인 (sr_state = 'y')
+		us.updateSellerRole_N(u_id); // 유저 테이블 승인 (seller_role = 'y')
+		model.addAttribute("sr_id",sr_id);
+		return "redirect:/admin/sellers";
 	}
 
 	@GetMapping("/admin/items")

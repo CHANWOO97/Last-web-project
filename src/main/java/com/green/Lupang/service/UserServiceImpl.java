@@ -69,4 +69,9 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public List<User> user_list() {
+		return um.user_list();
+	}
+
 }

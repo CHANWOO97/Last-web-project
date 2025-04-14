@@ -42,4 +42,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateSellerRole_N" parameterType="string">
 		update user_table set seller_role = 'n' where u_id = #{u_id}
 	</update>
+		<!-- 유저 리스트 전체 가져오기 -->
+	<select id="user_list" parameterType="list" resultType="user">
+		select * from user_table;
+	</select>
 </mapper>

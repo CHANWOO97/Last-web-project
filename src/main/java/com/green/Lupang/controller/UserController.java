@@ -114,6 +114,11 @@ public class UserController {
 	@GetMapping("/user/mypage")
 	public void mypage(HttpSession session, Model model) {
 		String u_id = (String) session.getAttribute("id");
+		String msg = (String) session.getAttribute("cancelMessage" + u_id);
+		if (msg != null) {
+		    model.addAttribute("cancelMessage", msg);
+		    session.removeAttribute("cancelMessage" + u_id); // 1회용
+		}
 		User user = us.select(u_id);
 		model.addAttribute("user", user);
 	}
