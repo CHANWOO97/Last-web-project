@@ -46,5 +46,13 @@ public class SellerServiceImpl implements SellerService{
 	public List<Items> getItesmsBysrId(int sr_id) {
 		return sm.getItesmsBysrId(sr_id);
 	}
+	@Override
+	public void approve(int sr_id) {
+		sm.approve(sr_id);
+	}
+	@Override
+	public void reject(int sr_id) {
+		sm.reject(sr_id);
+	}
 
 }

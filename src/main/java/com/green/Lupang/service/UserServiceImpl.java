@@ -1,6 +1,8 @@
 package com.green.Lupang.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +54,18 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public void updateSRoleWait(String u_id) {
 		um.updateSRoleWait(u_id);
+		
+	}
+
+	@Override
+	public void updateSellerRole_Y(String u_id) {
+		um.updateSellerRole_Y(u_id);
+		
+	}
+
+	@Override
+	public void updateSellerRole_N(String u_id) {
+		um.updateSellerRole_N(u_id);
 		
 	}
 

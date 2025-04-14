@@ -1,14 +1,88 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>    
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/setting/include.jsp"%>
+<%@ include file="/WEB-INF/views/admin/sidebar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+.container {
+	max-width: 1000px;
+	margin: 50px auto;
+}
+
+.table-hover tbody tr:hover {
+	background-color: #f9f9f9;
+}
+</style>
+</head>
 <body>
-판매자 권한 승인 페이지
+	<div class="container">
+		<h3 class="text-primary mb-4">🧾 판매자 승인 요청 목록</h3>
+		<input type="hidden" name="sr_id" value="${seller.sr_id}">
+		<table class="table table-bordered table-hover text-center align-middle">
+			<thead class="table-light">
+				<tr>
+					<th>판매자 ID</th>
+					<th>대표자 이름</th>
+					<th>사업자번호</th>
+					<th>요청일</th>
+					<th>카테고리</th>
+					<th>증빙자료</th>
+					<th>상태</th>
+					<th>관리</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="seller" items="${sellerRequests}">
+					<tr>
+						<td>${seller.u_id}</td>
+						<td>${seller.on_id}</td>
+						<td>${seller.sr_ev}</td>
+						<td><fmt:formatDate value="${seller.srq_at}" pattern="yyyy-MM-dd" /></td>
+						<td>${seller.ic_id}</td>
+						<td><a href="/resources/images/seller_photo/${seller.srw_pev}" target="_blank" class="btn btn-sm btn-outline-info">보기</a></td>
+						<td><c:choose>
+								<c:when test="${seller_role == 'y'}">
+									<!-- 판매자 승인 완료 상태 -->
+									<a class="nav-link">판매자 승인완료</a>
+								</c:when>
+								<c:when test="${seller_role == 'w'}">
+									<!-- 승인 대기중일 때 -->
+									<a class="nav-link text-secondary">판매자 승인대기</a>
+								</c:when>
+								<c:otherwise>
+									<!-- 승인 취소상태 -->
+									<a class="nav-link"">판매자 승인취소</a>
+								</c:otherwise>
+							</c:choose></td>
+							<td>
+							<c:choose>
+								<c:when test="${seller_role == 'y'}">
+									<!-- 판매자 승인 완료 상태 -->
+									<a href="/admin/approveSeller" target="_blank" class="btn btn-sm btn-danger">판매자 취소</a>
+								</c:when>
+								<c:when test="${seller_role == 'w'}">
+									<!-- 판매자 승인 대기중일 때 -->
+									<a href="/admin/rejectSeller" target="_blank" class="btn btn-sm btn-success">판매자 승인</a>
+								</c:when>
+								<c:otherwise>
+									<!-- 판매자 승인 취소상태 -->
+									<a href="/admin/rejectSeller" target="_blank" class="btn btn-sm btn-success">판매자 승인</a>
+								</c:otherwise>
+							</c:choose>
+							</td>
+					</tr>
+				</c:forEach>
+				<c:if test="${empty sellerRequests}">
+					<tr>
+						<td colspan="8" class="text-muted">승인 요청이 없습니다.</td>
+					</tr>
+				</c:if>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

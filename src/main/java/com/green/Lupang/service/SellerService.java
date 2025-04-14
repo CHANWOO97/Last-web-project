@@ -22,4 +22,8 @@ public interface SellerService {
 	void insetSellrItems(SellerItems sellerItems);
 
 	List<Items> getItesmsBysrId(int sr_id);
+
+	void approve(int sr_id);
+
+	void reject(int sr_id);
 }

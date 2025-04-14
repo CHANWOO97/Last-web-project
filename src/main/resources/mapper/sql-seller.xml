@@ -40,4 +40,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select i.* from seller_items si join items i on si.i_id = i.i_id
     	where si.sr_id = #{sr_id}
 	</select>
+		<!-- 판매자 승인 처리 (sr_state → 'y') -->
+	<update id="approve" parameterType="int">
+	    update seller_request set sr_state = 'y' where sr_id = #{sr_id}
+	</update>
+		<!-- 판매자 거절 처리 (sr_state → 'r') --> 
+	<update id="reject" parameterType="int">
+	    update seller_request set sr_state = 'r' where sr_id = #{sr_id}
+	</update>
 </mapper>

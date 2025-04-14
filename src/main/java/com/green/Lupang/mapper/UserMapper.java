@@ -1,6 +1,8 @@
 package com.green.Lupang.mapper;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import com.green.Lupang.dto.User;
 
@@ -15,4 +17,6 @@ public interface UserMapper {
 	void updateSr_id(User user);
 	int delete(String u_id);
 	void updateSRoleWait(String u_id);
+	void updateSellerRole_Y(String u_id);
+	void updateSellerRole_N(String u_id);
 }

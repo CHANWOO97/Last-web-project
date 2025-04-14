@@ -21,5 +21,10 @@ public interface UserService {
 	int delete(String u_id);
 
 	void updateSRoleWait(String u_id);
+	
+	void updateSellerRole_Y(String u_id);
+
+	void updateSellerRole_N(String u_id);
+
 
 }
