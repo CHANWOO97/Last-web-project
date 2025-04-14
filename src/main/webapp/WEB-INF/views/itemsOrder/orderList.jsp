@@ -28,10 +28,28 @@
 							<div class="text-danger fw-semibold">
 								총 금액: <fmt:formatNumber value="${order.total}" type="number" /> 원
 							</div>
+							<div class="fw-semibold">
+								<p class="mb-1">
+								  <c:choose>
+								    <c:when test="${order.s_status == 'n'}">
+								      <span class="text-warning fw-bold">미결제</span>
+								    </c:when>
+								    <c:when test="${order.s_status == 'c'}">
+								      <span class="text-danger fw-bold">주문취소</span>
+								    </c:when>
+								    <c:otherwise>
+								      <span class="text-success fw-bold">결제완료</span>
+								    </c:otherwise>
+								  </c:choose>
+								</p>
+							</div>
 						</div>
 						<div>
 							<a href="/mypage/orderDetail?saleId=${order.s_id}"
 								class="btn btn-outline-primary btn-sm">상세보기</a>
+							<c:if test="${order.s_status == 'n'}">
+    							<a href="/itemsOrder/pay?saleId=${order.s_id}" class="btn btn-danger btn-sm">💳 결제하기</a>
+  							</c:if>
 						</div>
 					</div>
 				</div>

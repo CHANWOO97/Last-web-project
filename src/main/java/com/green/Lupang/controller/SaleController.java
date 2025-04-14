@@ -91,8 +91,8 @@ public class SaleController {
 		// 1. 주문 상태 업데이트
 		Sale sale = ss.findById(s_id);
 
-		sale.setS_status("y"); // 주문 상태 y 로 바꿈
-		ss.updateStatus(sale);
+	//	sale.setS_status("y"); // 주문 상태 y 로 바꿈
+	//	ss.updateStatus(sale);
 		Sale sale2 = ss.findById(sale.getS_id());
 		
 		// 2. 주문 상세 보여주기 위해 조회
@@ -145,5 +145,19 @@ public class SaleController {
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("orderList", orderList);
 		return "itemsOrder/orderList";
+	}
+	
+	@GetMapping("/itemsOrder/pay")
+	public String goToPayPage(@RequestParam("saleId") String saleId, HttpSession session, Model model) {
+	    String id = (String) session.getAttribute("id");
+	    User user = us.select(id);  // 유저 정보
+	    // 1. 해당 sale 조회
+	    Sale sale = ss.findById(saleId);
+	    // 2. 이미 order -> pay로 이동시에 저장되어있기 때문에 그냥 값만 가져오면됨 
+	    // 4. 모델로 값 전달
+	    model.addAttribute("s_id", saleId);	   
+	    model.addAttribute("sale", sale);
+	    model.addAttribute("email", user.getEmail());
+	    return "itemsOrder/pay";  // → pay.jsp
 	}
 }

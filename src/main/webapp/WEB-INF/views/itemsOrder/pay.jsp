@@ -35,6 +35,7 @@
     <!-- 결제 실행 버튼 -->
     <div class="text-end mt-5">
       <input type="button" id="payBtn" class="btn btn-success px-4 py-2 fw-bold" value="✅ 결제하기">     
+      <input type="button" id="cancelBtn" class="btn btn-danger px-4 py-2 fw-bold" value="❌ 결제취소">
     </div>
 
   </div>
@@ -59,7 +60,15 @@ document.querySelectorAll(".pg-btn").forEach(btn => {
     this.classList.add("btn-secondary", "text-white");
   });
 });
-
+//❌결제 취소 클릭
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("cancelBtn").addEventListener("click", function () {
+      if (confirm("결제를 취소하시겠습니까? 😥")) {
+        location.href = "/itemsOrder/orderList";
+      }
+    });
+  });
+  
 // ✅ 결제 버튼 클릭
 document.getElementById("payBtn").addEventListener("click", function () {
   const uid = "ORDER_" + new Date().getTime(); // 유니크 주문번호

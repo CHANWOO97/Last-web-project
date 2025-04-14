@@ -15,8 +15,14 @@
 		<div class="bg-white p-5 rounded shadow-sm">
 
 			<!-- 주문 완료 메시지 -->
-			<h2 class="text-success fw-bold mb-4 text-center">✅ 주문이 완료되었습니다!</h2>
-
+			<c:choose>	
+				<c:when test="${sale.s_status == 'c'}">
+					<h2 class="text-danger fw-bold mb-4 text-center">❌ 주문이 취소 되었습니다.</h2>
+				</c:when>
+				<c:otherwise>
+					<h2 class="text-success fw-bold mb-4 text-center">✅ 주문이 완료되었습니다!</h2>
+				</c:otherwise>
+			</c:choose>    		  			
 			<!-- 주문 정보 -->
 			<!-- 주문 정보 카드 -->
 			<div class="card border-0 shadow-sm mb-4">
@@ -89,6 +95,9 @@
 			<div class="text-center mt-4">
 				<a href="/" class="btn btn-outline-secondary px-4 me-2">홈으로</a> <a
 					href="/itemsOrder/orderList" class="btn btn-primary px-4">주문목록</a>
+				<c:if test="${sale.s_status == 'n'}">
+    				<a href="/itemsOrder/pay?saleId=${sale.s_id}" class="btn btn-danger">💳 결제하기</a>
+  				</c:if>
 			</div>
 
 		</div>
