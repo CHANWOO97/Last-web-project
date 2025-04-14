@@ -45,33 +45,34 @@
 						<td>${seller.ic_id}</td>
 						<td><a href="/resources/images/seller_photo/${seller.srw_pev}" target="_blank" class="btn btn-sm btn-outline-info">보기</a></td>
 						<td><c:choose>
-								<c:when test="${seller_role == 'y'}">
+								<c:when test="${seller.seller_role == 'y'}">
 									<!-- 판매자 승인 완료 상태 -->
 									<a class="nav-link">판매자 승인완료</a>
 								</c:when>
-								<c:when test="${seller_role == 'w'}">
-									<!-- 승인 대기중일 때 -->
-									<a class="nav-link text-secondary">판매자 승인대기</a>
+								<c:when test="${seller.seller_role == 'w'}">
+									<!-- 승인 취소상태 -->
+									<a class="nav-link"">판매자 승인대기</a>
 								</c:when>
-								<c:otherwise>
+								<c:when test="${seller.seller_role == 'n'}">
 									<!-- 승인 취소상태 -->
 									<a class="nav-link"">판매자 승인취소</a>
-								</c:otherwise>
+								</c:when>
 							</c:choose></td>
 							<td>
 							<c:choose>
-								<c:when test="${seller_role == 'y'}">
+								<c:when test="${seller.seller_role == 'y'}">
 									<!-- 판매자 승인 완료 상태 -->
-									<a href="/admin/approveSeller" target="_blank" class="btn btn-sm btn-danger">판매자 취소</a>
+									<a href="/admin/rejectSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-danger">승인취소</a>
 								</c:when>
-								<c:when test="${seller_role == 'w'}">
+								<c:when test="${seller.seller_role == 'w'}">
 									<!-- 판매자 승인 대기중일 때 -->
-									<a href="/admin/rejectSeller" target="_blank" class="btn btn-sm btn-success">판매자 승인</a>
+									<a href="/admin/approveSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-success">승인</a>
+									<a href="/admin/rejectSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-danger">승인취소</a>
 								</c:when>
-								<c:otherwise>
-									<!-- 판매자 승인 취소상태 -->
-									<a href="/admin/rejectSeller" target="_blank" class="btn btn-sm btn-success">판매자 승인</a>
-								</c:otherwise>
+								<c:when test="${seller.seller_role == 'n'}">
+									<!-- 판매자 승인 완료 상태 -->
+									<a href="/admin/approveSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-warning">재승인</a>
+								</c:when>
 							</c:choose>
 							</td>
 					</tr>

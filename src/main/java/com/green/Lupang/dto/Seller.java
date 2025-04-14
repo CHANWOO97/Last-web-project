@@ -23,5 +23,7 @@ public class Seller {
     // 증빙 업로드용
     private MultipartFile file;
     private String ic_name;
-
+    // 관리자 페이지 seller_role 추가
+    private String seller_role;
+    
 }

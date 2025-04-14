@@ -85,7 +85,7 @@ CREATE TABLE seller_request (
     PRIMARY KEY (sr_id)
 );
 ALTER TABLE seller_request ADD COLUMN u_id VARCHAR(255) NOT NULL;
-
+select * from seller_request;
 -- 상품 카테고리 테이블
 CREATE TABLE items_category (
     ic_id VARCHAR(255) NOT NULL COMMENT '카테고리 ID',
