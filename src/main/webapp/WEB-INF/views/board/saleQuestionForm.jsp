@@ -37,7 +37,7 @@
 					<c:when test="${not empty buyItems}">
 						<select name="i_id" class="form-select">
 							<c:forEach var="item" items="${buyItems}">
-								<option value="${item.i_id}">${item.name}/{item.reg_date}</option>
+								<option value="${item.i_id}">${item.name} / 구매일 : ${item.reg_date}</option>
 							</c:forEach>
 						</select>
 					</c:when>
