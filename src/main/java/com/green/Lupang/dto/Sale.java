@@ -27,5 +27,7 @@ public class Sale {
     private String name;
     // user 이름
     private String customer_name; // 보내는 사람
+    // 한번에 여러개 구매 시 카운트
+    private int item_count; 
     
 }

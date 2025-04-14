@@ -14,10 +14,11 @@ public interface SaleMapper {
 	void saleSave(Sale sale);
 	void saleItemSave(SaleItems si);
 	Sale findById(String s_id);
-	void updateStatus(Sale sale);
+	int updateStatus(Sale sale);
 	List<SaleItems> getSaleItems(String s_id);
 	List<Sale> findAllByUserId(Map<String, Object> map);
 	int saleCountByOrder(String id);
-	List<Sale> getAdminOrderList();
+	int saleCountByOrderAll();
+	List<Sale> getAdminOrderList(Map<String, Object> map);
 	List<Items> getbuyItems(String u_id);
 }

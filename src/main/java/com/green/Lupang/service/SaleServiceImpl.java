@@ -34,8 +34,8 @@ public class SaleServiceImpl implements SaleService{
 	}
 
 	@Override
-	public void updateStatus(Sale sale) {
-		sm.updateStatus(sale);	
+	public int updateStatus(Sale sale) {
+		return sm.updateStatus(sale);	
 	}
 
 	@Override
@@ -57,10 +57,17 @@ public class SaleServiceImpl implements SaleService{
 		// TODO Auto-generated method stub
 		return sm.saleCountByOrder(id);
 	}
+	@Override
+	public int saleCountByOrderAll() {
+		return sm.saleCountByOrderAll();
+	}
 
 	@Override
-	public List<Sale> getAdminOrderList() {
-		return sm.getAdminOrderList();
+	public List<Sale> getAdminOrderList(int offset, int pageSize) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", offset);
+		map.put("pageSize", pageSize);
+		return sm.getAdminOrderList(map);
 	}
 
 	@Override

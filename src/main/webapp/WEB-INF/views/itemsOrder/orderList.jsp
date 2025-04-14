@@ -5,6 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>주문 목록 | 마이페이지</title>
+<style>
+  .badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.75em;
+    border-radius: 0.65rem;
+  }
+</style>
 </head>
 <body class="bg-light">
 	<div class="container py-5">
@@ -21,7 +28,13 @@
 						<img src="/resources/images/items_photo/${order.photo}"
 							width="80" class="me-4 rounded">
 						<div class="flex-grow-1">
-							<h5 class="fw-bold">${order.name}</h5>
+							<h5 class="fw-bold mb-1">
+								${order.name}
+								<c:if test="${order.item_count > 1}">
+									<span class="badge bg-primary bg-dark ms-2 border border-secondary">
+										외 ${order.item_count - 1}건 </span>
+								</c:if>
+							</h5>
 							<div class="text-muted">
 								주문일시: <fmt:formatDate value="${order.s_date}" pattern="yyyy-MM-dd HH:mm:ss" />
 							</div>

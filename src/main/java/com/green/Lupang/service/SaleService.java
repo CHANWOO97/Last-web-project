@@ -10,10 +10,11 @@ public interface SaleService {
 	void saleSave(Sale sale);
 	void saleItemSave(SaleItems si);
 	Sale findById(String s_id);
-	void updateStatus(Sale sale);
+	int updateStatus(Sale sale);
 	List<SaleItems> getSaleItems(String s_id);
 	List<Sale> findAllByUserId(String id, int offset, int pageSize);
 	int saleCountByOrder(String id);
-	List<Sale> getAdminOrderList();
-	List<Items> getbuyItems(String u_id);
+	int saleCountByOrderAll();
+	List<Sale> getAdminOrderList(int offset, int pageSize);
+	List<Items> getbuyItems(String u_id);	
 }
