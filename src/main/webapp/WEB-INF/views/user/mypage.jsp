@@ -73,17 +73,26 @@
 </script>
 </head>
 <body>
-<%@ include file="../layout/headerLoginBoardHome.jsp"%>
+	<%@ include file="../layout/headerLoginBoardHome.jsp"%>
 	<form action="/user/mypageEdit" method="post" enctype="multipart/form-data" name="frm" onsubmit="return chk()">
-		<input type="hidden" name="u_id" value="${user.u_id}"> <input type="hidden" name="reg_date" value="${user.reg_date}"> <input type="hidden" name="name" value="${user.name}">
-
+		<input type="hidden" name="u_id" value="${user.u_id}"> <input type="hidden" name="reg_date" value="${user.reg_date}"> <input
+			type="hidden" name="name" value="${user.name}">
 		<!-- 숨겨진 프로필 이미지 업로드 input -->
 		<input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage(event)">
 		<div class="container mypage-container">
 			<div class="profile-card">
 				<div class="d-flex align-items-center mb-4">
-					<!-- 클릭 가능한 이미지 -->
-					<img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4" onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
+					<!-- 클릭 가능한 이미지 (기본 이미지 처리 포함) -->
+					<c:choose>
+						<c:when test="${not empty user.photo}">
+							<img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4"
+								onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
+						</c:when>
+						<c:otherwise>
+							<img id="preview" src="/resources/images/user_photo/user_base_photo.png" alt="기본 프로필 이미지" class="profile-img me-4"
+								onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
+						</c:otherwise>
+					</c:choose>
 					<div>
 						<h3 class="mb-0">${user.name}님</h3>
 						<small class="text-muted">${user.user_role == 'admin' ? '관리자' : '일반 사용자'}</small>
@@ -137,10 +146,8 @@
 					<p class="info-value">
 						<c:choose>
 							<c:when test="${user.seller_role == 'y'}"> ✅ 판매자 등록 완료
-							<a href="/seller/sellerItmes?sr_id=${user.sr_id}" 
-							class="btn btn-sm btn-outline-success ms-2">상품등록</a>
-								<a href="/seller/sellerItemsChk?sr_id=${user.sr_id}" 
-								class="btn btn-sm btn-outline-success ms-2">내 상품 보러가기</a>
+							<a href="/seller/sellerItmes?sr_id=${user.sr_id}" class="btn btn-sm btn-outline-success ms-2">상품등록</a>
+								<a href="/seller/sellerItemsChk?sr_id=${user.sr_id}" class="btn btn-sm btn-outline-success ms-2">내 상품 보러가기</a>
 							</c:when>
 							<c:when test="${user.seller_role == 'w'}"> ⏳ 승인 대기 중입니다. 
 							</c:when>
@@ -151,7 +158,8 @@
 					</p>
 				</div>
 				<div class="mt-4 d-flex justify-content-end gap-2">
-					<input type="submit" value="회원정보 수정" class="btn btn-primary"> <a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a> <a href="/layout/home" class="btn btn-secondary">뒤로가기</a>
+					<input type="submit" value="회원정보 수정" class="btn btn-primary"> <a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a> <a
+						href="/layout/home" class="btn btn-secondary">뒤로가기</a>
 				</div>
 			</div>
 		</div>
