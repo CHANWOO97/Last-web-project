@@ -21,6 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	join user_table u ON s.u_id = u.u_id
     	<!-- u_id가 같을 경우, seller_request 테이블에서 sr_id가 가장 큰 (즉, 가장 최신) 행만 조회 -->
     	where s.sr_id IN (select MAX(sr_id) from seller_request group by u_id)
+    	order by s.srq_at desc
 	</select>
 	<select id="selectByUid" parameterType="string"
 		resultType="seller">
@@ -52,5 +53,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 판매자 거절 처리 (sr_state → 'r') --> 
 	<update id="reject" parameterType="int">
 	    update seller_request set sr_state = 'r' where sr_id = #{sr_id}
+	</update>
+		<!-- 판매자 거절 처리 후 user mypage로 전달할 메시지 저장 -->
+	<update id="updateCnMsg" parameterType="seller">
+	    update seller_request set cn_msg = #{cn_msg} where sr_id = #{sr_id}
+	</update>
+			<!-- 마이페이지 메시지 전달 후 cn_msg를 null로 -->
+	<update id="updateNullCnMsg" parameterType="seller">
+	    update seller_request set cn_msg = null where sr_id = #{sr_id}
 	</update>
 </mapper>

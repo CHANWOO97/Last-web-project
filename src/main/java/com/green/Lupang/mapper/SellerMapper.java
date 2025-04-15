@@ -20,4 +20,6 @@ public interface SellerMapper {
 	List<Items> getItesmsBysrId(int sr_id);
 	void approve(int sr_id);
 	void reject(int sr_id);
+	void updateCnMsg(Seller seller);
+	void updateNullCnMsg(Seller seller);
 }

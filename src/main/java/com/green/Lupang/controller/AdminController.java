@@ -114,11 +114,16 @@ public class AdminController {
 	@GetMapping("/admin/rejectSeller")
 	public String rejectSeller(HttpSession session, Model model, @RequestParam("sr_id") int sr_id,
 			@RequestParam("u_id") String u_id) {
-		// 관리자 승인 취소 시 판매요청자에게 메세지 전달 (세션에 메시지 저장) => /user/mypage
-		session.setAttribute("cancelMessage"+ u_id, "관리자에 의해 판매자 신청이 취소되었습니다.");
 		// DB에 승인 처리
 		ses.reject(sr_id); // 판매자 승인 (sr_state = 'y')
 		us.updateSellerRole_N(u_id); // 유저 테이블 승인 (seller_role = 'y')
+		
+		// 승인 취소 후 mypage에 전달할 msg 저장
+		Seller seller = new Seller();
+		seller.setSr_id(sr_id); // 어떤 행을 수정할 것인지 지정
+		seller.setCn_msg("관리자에 의해 판매자 신청이 거절되었습니다.");
+		ses.updateCnMsg(seller);
+		
 		model.addAttribute("sr_id",sr_id);
 		return "redirect:/admin/sellers";
 	}

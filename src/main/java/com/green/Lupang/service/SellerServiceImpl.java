@@ -54,5 +54,13 @@ public class SellerServiceImpl implements SellerService{
 	public void reject(int sr_id) {
 		sm.reject(sr_id);
 	}
+	@Override
+	public void updateCnMsg(Seller seller) {
+		sm.updateCnMsg(seller);
+	}
+	@Override
+	public void updateNullCnMsg(Seller seller) {
+		sm.updateNullCnMsg(seller);
+	}
 
 }
