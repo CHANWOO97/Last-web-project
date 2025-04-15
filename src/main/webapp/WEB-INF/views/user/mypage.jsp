@@ -71,17 +71,26 @@
 		reader.readAsDataURL(event.target.files[0]);
 	}
 </script>
-<c:if test="${not empty cancelMessage}">
-	<!-- 관리자 페이지에서 승인취소시 메시지 출력 -->
-	<script>
-		alert("${cancelMessage}");
-	</script>
-</c:if>
+<!-- 관리자 승인 취소시 판매 신청자에게 취소 메시지 전달 -->
+<c:choose>
+	<c:when test="${not empty msg}">
+		<script>
+			alert("${msg}");
+			location.href = "/user/clearMsg";
+		</script>
+	</c:when>
+	<c:when test="${msg == null && msg == 0}">
+		<script>
+			location.href = "/user/mypage";
+		</script>
+	</c:when>
+</c:choose>
 </head>
 <body>
 	<%@ include file="../layout/headerLoginBoardHome.jsp"%>
 	<form action="/user/mypageEdit" method="post" enctype="multipart/form-data" name="frm" onsubmit="return chk()">
-		<input type="hidden" name="u_id" value="${user.u_id}"> <input type="hidden" name="reg_date" value="${user.reg_date}"> <input type="hidden" name="name" value="${user.name}">
+		<input type="hidden" name="u_id" value="${user.u_id}"> <input type="hidden" name="reg_date" value="${user.reg_date}"> <input
+			type="hidden" name="name" value="${user.name}">
 		<!-- 숨겨진 프로필 이미지 업로드 input -->
 		<input type="file" id="fileInput" name="file" style="display: none;" onchange="previewImage(event)">
 		<div class="container mypage-container">
@@ -90,11 +99,12 @@
 					<!-- 클릭 가능한 이미지 (기본 이미지 처리 포함) -->
 					<c:choose>
 						<c:when test="${not empty user.photo}">
-							<img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4" onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
+							<img id="preview" src="/resources/images/user_photo/${user.photo}" alt="프로필 이미지" class="profile-img me-4"
+								onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
 						</c:when>
 						<c:otherwise>
-							<img id="preview" src="/resources/images/user_photo/user_base_photo.png" alt="기본 프로필 이미지" class="profile-img me-4" onclick="document.getElementById('fileInput').click();"
-								style="cursor: pointer;">
+							<img id="preview" src="/resources/images/user_photo/user_base_photo.png" alt="기본 프로필 이미지" class="profile-img me-4"
+								onclick="document.getElementById('fileInput').click();" style="cursor: pointer;">
 						</c:otherwise>
 					</c:choose>
 					<div>
@@ -162,7 +172,8 @@
 					</p>
 				</div>
 				<div class="mt-4 d-flex justify-content-end gap-2">
-					<input type="submit" value="회원정보 수정" class="btn btn-primary"> <a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a> <a href="/layout/home" class="btn btn-secondary">뒤로가기</a>
+					<input type="submit" value="회원정보 수정" class="btn btn-primary"> <a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a> <a
+						href="/layout/home" class="btn btn-secondary">뒤로가기</a>
 				</div>
 			</div>
 		</div>

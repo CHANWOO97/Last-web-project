@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.User;
+import com.green.Lupang.service.SellerService;
 import com.green.Lupang.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,6 +31,8 @@ public class UserController {
 	private UserService us;
 	@Autowired
 	private BCryptPasswordEncoder bpe;
+	@Autowired
+	private SellerService ses;
 
 	@GetMapping("/user/loginForm")
 	public String loginForm() {
@@ -114,14 +118,24 @@ public class UserController {
 	@GetMapping("/user/mypage")
 	public void mypage(HttpSession session, Model model) {
 		String u_id = (String) session.getAttribute("id");
-		String msg = (String) session.getAttribute("cancelMessage" + u_id);
-		if (msg != null) {
-		    model.addAttribute("cancelMessage", msg);
-		    session.removeAttribute("cancelMessage" + u_id); // 1회용
-		}
 		User user = us.select(u_id);
+		// 관리자에 의해 판매자 신청 취소 메시지 전달
+		if(String.valueOf(user.getSr_id()) != null && user.getSr_id() != 0) { // 판매자신청을 했을때	
+			Seller seller = ses.select_id(String.valueOf(user.getSr_id()));	
+			model.addAttribute("msg", seller.getCn_msg());
+		}
 		model.addAttribute("user", user);
 	}
+	// 판매자 신청취소 메시지 출력 후, msg 컬럼에 null값 넣어 1회만 출력
+	@GetMapping("/user/clearMsg")
+	public String clearMsg(HttpSession session) {
+		String u_id = (String) session.getAttribute("id");
+		User user = us.select(u_id);
+		Seller seller = ses.select_id(String.valueOf(user.getSr_id()));	
+		ses.updateNullCnMsg(seller);
+		return "/user/mypage";
+	}
+	
 	@PostMapping("/user/mypageEdit")
 	public void mypageEdit(HttpSession session, Model model, User user) throws IOException {
 		String u_id = (String) session.getAttribute("id");
