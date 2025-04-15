@@ -30,4 +30,8 @@ public interface SellerService {
 	void updateCnMsg(Seller seller);
 
 	void updateNullCnMsg(Seller seller);
+
+	int countItemsBySeller(int sr_id);
+
+	List<Items> getItemsBySeller(int sr_id, int startRow, int rowPerPage);
 }

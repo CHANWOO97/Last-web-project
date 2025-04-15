@@ -161,7 +161,7 @@
 						<c:choose>
 							<c:when test="${user.seller_role == 'y'}"> ✅ 판매자 등록 완료
 							<a href="/seller/sellerItmes?sr_id=${user.sr_id}" class="btn btn-sm btn-outline-success ms-2">상품등록</a>
-								<a href="/seller/sellerItemsChk?sr_id=${user.sr_id}" class="btn btn-sm btn-outline-success ms-2">내 상품 보러가기</a>
+								<a href="/seller/sellerItemsChk?sr_id=${user.sr_id}&page=1" class="btn btn-sm btn-outline-success ms-2">내 상품 보러가기</a>
 							</c:when>
 							<c:when test="${user.seller_role == 'w'}"> ⏳ 승인 대기 중입니다. 
 							</c:when>

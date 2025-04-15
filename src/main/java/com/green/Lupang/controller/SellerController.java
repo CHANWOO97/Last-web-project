@@ -30,7 +30,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class SellerController {
 	@Autowired
-	private SellerService ss;
+	private SellerService ses;
 	@Autowired
 	private UserService us;
 	@Autowired
@@ -61,11 +61,11 @@ public class SellerController {
 		seller.setSr_state("n"); // 승인 상태는 기본 '대기'
 		seller.setSrq_at(new Date()); // 신청 날짜
 		seller.setU_id(u_id); // 로그인한 사용자 ID
-		int result = ss.insert(seller);
+		int result = ses.insert(seller);
 		us.updateSRoleWait(u_id); // 판매자 승인대기상태로
 		session.setAttribute("seller_role", "w"); // w 상태로 세션 갱신
 		
-		int sr_id = ss.getsrid(u_id);
+		int sr_id = ses.getsrid(u_id);
 		session.setAttribute("sr_id", sr_id); // 판매자 요청id 세션 갱신
 		
 		User user = new User();
@@ -79,7 +79,7 @@ public class SellerController {
 	@GetMapping("seller/sellerItmes")
 	public void seller(HttpSession session, Model model, @RequestParam("sr_id") String sr_id) {
 		String u_id = (String) session.getAttribute("id");
-		Seller seller = ss.select_id(sr_id); // ic_name 담음
+		Seller seller = ses.select_id(sr_id); // ic_name 담음
 		model.addAttribute("seller", seller);
 	}
 
@@ -106,20 +106,42 @@ public class SellerController {
 		sellerItems.setI_id(i_id);
 		sellerItems.setSr_id(sr_id);
 
-		ss.insetSellrItems(sellerItems);
+		ses.insetSellrItems(sellerItems);
 		model.addAttribute("result", result);
 		return "/seller/sellerItmesComplete";
 	}
 
 	@GetMapping("/seller/sellerItemsChk")
-	public String sellerItemsChk(HttpSession session, Model model) {
-		String u_id = (String) session.getAttribute("id");
+	public String sellerItemsChk(HttpSession session, Model model,
+			 @RequestParam(value = "page", defaultValue = "1") int page) {
 		// 유저의 sr_id 조회
+		String u_id = (String) session.getAttribute("id");
 		User user = us.select(u_id);
 		int sr_id = user.getSr_id();
-		List<Items> myItems = ss.getItesmsBysrId(sr_id);
-		model.addAttribute("myItems", myItems);
 		model.addAttribute("sr_id", sr_id);
+
+		//페이징
+		int rowPerPage = 10;
+	    int startRow = (page - 1) * rowPerPage;
+	    
+	    // 총 등록 상품 수
+	    int totalCount = ses.countItemsBySeller(sr_id);
+	    
+	    // 페이징 계산
+	    int totalPage = (int) Math.ceil((double) totalCount / rowPerPage);
+	    int pagePerBlock = 10;
+	    int startPage = page - (page - 1) % pagePerBlock;
+	    int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+	    // 판매자 등록 상품 리스트 가져오기
+		List<Items> myItems = ses.getItemsBySeller(sr_id, startRow, rowPerPage );
+		
+		model.addAttribute("myItems", myItems);
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("totalPage", totalPage);
+		
 	
 		return "/seller/sellerItemsChk";
 	}
@@ -129,7 +151,7 @@ public class SellerController {
 		String u_id = (String) session.getAttribute("id");
 		User user = us.select(u_id);
 		int sr_id = user.getSr_id();
-		Seller seller = ss.select_id(String.valueOf(sr_id));
+		Seller seller = ses.select_id(String.valueOf(sr_id));
 		Items item = is.select(i_id);
 		model.addAttribute("item", item);
 		model.addAttribute("seller", seller);

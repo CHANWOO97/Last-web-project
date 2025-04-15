@@ -23,7 +23,6 @@
     return confirm(message); // 확인 누르면 true, 취소 누르면 false
   }
 </script>
-</head>
 <body>
 	<div class="container mt-5">
 		<h3 class="mb-4 text-primary">📦 내가 등록한 상품</h3>
@@ -59,6 +58,48 @@
 				<a href="/seller/sellerItmes?sr_id=${sr_id}" class="btn btn-success">상품등록</a>
 			<a href="/layout/home" class="btn btn-secondary">홈으로</a>
 		</div>
+		
+		<!-- 페이지네이션 -->
+		<nav>
+			<ul class="pagination justify-content-center mt-4">
+
+				<!-- 이전 버튼 -->
+				<c:choose>
+					<c:when test="${currentPage <= 1}">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="?sr_id=${sr_id}&page=${currentPage - 1}"
+							aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+
+				<!-- 숫자 페이지 -->
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+					<li class="page-item ${i == currentPage ? 'active' : ''}">
+						<a class="page-link" href="/seller/sellerItemsChk?sr_id=${sr_id}&page=${i}">${i}</a>
+					</li>
+				</c:forEach>
+
+				<!-- 다음 버튼 -->
+				<c:choose>
+					<c:when test="${currentPage >= totalPage}">
+						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Next"> 
+						<span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="?sr_id=${sr_id}&page=${currentPage + 1}" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
+
+			</ul>
+		</nav>
 	</div>
 </body>
 </html>

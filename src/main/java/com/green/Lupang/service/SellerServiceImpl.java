@@ -1,6 +1,8 @@
 package com.green.Lupang.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,18 @@ public class SellerServiceImpl implements SellerService{
 	@Override
 	public void updateNullCnMsg(Seller seller) {
 		sm.updateNullCnMsg(seller);
+	}
+	@Override
+	public int countItemsBySeller(int sr_id) {
+		return sm.countItemsBySeller(sr_id);
+	}
+	@Override
+	public List<Items> getItemsBySeller(int sr_id, int startRow, int rowPerPage) {
+		 Map<String, Object> param = new HashMap<>();
+		    param.put("sr_id", sr_id);
+		    param.put("startRow", startRow);
+		    param.put("rowPerPage", rowPerPage);
+		return sm.getItemsBySeller(param);
 	}
 
 }

@@ -41,10 +41,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insetSellrItems" parameterType="selleritems">
 		insert into seller_items (sr_id, i_id) values(#{sr_id}, #{i_id})
 	</insert>
-		<!-- 상품 - 판매자 테이블을 통해 해당하는 상품만 조회   -->
+		<!-- 내상품보러가기 / 상품 - 판매자 테이블을 통해 해당하는 상품만 조회   -->
 	<select id="getItesmsBysrId" parameterType="integer" resultType="items">
 		select i.* from seller_items si join items i on si.i_id = i.i_id
     	where si.sr_id = #{sr_id}
+	</select>
+		<!-- 페이징 / 등록된 상품 총 갯수 조회 -->
+	<select id="countItemsBySeller" parameterType="int" resultType="int">
+			select count(*) from seller_items where sr_id=#{sr_id}
+	</select>
+		<!-- 페이징 / 판매자 등록 상품 리스트 조회  -->
+	<select id="getItemsBySeller" parameterType="map" resultType="selleritems">
+			select i.* from seller_items si inner JOIN items i ON si.i_id = i.i_id
+   			where si.sr_id = #{sr_id} order by i.reg_date desc
+    		limit #{startRow}, #{rowPerPage}
 	</select>
 		<!-- 판매자 승인 처리 (sr_state → 'y') -->
 	<update id="approve" parameterType="int">

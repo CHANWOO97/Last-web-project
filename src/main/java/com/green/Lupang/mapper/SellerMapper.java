@@ -1,6 +1,7 @@
 package com.green.Lupang.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,4 +23,6 @@ public interface SellerMapper {
 	void reject(int sr_id);
 	void updateCnMsg(Seller seller);
 	void updateNullCnMsg(Seller seller);
+	int countItemsBySeller(int sr_id);
+	List<Items> getItemsBySeller(Map<String, Object> param);
 }

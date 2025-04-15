@@ -117,6 +117,8 @@ MODIFY COLUMN i_id INT NOT NULL AUTO_INCREMENT COMMENT '상품코드 (자동 증
 ALTER TABLE items
 MODIFY COLUMN size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)';
 ALTER TABLE items RENAME COLUMN is_deleted TO deleted;
+ALTER TABLE items ADD COLUMN deleted BOOLEAN DEFAULT FALSE;
+select deleted from items;
 
 
 -- 판매자-상품 연결 테이블
