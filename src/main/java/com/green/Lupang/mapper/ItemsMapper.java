@@ -37,4 +37,10 @@ public interface ItemsMapper {
 	void insertCategory(ItemsCategory itemsCategory);
 
 	void deleteCategory(String ic_id);
+
+	List<Items> adminItemsList(Map<String, Object> map);
+
+	int allItemCount();
+
+	int updateItemStatusDeleted(Items item);
 }

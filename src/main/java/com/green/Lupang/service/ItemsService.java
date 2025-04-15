@@ -20,4 +20,7 @@ public interface ItemsService {
 	int delete(String i_id);
 	void insertCategory(ItemsCategory itemsCategory);
 	void deleteCategory(String ic_id);
+	List<Items> adminItemsList(int offset, int pageSize);
+	int allItemCount();
+	int updateItemStatusDeleted(Items item);
 }

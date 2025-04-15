@@ -16,10 +16,11 @@
 		background-color: #ffffff !important;
 	}
 
-	table th {
-		background-color: #343a40;
-		color: white;
-	}
+	.table th {
+	    background-color: #343a40;
+	    color: white;
+	    vertical-align: middle;
+ 	 }
 	td {
 		vertical-align: middle;
 		white-space: nowrap;

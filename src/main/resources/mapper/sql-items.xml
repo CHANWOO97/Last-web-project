@@ -17,6 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by i_id desc
 		limit #{pageSize} offset #{offset}
 	</select>
+	<!-- 상품 데이터 총 개수 -->
+	<select id="allItemCount" resultType="integer">
+		select count(*) from items
+	</select>
 	<!-- 카테고리 분류 상품 데이터 개수 -->
 	<select id="itemCountByCategory" resultType="int">
 		select count(*) from items where ic_id = #{ic_id}
@@ -84,5 +88,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteCategory" parameterType="String">
 		delete from items_category where ic_id=#{ic_id}
 	</delete>
-
+	
+	<!-- 관리자 상품 관리 -->
+	<select id="adminItemsList" parameterType="map" resultType="items">
+		select i.*,  sr.on_id AS seller_name, ic_name
+		from items i
+		join items_category ic ON i.ic_id = ic.ic_id
+		left join seller_items si ON i.i_id = si.i_id
+		left join seller_request sr ON si.sr_id = sr.sr_id
+		order by i.reg_date desc
+		limit #{pageSize} offset #{offset}
+	</select>
+	<!-- 관리자 상품 관리  상품 등록 처리 상태 변경 -->
+	<update id="updateItemStatusDeleted" parameterType="items">
+		update items set deleted = #{deleted} where i_id = #{i_id}
+	</update>
 </mapper>

@@ -81,4 +81,20 @@ public class ItemsServiceImpl implements ItemsService{
 	public void deleteCategory(String ic_id) {
 		im.deleteCategory(ic_id);		
 	}
+	@Override
+	public List<Items> adminItemsList(int offset, int pageSize) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", offset);
+		map.put("pageSize", pageSize);
+		return im.adminItemsList(map);
+	}
+	@Override
+	public int allItemCount() {
+		return im.allItemCount();
+	}
+	@Override
+	public int updateItemStatusDeleted(Items item) {
+		// TODO Auto-generated method stub
+		return im.updateItemStatusDeleted(item);
+	}
 }

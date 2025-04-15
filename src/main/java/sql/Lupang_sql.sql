@@ -109,12 +109,15 @@ CREATE TABLE items (
     price INT NOT NULL,
     reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     description TEXT,
+    is_deleted BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (i_id)
 );
 ALTER TABLE items
 MODIFY COLUMN i_id INT NOT NULL AUTO_INCREMENT COMMENT '상품코드 (자동 증가)';
 ALTER TABLE items
 MODIFY COLUMN size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)';
+ALTER TABLE items RENAME COLUMN is_deleted TO deleted;
+
 
 -- 판매자-상품 연결 테이블
 CREATE TABLE seller_items (

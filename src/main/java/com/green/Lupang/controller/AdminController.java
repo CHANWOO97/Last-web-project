@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.Seller;
@@ -127,10 +128,39 @@ public class AdminController {
 		model.addAttribute("sr_id",sr_id);
 		return "redirect:/admin/sellers";
 	}
-
+	// 상품 관리
 	@GetMapping("/admin/items")
-	public String items() {
+	public String items(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		int pageSize = 12; // 한 페이지당 보여줄 상품 수
+		int offset = (page - 1) * pageSize;
+		
+		List<Items> adminItemsList = is.adminItemsList(offset, pageSize);
+		int totalCount = is.allItemCount();
+		int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		int blockSize = 10; // 보여줄 블록 패이지 수 1, 2, 3, 4
+		int startPage = ((page - 1) / blockSize) * blockSize + 1;
+		int endPage = Math.min(startPage + blockSize - 1, totalPage);
+		
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("adminItemsList", adminItemsList);
 		return "admin/items";
+	}
+	
+	@PostMapping("/admin/updateItemStatus")
+	public String updateItemStatus(@RequestParam("i_id") String i_id,
+	                               @RequestParam("deleted") boolean deleted,
+	                               Model model) {
+	    // 1. 상품 삭제 상태 업데이트
+	    Items item = new Items();
+	    item.setI_id(i_id);
+	    item.setDeleted(deleted);
+	    int result = is.updateItemStatusDeleted(item); // → update items set is_deleted = ? where i_id = ?
+	    model.addAttribute("result", result);
+	    // 2. 목록 페이지 이동하기전 업데이트 완료 페이지로 리다이렉트
+	    return "admin/itemsUpdate";
 	}
 
 }
