@@ -58,7 +58,7 @@ public class SaleController {
 		model.addAttribute("user", user);
 		model.addAttribute("ic_list", ic_list);
 		model.addAttribute("saleItems", saleItems);
-		return "redirect:/itemsOrder/order"; // order.jsp로 이동
+		return "/itemsOrder/order"; // order.jsp로 이동
 	}
 	@PostMapping("/itemsOrder/pay")
 	public String pay(@RequestParam("selectedItems") List<String> selectedItems,
@@ -84,7 +84,7 @@ public class SaleController {
 		model.addAttribute("s_id", saleId);
 		model.addAttribute("sale", sale);
 		model.addAttribute("email", user.getEmail());
-		return "redirect:/itemsOrder/pay";
+		return "/itemsOrder/pay";
 	}
 	@GetMapping("/mypage/orderDetail")
 	public String orderDetail(@RequestParam("saleId") String s_id, Model model) {
