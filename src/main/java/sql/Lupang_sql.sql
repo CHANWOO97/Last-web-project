@@ -7,6 +7,7 @@ DROP TABLE cart_items;
 DROP TABLE seller_request;
 DROP TABLE items_category;
 DROP TABLE items;
+DROP TABLE seller_items;
 DROP TABLE sale;
 DROP TABLE sale_items;
 DROP TABLE wishlist;
@@ -118,8 +119,7 @@ ALTER TABLE items
 MODIFY COLUMN size VARCHAR(10) DEFAULT 'M' COMMENT '사이즈 (S/M/L)';
 ALTER TABLE items RENAME COLUMN is_deleted TO deleted;
 ALTER TABLE items ADD COLUMN deleted BOOLEAN DEFAULT FALSE;
-select deleted from items;
-
+select * from items;
 
 -- 판매자-상품 연결 테이블
 CREATE TABLE seller_items (
