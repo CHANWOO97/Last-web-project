@@ -34,7 +34,10 @@ public class BoardController {
 	private SellerService ses;
 
 	@GetMapping("/board/boardForm")
-	public String boardForm() {
+	public String boardForm(Model model) {
+		// 게시판 메인화면에 보여줄 문의내역 가져오기
+		List<SaleQuestion> Q_List = bs.getQuestionList();
+		model.addAttribute("Q_List",Q_List);
 	        return "/board/boardForm";
 	}
 

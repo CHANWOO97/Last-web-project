@@ -6,9 +6,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="select" parameterType="string" resultType="saleques">
 		select * from sale_question where u_id=#{u_id}
 	</select>
-	<!-- 구매문의 페이지에서 문의내용 입력 -->
+		<!-- 구매문의 페이지에서 문의내용 입력 -->
 	<insert id="insertSaleQuestion" parameterType="saleques">
 		insert into sale_question (u_id, i_id, name, email, content) 
 		values (#{u_id}, #{i_id}, #{name}, #{email}, #{content})
 	</insert>
+		<!-- 게시판 메인화면 문의내역 출력 / 구매문의 전체 리스트 -->
+	<select id="getQuestionList" parameterType="list" resultType="saleques">
+		select * from sale_question
+	</select>
 </mapper>

@@ -16,5 +16,5 @@ public class SaleQuestion {
 	private String email; // VARCHAR(100),
 	private String content; // TEXT NOT NULL, -- 문의 내용
 	private String answer; // TEXT, -- 관리자 답변
-	private Date regdate; // DEFAULT CURRENT_TIMESTAMP
+	private Date reg_date; // DEFAULT CURRENT_TIMESTAMP
 }

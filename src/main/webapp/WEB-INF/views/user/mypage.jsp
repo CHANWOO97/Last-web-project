@@ -172,8 +172,9 @@
 					</p>
 				</div>
 				<div class="mt-4 d-flex justify-content-end gap-2">
-					<input type="submit" value="회원정보 수정" class="btn btn-primary"> <a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a> <a
-						href="/layout/home" class="btn btn-secondary">뒤로가기</a>
+					<input type="submit" value="회원정보 수정" class="btn btn-primary"> 
+					<a href="/user/userDelete" class="btn btn-danger">회원탈퇴</a> 
+					<a href="/layout/home" class="btn btn-secondary">뒤로가기</a>
 				</div>
 			</div>
 		</div>

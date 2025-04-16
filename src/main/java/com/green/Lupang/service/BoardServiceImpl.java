@@ -1,5 +1,7 @@
 package com.green.Lupang.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,10 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public Integer insertSaleQuestion(SaleQuestion saleques) {
 		return bm.insertSaleQuestion(saleques);
+	}
+
+	@Override
+	public List<SaleQuestion> getQuestionList() {
+		return bm.getQuestionList();
 	}
 }
