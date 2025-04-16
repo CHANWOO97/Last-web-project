@@ -11,6 +11,15 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 	text-decoration: none;
 	color: black;
 }
+.img-hover-effect {
+	cursor: pointer; /* 마우스를 올렸을 때 손가락 모양으로 바꾸기 */
+	transition: transform 0.2s ease, box-shadow 0.2s ease; /* 마우스를 올릴 때의 변화가 부드럽게 일어나도록 => transform과 box-shadow 속성 천천히 변화 */
+}
+/* 이미지를 부드럽게 확대 + 그림자 추가 */
+.img-hover-effect:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
 </style>
 </head>
 <script>
@@ -34,10 +43,12 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 					<!-- 로그인 되었을때 사진/로그인/로그아웃 보이기 -->
 					<c:choose>
 						<c:when test="${not empty photo}">
-							<img src="/resources/images/user_photo/${photo}" class="rounded-circle" width="40" height="40">
+							<img src="/resources/images/user_photo/${photo}" class="rounded-circle img-hover-effect" width="40" height="40"
+								onclick="location.href='/user/mypage'">
 						</c:when>
 						<c:otherwise>
-							<img src="/resources/images/user_photo/user_base_photo.png" class="rounded-circle" width="40" height="40">
+							<img src="/resources/images/user_photo/user_base_photo.png" class="rounded-circle img-hover-effect" width="40" height="40"
+								onclick="location.href='/user/mypage'">
 						</c:otherwise>
 					</c:choose>
 					<c:if test="${id != 'admin'}">
@@ -87,26 +98,24 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 					</c:forEach>
 				</ul>
 			</div>
-
 			<!-- 로고 -->
 			<div class="logo me-4">
 				<a href="#" class="text-decoration-none fw-bold fs-4">Lupang</a>
 			</div>
-
 			<!-- 검색창 -->
 			<form class="search-area input-group flex-grow-1 me-4" action="/items/search" method="get">
-				<input type="text" name="q" class="form-control" placeholder="찾고 싶은 상품을 검색해보세요!"> <span class="input-group-text"><i class="bi bi-mic"></i></span>
+				<input type="text" name="q" class="form-control" placeholder="찾고 싶은 상품을 검색해보세요!"> <span class="input-group-text"><i
+					class="bi bi-mic"></i></span>
 				<button class="input-group-text" type="submit">
 					<i class="bi bi-search"></i>
 				</button>
 			</form>
-
 			<!-- 우측 아이콘 -->
 			<div class="icon-group d-flex gap-4">
 				<!-- 마이쿠팡 드롭다운 -->
 				<div class="dropdown text-center">
-					<a class="text-decoration-none text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i class="bi bi-person fs-4"></i><br> <span
-						style="font-size: 0.85rem;">마이쿠팡</span>
+					<a class="text-decoration-none text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <i
+						class="bi bi-person fs-4"></i><br> <span style="font-size: 0.85rem;">마이쿠팡</span>
 					</a>
 					<ul class="dropdown-menu text-center">
 						<li><a class="dropdown-item" href="/user/mypage">마이페이지</a></li>
