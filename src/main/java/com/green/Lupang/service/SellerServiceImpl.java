@@ -21,8 +21,11 @@ public class SellerServiceImpl implements SellerService{
 		return sm.insert(seller);
 	}
 	@Override
-	public List<Seller> seller_list() {
-		return sm.seller_list();
+	public List<Seller> seller_list(int startRow, int rowPerPage) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRow", startRow);
+		map.put("rowPerPage", rowPerPage);
+		return sm.seller_list(map);
 	}
 	@Override
 	public Seller selectByUid(String u_id) {

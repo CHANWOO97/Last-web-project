@@ -9,7 +9,7 @@ import com.green.Lupang.dto.SellerItems;
 public interface SellerService {
 	int insert(Seller seller);
 
-	List<Seller> seller_list();
+	List<Seller> seller_list(int startRow, int rowPerPage);
 
 	Seller selectByUid(String u_id);
 

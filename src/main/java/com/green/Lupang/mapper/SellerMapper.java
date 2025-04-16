@@ -12,7 +12,7 @@ import com.green.Lupang.dto.SellerItems;
 @Mapper
 public interface SellerMapper {
 	int insert(Seller seller);
-	List<Seller> seller_list();
+	List<Seller> seller_list(Map<String, Object> map);
 	Seller selectByUid(String u_id);
 	String ic_name(String u_id);
 	Seller select_id(String sr_id);

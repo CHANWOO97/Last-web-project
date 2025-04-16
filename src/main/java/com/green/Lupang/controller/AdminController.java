@@ -95,12 +95,28 @@ public class AdminController {
 	}
 
 	// 판매자, 회원, 상품 팀원 작업은 미리 경로만 잡아놓기
-	@GetMapping("/admin/sellers")
-	public String sellers(Model model) {
-		List<Seller> sellerRequests = ses.seller_list();
-		model.addAttribute("sellerRequests", sellerRequests);
-		return "admin/sellers";
-	}
+		@GetMapping("/admin/sellers")
+		public String sellers(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+			// 페이징
+			// 사용자 목록 가져오기
+			int rowPerPage = 10;
+			int startRow = (page - 1) * rowPerPage;
+			List<Seller> sellerRequests = ses.seller_list(startRow, rowPerPage);
+			// 총 유저 수
+			int totalUser = us.countAllUser();
+			// 페이징 계산
+			int totalPage = (int) Math.ceil((double) totalUser / rowPerPage);
+			int pagePerBlock = 10;
+			int startPage = page - (page - 1) % pagePerBlock;
+			int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+			model.addAttribute("currentPage", page);
+			model.addAttribute("startPage", startPage);
+			model.addAttribute("endPage", endPage);
+			model.addAttribute("totalPage", totalPage);
+			model.addAttribute("sellerRequests", sellerRequests);
+			return "admin/sellers";
+		}
 
 	// 판매자 요청 승인시
 	@GetMapping("/admin/approveSeller")

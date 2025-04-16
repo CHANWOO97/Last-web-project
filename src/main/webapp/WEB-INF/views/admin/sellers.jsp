@@ -85,5 +85,40 @@
 			</tbody>
 		</table>
 	</div>
+	<!-- 페이지네이션 -->
+		<nav>
+			<ul class="pagination justify-content-center mt-4">
+
+				<!-- 이전 버튼 -->
+				<c:choose>
+					<c:when test="${currentPage <= 1}">
+						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"> 
+						<span aria-hidden="true">&laquo;</span></a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="/admin/sellers?page=${currentPage - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+					</c:otherwise>
+				</c:choose>
+
+				<!-- 숫자 페이지 -->
+				<c:forEach var="i" begin="${startPage}" end="${endPage}">
+					<li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/sellers?page=${i}">${i}</a></li>
+				</c:forEach>
+
+				<!-- 다음 버튼 -->
+				<c:choose>
+					<c:when test="${currentPage >= totalPage}">
+						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Next"> 
+						<span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a class="page-link" href="/admin/sellers?page=${currentPage + 1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						</a></li>
+					</c:otherwise>
+				</c:choose>
+
+			</ul>
+		</nav>
 </body>
 </html>
