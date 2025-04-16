@@ -17,13 +17,25 @@
 	<div class="content mt-5">
 		<h2 class="mb-5">카테고리 관리</h2>
 		<!-- 상단: 등록 폼 -->
-		<form method="post" action="/admin/categories/add"	class="d-flex gap-2 mb-4">
-			<input type="text" name="ic_id" placeholder="카테고리 ID"
-				class="form-control" required /> <input type="text" name="ic_name"
-				placeholder="카테고리명" class="form-control" required />
-			<button class="btn btn-success">등록</button>
-		</form>
-
+		<div class="card shadow-sm p-3 mb-4" style="max-width: 800px;">
+			<form method="post" action="/admin/categories/add"	class="row g-2 align-items-center">
+				<div class="col-md-4">
+					<label class="form-label mb-1 fw-semibold">카테고리 ID</label> <input
+						type="text" name="ic_id" value="${newIc_id}" readonly
+						class="form-control-plaintext fw-bold text-secondary">
+				</div>
+				<div class="col-md-5">
+					<label class="form-label mb-1 fw-semibold">카테고리명</label> <input
+						type="text" name="ic_name" class="form-control"
+						placeholder="예: 생활용품" required>
+				</div>
+				<div class="col-md-3 d-grid">
+					<label class="form-label invisible">제출</label>
+					<!-- 높이 맞춤용 -->
+					<button class="btn btn-success fw-bold">등록</button>
+				</div>
+			</form>
+		</div>
 		<!-- 목록 테이블 -->
 		<table class="table table-bordered text-center">
 			<thead class="table-dark">

@@ -72,7 +72,11 @@ public class AdminController {
 	@GetMapping("/admin/categories")
 	public String categories(Model model) {
 		List<ItemsCategory> categories = is.ic_list();
+		String lastId = categories.get(categories.size() - 1).getIc_id();
+		int number = Integer.parseInt(lastId.substring(3)) + 1;
+		String newId = String.format("cat%03d", number);
 		model.addAttribute("categories", categories);
+		model.addAttribute("newIc_id",newId);
 		return "admin/categories";
 	}
 
