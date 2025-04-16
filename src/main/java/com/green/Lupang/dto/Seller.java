@@ -24,7 +24,7 @@ public class Seller {
     // 증빙 업로드용
     private MultipartFile file;
     private String ic_name;
-    // 관리자 페이지 seller_role 추가
+    // 관리자 페이지 seller_role 추가 (n:일반사용자/w:승인대기중/y:판매자승인완료)
     private String seller_role;
     
 }

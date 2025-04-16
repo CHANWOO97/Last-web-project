@@ -1,5 +1,6 @@
 package com.green.Lupang.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -166,5 +167,16 @@ public class AdminController {
 	    // 2. 목록 페이지 이동하기전 업데이트 완료 페이지로 리다이렉트
 	    return "admin/itemsUpdate";
 	}
-
+	@GetMapping("/admin/users")
+	public String users(Model model) {
+		List<User> adminUserList = us.user_list();
+		model.addAttribute("adminUserList",adminUserList);
+		return "admin/users";
+	}
+	@PostMapping("/admin/updateDel")
+	public String updateDel(@RequestParam("u_id") String u_id,
+			@RequestParam("del") String del) {
+		us.updateDel();
+		return "redirect:/admin/updateDel";
+	}
 }
