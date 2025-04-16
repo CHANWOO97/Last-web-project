@@ -57,4 +57,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    JOIN items i ON si.i_id = i.i_id        
 	    WHERE s.u_id = #{u_id}                   -- 조건: 로그인한 사용자의 ID와 일치하는 주문만 조회
 	</select>
+	
+	<!-- 인기 구매 top 5 그래프를 위한 쿼리! -->
+	<select id="getTopSellingItems" resultType="TopSaleItemDTO">
+		SELECT i.name, COUNT(*) AS count
+		FROM sale_items si
+		JOIN items i ON si.i_id = i.i_id
+		GROUP BY si.i_id
+		ORDER BY count DESC
+		LIMIT 5
+	</select>
 </mapper>

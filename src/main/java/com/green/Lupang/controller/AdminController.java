@@ -15,6 +15,7 @@ import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.Seller;
+import com.green.Lupang.dto.TopSaleItemDTO;
 import com.green.Lupang.dto.User;
 import com.green.Lupang.service.ItemsService;
 import com.green.Lupang.service.SaleService;
@@ -33,11 +34,6 @@ public class AdminController {
 	private SellerService ses;
 	@Autowired
 	private UserService us;
-
-	@GetMapping("/admin/adminForm")
-	public String adminHome() {
-		return "admin/adminForm";
-	}
 
 	// 향후 추가될 기능들
 	// 주문 관리
@@ -200,5 +196,14 @@ public class AdminController {
 		user.setDel(del);
 		int result = us.updateDel(user);
 		return "redirect:/admin/users";
+	}
+	
+	/// 여기부터는 관리자 통합 그래프 용도	
+	// 📍 AdminAnalyticsController.java
+	@GetMapping("/admin/adminForm")
+	public String analytics1(Model model) {
+	    List<TopSaleItemDTO> topItems = ss.getTopSellingItems();
+	    model.addAttribute("topItems", topItems);
+	    return "admin/adminForm";
 	}
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleItems;
+import com.green.Lupang.dto.TopSaleItemDTO;
 import com.green.Lupang.mapper.SaleMapper;
 
 @Service
@@ -73,5 +74,10 @@ public class SaleServiceImpl implements SaleService{
 	@Override
 	public List<Items> getbuyItems(String u_id) {
 		return sm.getbuyItems(u_id);
+	}
+
+	@Override
+	public List<TopSaleItemDTO> getTopSellingItems() {
+		return sm.getTopSellingItems();
 	}
 }

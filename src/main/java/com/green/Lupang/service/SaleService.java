@@ -5,6 +5,7 @@ import java.util.List;
 import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleItems;
+import com.green.Lupang.dto.TopSaleItemDTO;
 
 public interface SaleService {
 	void saleSave(Sale sale);
@@ -16,5 +17,6 @@ public interface SaleService {
 	int saleCountByOrder(String id);
 	int saleCountByOrderAll();
 	List<Sale> getAdminOrderList(int offset, int pageSize);
-	List<Items> getbuyItems(String u_id);	
+	List<Items> getbuyItems(String u_id);
+	List<TopSaleItemDTO> getTopSellingItems();	
 }
