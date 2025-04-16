@@ -70,8 +70,20 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public List<User> user_list() {
-		return um.user_list();
+	public List<User> user_list(int startRow, int rowPerPage) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("startRow", startRow);
+		map.put("rowPerPage", rowPerPage);
+		return um.user_list(map);
 	}
 
+	@Override
+	public int updateDel(User user) {
+		return um.updateDel(user);
+	}
+
+	@Override
+	public int countAllUser() {
+		return um.countAllUser();
+	}
 }

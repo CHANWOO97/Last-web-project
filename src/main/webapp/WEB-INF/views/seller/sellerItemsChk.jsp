@@ -94,10 +94,11 @@
 				<!-- 이전 버튼 -->
 				<c:choose>
 					<c:when test="${currentPage <= 1}">
-						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Previous"> 
+						<span aria-hidden="true">&laquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="?sr_id=${sr_id}&page=${currentPage - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
+						<li class="page-item"><a class="page-link" href="/seller/sellerItemsChk?sr_id=${sr_id}&page=${currentPage - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>
 
@@ -109,11 +110,13 @@
 				<!-- 다음 버튼 -->
 				<c:choose>
 					<c:when test="${currentPage >= totalPage}">
-						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						<li class="page-item disabled"><a class="page-link" href="#" aria-label="Next"> 
+						<span aria-hidden="true">&raquo;</span>
 						</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="?sr_id=${sr_id}&page=${currentPage + 1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+						<li class="page-item"><a class="page-link" href="/seller/sellerItemsChk?sr_id=${sr_id}&page=${currentPage + 1}" aria-label="Next"> 
+						<span aria-hidden="true">&raquo;</span>
 						</a></li>
 					</c:otherwise>
 				</c:choose>

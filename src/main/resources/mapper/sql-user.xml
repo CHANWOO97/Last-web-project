@@ -42,8 +42,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateSellerRole_N" parameterType="string">
 		update user_table set seller_role = 'n' where u_id = #{u_id}
 	</update>
-		<!-- 유저 리스트 전체 가져오기 -->
-	<select id="user_list" parameterType="list" resultType="user">
-		select * from user_table;
+		<!-- 페이징 / 유저 리스트 전체 가져오기 -->
+	<select id="user_list" parameterType="map" resultType="user">
+		select * from user_table order BY reg_date desc limit #{startRow}, #{rowPerPage}
+	</select>
+		<!-- 관리자 회원관리 테이블 / 유저관리기능 (탈퇴 on/off)  -->
+	<update id="updateDel" parameterType="user">
+		update user_table set del=#{del} where u_id=#{u_id}
+	</update>
+		<!-- 전체 유저 조회 -->
+	<select id="countAllUser" parameterType="int" >
+		select count(*) from user_table
 	</select>
 </mapper>

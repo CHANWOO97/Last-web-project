@@ -114,7 +114,7 @@ public class SellerController {
 	@GetMapping("/seller/sellerItemsChk")
 	public String sellerItemsChk(HttpSession session, Model model,
 			 @RequestParam(value = "page", defaultValue = "1") int page) {
-		// 유저의 sr_id 조회
+		// 유저의 sr_id 조회 session에서 가지고 온 이유는 메인페이지에서 내상품 보러가기해야해서
 		String u_id = (String) session.getAttribute("id");
 		User user = us.select(u_id);
 		int sr_id = user.getSr_id();
@@ -123,26 +123,21 @@ public class SellerController {
 		//페이징
 		int rowPerPage = 10;
 	    int startRow = (page - 1) * rowPerPage;
-	    
+	    // 판매자 등록 상품 리스트 가져오기
+		List<Items> myItems = ses.getItemsBySeller(sr_id, startRow, rowPerPage );
 	    // 총 등록 상품 수
 	    int totalCount = ses.countItemsBySeller(sr_id);
-	    
 	    // 페이징 계산
 	    int totalPage = (int) Math.ceil((double) totalCount / rowPerPage);
 	    int pagePerBlock = 10;
 	    int startPage = page - (page - 1) % pagePerBlock;
 	    int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
 
-	    // 판매자 등록 상품 리스트 가져오기
-		List<Items> myItems = ses.getItemsBySeller(sr_id, startRow, rowPerPage );
-		
-		model.addAttribute("myItems", myItems);
 	    model.addAttribute("currentPage", page);
 	    model.addAttribute("startPage", startPage);
 	    model.addAttribute("endPage", endPage);
 	    model.addAttribute("totalPage", totalPage);
-		
-	
+		model.addAttribute("myItems", myItems);
 		return "/seller/sellerItemsChk";
 	}
 

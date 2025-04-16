@@ -94,7 +94,6 @@ public class ItemsServiceImpl implements ItemsService{
 	}
 	@Override
 	public int updateItemStatusDeleted(Items item) {
-		// TODO Auto-generated method stub
 		return im.updateItemStatusDeleted(item);
 	}
 }

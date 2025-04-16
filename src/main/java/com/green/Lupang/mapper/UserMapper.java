@@ -19,5 +19,7 @@ public interface UserMapper {
 	void updateSRoleWait(String u_id);
 	void updateSellerRole_Y(String u_id);
 	void updateSellerRole_N(String u_id);
-	List<User> user_list();
+	List<User> user_list(Map<String, Object> map);
+	int updateDel(User user);
+	int countAllUser();
 }

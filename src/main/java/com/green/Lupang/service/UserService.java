@@ -26,7 +26,9 @@ public interface UserService {
 
 	void updateSellerRole_N(String u_id);
 
-	List<User> user_list();
+	List<User> user_list(int startRow, int rowPerPage);
 
+	int updateDel(User user);
 
+	int countAllUser();
 }

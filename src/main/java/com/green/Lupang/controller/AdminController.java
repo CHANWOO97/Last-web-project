@@ -167,16 +167,38 @@ public class AdminController {
 	    // 2. 목록 페이지 이동하기전 업데이트 완료 페이지로 리다이렉트
 	    return "admin/itemsUpdate";
 	}
+
 	@GetMapping("/admin/users")
-	public String users(Model model) {
-		List<User> adminUserList = us.user_list();
-		model.addAttribute("adminUserList",adminUserList);
+	public String users(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		// 페이징
+		// 사용자 목록 가져오기
+		int rowPerPage = 10;
+		int startRow = (page - 1) * rowPerPage;
+		List<User> adminUserList = us.user_list(startRow, rowPerPage);
+		model.addAttribute("adminUserList", adminUserList);
+		// 총 유저 수
+		int totalUser = us.countAllUser();
+		// 페이징 계산
+		int totalPage = (int) Math.ceil((double) totalUser / rowPerPage);
+		int pagePerBlock = 10;
+		int startPage = page - (page - 1) % pagePerBlock;
+		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("totalUser", totalUser);
 		return "admin/users";
 	}
+	
 	@PostMapping("/admin/updateDel")
 	public String updateDel(@RequestParam("u_id") String u_id,
 			@RequestParam("del") String del) {
-		us.updateDel();
-		return "redirect:/admin/updateDel";
+		User user = new User();
+		user.setU_id(u_id);
+		user.setDel(del);
+		int result = us.updateDel(user);
+		return "redirect:/admin/users";
 	}
 }
