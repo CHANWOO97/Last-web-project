@@ -18,4 +18,6 @@ public class SellerItems {
     private String size;
     private String stock;
     private String price;
+    // 관리자 상품 삭제 여부 default false
+    private boolean deleted;
 }
