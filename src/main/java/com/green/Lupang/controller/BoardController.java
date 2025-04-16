@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.User;
 import com.green.Lupang.dto.SaleQuestion;
+import com.green.Lupang.dto.Seller;
 import com.green.Lupang.mapper.ItemsMapper;
 import com.green.Lupang.service.BoardService;
 import com.green.Lupang.service.SaleService;
@@ -34,11 +35,27 @@ public class BoardController {
 	private SellerService ses;
 
 	@GetMapping("/board/boardForm")
-	public String boardForm(Model model) {
+	public String boardForm(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		// 페이징
+		// 사용자 목록 가져오기
+		int rowPerPage = 4;
+		int startRow = (page - 1) * rowPerPage;
 		// 게시판 메인화면에 보여줄 문의내역 가져오기
-		List<SaleQuestion> Q_List = bs.getQuestionList();
-		model.addAttribute("Q_List",Q_List);
-	        return "/board/boardForm";
+		List<SaleQuestion> Q_List = bs.getQuestionList(startRow, rowPerPage);
+		// 총 댓글 수
+		int totalQuestion = bs.countAllQuestion();
+		// 페이징 계산
+		int totalPage = (int) Math.ceil((double) totalQuestion / rowPerPage);
+		int pagePerBlock = 10;
+		int startPage = page - (page - 1) % pagePerBlock;
+		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("Q_List", Q_List);
+	    return "/board/boardForm";
 	}
 
 	@GetMapping("/board/saleQuestionForm")
@@ -65,5 +82,36 @@ public class BoardController {
 	
 	@GetMapping("/board/qAndAForm")
 	public void qAndAForm() {
+	}
+	// board/boardForm 게시판 메인페이지에서 최근 문의글 조회
+	@GetMapping("/board/questionDetail")
+	public void questionDetail(@RequestParam("q_id") int q_id, Model model) {
+		List<SaleQuestion> question = bs.getQuestion(q_id);
+		model.addAttribute("question", question);
+	}
+	@GetMapping("/board/myQuestion")
+	public void myQuestion(HttpSession session, Model model,
+			@RequestParam(value = "page", defaultValue = "1") int page) {
+		String u_id = (String)session.getAttribute("id");
+		
+		// 페이징
+		// 문의 목록 가져오기
+		int rowPerPage = 10;
+		int startRow = (page - 1) * rowPerPage;
+		// /board/myQuestion => 내 문의 내역 가져오기
+		List<SaleQuestion> myquestionList = bs.getMyQuestion(u_id, startRow, rowPerPage);
+		// 내가 한 총 문의
+		int myQCount = bs.myQuestionCount(u_id);
+		// 페이징 계산
+		int totalPage = (int) Math.ceil((double) myQCount / rowPerPage);
+		int pagePerBlock = 10;
+		int startPage = page - (page - 1) % pagePerBlock;
+		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("myquestionList", myquestionList);
 	}
 }

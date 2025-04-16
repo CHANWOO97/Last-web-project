@@ -17,4 +17,6 @@ public class SaleQuestion {
 	private String content; // TEXT NOT NULL, -- 문의 내용
 	private String answer; // TEXT, -- 관리자 답변
 	private Date reg_date; // DEFAULT CURRENT_TIMESTAMP
+	// items 테이블에서 상품이름 가져오기
+	private String itemName;
 }

@@ -22,6 +22,7 @@
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="/board/boardForm">구매 문의</a></li>
 						<li><a class="dropdown-item" href="/board/boardForm">Q&A</a></li>
+						<li><a class="dropdown-item" href="/board/myQuestion">내 문의 내역</a></li>
 					</ul>
 				</div>
 			</div>

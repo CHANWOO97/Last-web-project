@@ -10,6 +10,14 @@ public interface BoardService {
 
 	Integer insertSaleQuestion(SaleQuestion saleques);
 
-	List<SaleQuestion> getQuestionList();
+	List<SaleQuestion> getQuestionList(int startRow, int rowPerPage);
+
+	int countAllQuestion();
+
+	List<SaleQuestion> getQuestion(int q_id);
+
+	List<SaleQuestion> getMyQuestion(String u_id, int startRow, int rowPerPage);
+
+	int myQuestionCount(String u_id);
 
 }

@@ -1,6 +1,7 @@
 package com.green.Lupang.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,5 +14,13 @@ public interface BoardMapper {
 
 	Integer insertSaleQuestion(SaleQuestion saleques);
 
-	List<SaleQuestion> getQuestionList();
+	List<SaleQuestion> getQuestionList(Map<String, Object> map);
+
+	int countAllQuestion();
+
+	List<SaleQuestion> getQuestion(int q_id);
+
+	List<SaleQuestion> getMyQuestion(Map<String, Object> map);
+
+	int myQuestionCount(String u_id);
 }

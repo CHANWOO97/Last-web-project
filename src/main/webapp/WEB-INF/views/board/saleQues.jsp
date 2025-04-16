@@ -6,7 +6,7 @@
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
 			alert("구매문의가 정상적으로 접수되었습니다.")
-			location.href="board/boardForm"
+			location.href="/board/boardForm"
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">

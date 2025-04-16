@@ -24,6 +24,7 @@
   <table class="table table-bordered table-hover align-middle text-center">
     <thead>
       <tr>
+      	<th>번호</th>
         <th>판매자 ID</th>
         <th>대표자 이름</th>
         <th>사업자번호</th>
@@ -35,8 +36,9 @@
       </tr>
     </thead>
     <tbody>
-      <c:forEach var="seller" items="${sellerRequests}">
+      <c:forEach var="seller" items="${sellerRequests}" varStatus="vs">
         <tr>
+          <td>${vs.index + 1}</td>
           <td>${seller.u_id}</td>
           <td>${seller.on_id}</td>
           <td>${seller.sr_ev}</td>
