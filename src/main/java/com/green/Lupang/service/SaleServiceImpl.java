@@ -80,4 +80,9 @@ public class SaleServiceImpl implements SaleService{
 	public List<TopSaleItemDTO> getTopSellingItems() {
 		return sm.getTopSellingItems();
 	}
+
+	@Override
+	public List<Integer> findItemIdsBySaleId(String s_id) {
+		return sm.findItemIdsBySaleId(s_id);
+	}
 }

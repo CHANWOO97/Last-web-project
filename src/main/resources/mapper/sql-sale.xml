@@ -14,6 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findById" parameterType="String" resultType="sale">
 		select * from sale where s_id=#{s_id}
 	</select>
+	<select id="findItemIdsBySaleId" parameterType="String" resultType="integer">
+		select i_id from sale_items where s_id = #{s_id}
+	</select>
 	<select id="getSaleItems" parameterType="String" resultType="sale_items">
 		select si.i_id, i.name, i.photo, i.price, si.quantity from sale_items si
 			join items i on si.i_id=i.i_id where si.s_id=#{s_id}

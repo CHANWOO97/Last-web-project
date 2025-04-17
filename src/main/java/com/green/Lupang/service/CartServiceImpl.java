@@ -14,6 +14,8 @@ import com.green.Lupang.dto.Cart;
 import com.green.Lupang.dto.CartItem;
 import com.green.Lupang.dto.CartItemDTO;
 import com.green.Lupang.dto.Items;
+import com.green.Lupang.dto.Sale;
+import com.green.Lupang.dto.SaleItems;
 import com.green.Lupang.mapper.CartMapper;
 import com.green.Lupang.mapper.ItemsMapper;
 
@@ -92,7 +94,19 @@ public class CartServiceImpl implements CartService{
 		
 	}
 	@Override
-	public void clearCart(String c_id) {
-		cm.clearCart(c_id);
+	public void clearCart(String c_id, List<Integer> selectedItems) {
+		for (int i_id : selectedItems) {
+			CartItem cartitem = new CartItem();
+			cartitem.setC_id(c_id);
+			cartitem.setI_id(String.valueOf(i_id));
+			cm.clearCart(cartitem);
+		}
+	}
+	@Override
+	public int findCartByUserAndItem(String id, String i_id) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("i_id", i_id);
+		map.put("u_id", id);
+		return cm.findCartByUserAndItem(map);
 	}
 }

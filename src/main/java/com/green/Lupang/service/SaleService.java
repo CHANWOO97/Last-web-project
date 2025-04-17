@@ -18,5 +18,6 @@ public interface SaleService {
 	int saleCountByOrderAll();
 	List<Sale> getAdminOrderList(int offset, int pageSize);
 	List<Items> getbuyItems(String u_id);
-	List<TopSaleItemDTO> getTopSellingItems();	
+	List<TopSaleItemDTO> getTopSellingItems();
+	List<Integer> findItemIdsBySaleId(String s_id);	
 }

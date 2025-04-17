@@ -14,11 +14,16 @@
 	}
 	function updateTotalPrice() {
 	  let total = 0;
-	  $('.item-check:checked').each(function() {
-		const $card = $(this).closest('.card');
-	    const price = parseInt($card.find('.quantity-input').data('price'));
-	    const qty = parseInt($card.find('.quantity-input').val());
-	    total += price * qty;
+	  $('.card-body').each(function () {
+		    const isChecked = $(this).find('.item-check').prop('checked');
+		    const price = parseInt($(this).find('.quantity-input').data('price')) || 0;
+		    const qty = parseInt($(this).find('.quantity-input').val()) || 0;
+
+		    // ✅ 여기에서 바로 개별 상품 금액도 업데이트!
+		    $(this).find('.item-total-price').text((price * qty).toLocaleString());
+
+		    if (!isChecked) return; // 체크 안 된 항목은 총합 제외
+		    total += price * qty;
 	  });
 	  $('#total-price').text(total.toLocaleString() + '원');
 	};
@@ -116,14 +121,16 @@
         <div class="card mb-3 border-0 shadow-sm" data-iid="${item.i_id}">
           <div class="card-body d-flex align-items-center">
             <input type="checkbox" name="selectedItems" class="form-check-input me-3 mt-1 item-check"
-              value="${item.i_id}_${item.quantity}">
+              value="${item.i_id}">
 
             <img src="/resources/images/items_photo/${item.photo}" width="100" class="me-4 rounded" alt="${item.name}">
 
             <div class="flex-grow-1">
               <h5 class="fw-bold mb-2">${item.name}</h5>
               <div class="text-danger fs-5 fw-bold">
-                <fmt:formatNumber value="${item.price}" type="number" /> 원
+              	<span class="item-total-price">
+                	<fmt:formatNumber value="${item.price * item.quantity}" type="number" />
+                </span> 원
               </div>
             </div>
 

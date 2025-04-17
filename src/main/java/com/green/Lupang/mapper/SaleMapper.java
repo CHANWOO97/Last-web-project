@@ -23,4 +23,5 @@ public interface SaleMapper {
 	List<Sale> getAdminOrderList(Map<String, Object> map);
 	List<Items> getbuyItems(String u_id);
 	List<TopSaleItemDTO> getTopSellingItems();
+	List<Integer> findItemIdsBySaleId(String s_id);
 }

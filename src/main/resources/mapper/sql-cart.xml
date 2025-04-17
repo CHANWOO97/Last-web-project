@@ -35,6 +35,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	<!-- 결제 완료 후 cart_items 테이블에서 장바구니에 해당하는 상품 삭제 -->
 	<delete id="clearCart" parameterType="cart_items">
-		delete from cart_items where c_id = #{c_id}
+		delete from cart_items  where c_id = #{c_id} and i_id = #{i_id}
 	</delete>
+	
+	<select id="findCartByUserAndItem" parameterType="map" resultType="integer">
+  		select ci.quantity  from cart_items ci  join cart c on ci.c_id = c.c_id
+  		where c.u_id = #{u_id} and ci.i_id = #{i_id}
+	</select>
 </mapper>

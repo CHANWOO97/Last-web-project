@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.green.Lupang.dto.Cart;
 import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
@@ -43,12 +44,9 @@ public class SaleController {
 		User user = us.select(id);
 		List<SaleItems> saleItems = new ArrayList<>();	
 		List<ItemsCategory> ic_list = is.ic_list();		
-		for (String selectItem : selectedItems) { // selectedItems 값을 ${item.i_id}_${item.quantity} 이렇게 받아옴
-			String [] parts = selectItem.split("_");
-			String i_id = parts[0];			
-			int quantity = Integer.parseInt(parts[1]);
+		for (String i_id : selectedItems) { // selectedItems 값을 ${item.i_id}_${item.quantity} 이렇게 받아옴
 			Items item = is.select(i_id);
-			
+			int quantity = cs.findCartByUserAndItem(id, i_id);
 			SaleItems si = new SaleItems();
 			si.setName(item.getName()); si.setPhoto(item.getPhoto());
 			si.setPrice(item.getPrice()); si.setQuantity(quantity);
@@ -107,6 +105,9 @@ public class SaleController {
             					@RequestParam("merchant_uid") String merchantUid,	Model model) {
 		// 1. 주문 상태 업데이트
 		Sale sale = ss.findById(s_id);
+		// 2. 결제한 상품 ID 목록
+		List<Integer> selectedItems = ss.findItemIdsBySaleId(s_id);
+		
 		// 결제를 위한 결제 서비스 로직 메서드
 		boolean isPaid = ims.verifyPayment(impUid, merchantUid, sale.getTotal());
 		if (!isPaid) {
@@ -115,7 +116,8 @@ public class SaleController {
 	    }
 		sale.setS_status("y"); // 주문 상태 y 로 바꿈
 		ss.updateStatus(sale);
-		cs.clearCart(sale.getC_id());
+		// 2. 해당 상품만 장바구니에서 제거
+		cs.clearCart(sale.getC_id(), selectedItems);
 		
 		// 4. 주문 상세 조회 및 페이지 이동
 		Sale sale2 = ss.findById(sale.getS_id());	

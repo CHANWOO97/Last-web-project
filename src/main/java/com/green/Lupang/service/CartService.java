@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.green.Lupang.dto.CartItem;
 import com.green.Lupang.dto.CartItemDTO;
+import com.green.Lupang.dto.Sale;
 
 public interface CartService {
 
@@ -12,5 +13,6 @@ public interface CartService {
 	List<CartItemDTO> getCartItemsByUserId(String id);
 	void updateQuantity(String id, String i_id, int quantity);
 	void deleteItem(String id, String i_id);
-	void clearCart(String c_id);
+	void clearCart(String c_id, List<Integer> selectedItems);
+	int findCartByUserAndItem(String id, String i_id);
 }
