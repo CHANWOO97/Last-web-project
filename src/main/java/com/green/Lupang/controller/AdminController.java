@@ -221,9 +221,9 @@ public class AdminController {
 	public String question(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		// 전체 문의 리스트 가져오기
 		// 페이징
-		int rowPerPage = 15;
+		int rowPerPage = 10;
 		int startRow = (page - 1) * rowPerPage;
-		// 페이징을 위한 문의내역 가져오기(0~15개씩)
+		// 페이징을 위한 문의내역 가져오기(0~10개씩)
 		List<SaleQuestion> QuestionListPage = bs.getQuestionListPage(startRow, rowPerPage);
 		// 총 댓글 수
 		int totalQuestion = bs.countAllQuestion();
@@ -251,10 +251,48 @@ public class AdminController {
 		}
 		// admin/approveQuestionForm 문의 답변페이지
 		@PostMapping("/admin/approveQuestion")
-		public String approveQuestion(Model model, SaleQuestion saleQuestion) {
-			int result = bs.updateAnswerState(saleQuestion.getQ_id());
-			model.addAttribute("result", result);
-			return "/admin/approveQuestion";
+		public String approveQuestion(Model model, 
+				@RequestParam("q_id") int q_id,
+                @RequestParam("u_id") String u_id,
+                @RequestParam("answer") String answer,
+                @RequestParam("answer_state") String answer_state) {
+			
+		SaleQuestion sqAnswer = new SaleQuestion();
+		sqAnswer.setQ_id(q_id);
+		sqAnswer.setU_id(u_id);
+		sqAnswer.setAnswer_state(answer_state);
+		sqAnswer.setAnswer(answer);
+		
+		int result = bs.updateAnswer(sqAnswer);
+		model.addAttribute("result", result);
+		return "/admin/approveQuestion";
+		}
+		// admin/question 답변 수정하기
+		@GetMapping("/admin/rejectQuestionForm")
+		public String rejectQuestionForm(@RequestParam("q_id") int q_id,
+				@RequestParam("u_id") String u_id, @RequestParam("itemName") String itemName, Model model) {
+		List<SaleQuestion> questionListByq_id = bs.getQuestion(q_id);
+		model.addAttribute("questionListByq_id",questionListByq_id);
+		model.addAttribute("itemName",itemName);	
+		return "/admin/rejectQuestionForm";
+		}
+		// admin/approveQuestionForm 문의 답변페이지
+		@PostMapping("/admin/rejectQuestion")
+		public String rejectQuestion(Model model, 
+				@RequestParam("q_id") int q_id,
+                @RequestParam("u_id") String u_id,
+                @RequestParam("answer") String answer,
+                @RequestParam("answer_state") String answer_state) {
+			
+		SaleQuestion sqAnswer = new SaleQuestion();
+		sqAnswer.setQ_id(q_id);
+		sqAnswer.setU_id(u_id);
+		sqAnswer.setAnswer_state(answer_state);
+		sqAnswer.setAnswer(answer);
+		
+		int result = bs.updateAnswer(sqAnswer);
+		model.addAttribute("result", result);
+		return "/admin/rejectQuestion";
 		}
 		
 	/// 여기부터는 관리자 통합 그래프 용도	

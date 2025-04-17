@@ -24,6 +24,16 @@
 </style>
 </head>
 <body>
+<script type="text/javascript">
+	function chk() {
+		const result = confirm("답변이 완료된 문의입니다. 수정하시겠습니까?");
+		if (result) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+</script>
 	<div class="content mt-5">
 		<h2 class="mb-5">구매 문의 관리</h2>
 		<table class="table table-bordered table-hover align-middle text-center">
@@ -42,33 +52,31 @@
 			<tbody>
 				<c:forEach var="q" items="${QuestionListPage}" varStatus="vs">
 					<tr>
-						<c:set var="pageSize" value="15" />
-						<!-- currentPage = 현재 페이지, pageSize = 몇개씩 보여줄건지(15개씩), vs.index = 한페이지내에서 번호(0부터 14까지)  -->
+						<c:set var="pageSize" value="10" />
+						<!-- currentPage = 현재 페이지, pageSize = 몇개씩 보여줄건지(10개씩), vs.index = 한페이지내에서 번호(0부터 9까지)  -->
 						<td>${(currentPage - 1) * pageSize + vs.index + 1}</td>
 						<td>${q.u_id}</td>
 						<td>${q.name}</td>
 						<td>${q.itemName}</td>
 						<td class="text-start">${q.content}</td>
-						<!-- 기존 answer 출력 부분 수정 -->
 						<c:choose>
 							<c:when test="${q.answer_state == 'n'}">
 								<td class="text-start"></td>
 							</c:when>
 							<c:otherwise>
-								<td class="text-start"><span id="answerText${q.q_id}">${q.answer}</span> 
-								<textarea id="answerEdit${q.q_id}" name="answer"
-										class="form-control d-none" rows="2">${q.answer}</textarea></td>
+								<td class="text-start">${q.answer}
 							</c:otherwise>
 						</c:choose>
 						<td><fmt:formatDate value="${q.reg_date}" pattern="yyyy-MM-dd" /></td>
 						<!-- 답변 처리 버튼 -->
 						<td><c:choose>
 								<c:when test="${q.answer_state == 'n'}">
-									<a href="/admin/approveQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" class="btn btn-sm btn-outline-danger">답변하기</a>
+									<a href="/admin/approveQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" 
+									class="btn btn-sm btn-outline-danger">답변하기</a>
 								</c:when>
 								<c:when test="${q.answer_state == 'y'}">
-									<a href="/admin/rejectQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" class="btn btn-sm btn-outline-success">답변완료</a>
-									
+									<a href="/admin/rejectQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" 
+									class="btn btn-sm btn-outline-success" onclick="return chk()">답변완료</a>	
 								</c:when>
 							</c:choose></td>
 					</tr>

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<title>답변 작성</title>
+<title>답변 수정</title>
 <style>
 .form-label {
 	font-weight: bold;
@@ -18,7 +18,7 @@
 		<h3 class="mb-4 text-primary">📨 문의 답변</h3>
 
 		<c:forEach var="q" items="${questionListByq_id}">
-			<form action="/admin/approveQuestion" method="post">
+			<form action="/admin/rejectQuestion" method="post">
 				<input type="hidden" name="q_id" value="${q.q_id}" /> 
 				<input type="hidden" name="answer_state" value="y" />
 				<input type="hidden" name="u_id" value="${q.u_id}" />
@@ -48,7 +48,7 @@
 				</div>
 
 				<div class="mb-3">
-					<label class="form-label">답변 작성</label>
+					<label class="form-label">답변 수정</label>
 					<textarea name="answer" class="form-control" rows="6" placeholder="답변을 입력하세요">${q.answer}</textarea>
 				</div>
 

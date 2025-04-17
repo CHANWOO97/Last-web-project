@@ -42,16 +42,17 @@ main {
 					무엇을 도와드릴까요?<br>구매 전 상담부터 Q&A까지 한 번에!
 				</p>
 				<div class="d-grid gap-2 d-md-flex">
-					<a href="/board/saleQuestionForm" class="btn btn-primary px-4">구매문의</a> <a href="/board/qAndAForm" class="btn btn-outline-secondary px-4">Q&A</a>
+					<a href="/board/saleQuestionForm" class="btn btn-primary px-4">구매문의</a> 
+					<a href="/board/qAndAForm" class="btn btn-outline-secondary px-4">Q&A</a>
 				</div>
 			</div>
 
 			<!-- 오른쪽 이미지 영역: col-md-6 전체 사용 -->
 			<div class="col-md-6 text-end">
-				<img src="/resources/images/board_photo/boardquestion.png" alt="고객센터 이미지" class="img-fluid" style="max-height: 400px; object-fit: contain;">
+				<img src="/resources/images/board_photo/boardquestion.png" alt="고객센터 이미지" class="img-fluid" style="max-height: 400px; 
+				object-fit: contain;">
 			</div>
 		</div>
-
 		<!-- 최근 문의글 (아래로) -->
 		<div class="row mt-4">
 			<div class="col-md-12">

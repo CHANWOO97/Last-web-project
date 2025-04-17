@@ -66,7 +66,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public int updateAnswerState(Integer q_id) {
-		return bm.updateAnswerState(q_id);
+	public int updateAnswer(SaleQuestion sqAnswer) {
+		return bm.updateAnswer(sqAnswer);
 	}
+
 }

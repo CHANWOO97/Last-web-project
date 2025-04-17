@@ -26,5 +26,6 @@ public interface BoardMapper {
 
 	List<SaleQuestion> getMyQuestionByU_id(Map<String, Object> map);
 
-	int updateAnswerState(Integer q_id);
+	int updateAnswer(SaleQuestion sqAnswer);
+
 }

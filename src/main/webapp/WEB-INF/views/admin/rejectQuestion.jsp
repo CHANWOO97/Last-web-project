@@ -5,13 +5,13 @@
 </head><body>
 	<c:if test="${result == 1 }">
 		<script type="text/javascript">
-			alert("답변이 등록되었습니다.")
+			alert("답변이 수정되었습니다.")
 			location.href="/admin/question"
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">
 		<script type="text/javascript">
-			alert("답변 등록에 실패했습니다.")
+			alert("답변 수정에 실패했습니다.")
 			history.go(-1)
 		</script>
 	</c:if>

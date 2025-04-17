@@ -11,12 +11,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into sale_question (u_id, i_id, name, email, content) 
 		values (#{u_id}, #{i_id}, #{name}, #{email}, #{content})
 	</insert>
-			<!-- 게시판 메인화면 문의내역 출력 / 구매문의 전체 리스트 -->
+			<!-- /board/boardForm / 구매문의 전체 리스트 + 페이징 -->
 	<select id="getQuestionList" parameterType="list" resultType="saleques">
 		select sq.*, i.name itemName from sale_question sq
 		<!-- left join = 문의는 있지만 상품 정보는 없을 수도 있는 경우 포함 -->
 		left join items i on sq.i_id = i.i_id
-		order by sq.reg_date desc
+		order by sq.reg_date desc limit #{startRow}, #{rowPerPage}
 	</select>
 		<!-- 게시판 메인화면 문의내역 출력 / 구매문의 전체 리스트 + 페이징 -->
 	<select id="getQuestionListPage" parameterType="map" resultType="saleques">
@@ -45,12 +45,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from sale_question where u_id=#{u_id}
 	</select>
 		<!-- /admin/approveQuestionForm 문의 답변게시판 답변 입력 -->
-	<!-- <insert id="insertAnswer" parameterType="int">
-		insert into sale_question (answer, u_id) values (#{answer}, #{u_id})
-	</insert> -->
-		<!-- /admin/question 문의 완료후 답변처리 상태 n/y 변경 -->
-	<update id="updateAnswerState" parameterType="int">
-		update sale_question set answer = #{answer}, reg_date = now(), answer_state = 'y'
-  		where q_id = #{q_id}
+	<update id="updateAnswer" parameterType="saleques">
+		update sale_question set u_id=#{u_id}, answer=#{answer}, answer_state=#{answer_state} where q_id = #{q_id}
 	</update>
+
+	
 </mapper>

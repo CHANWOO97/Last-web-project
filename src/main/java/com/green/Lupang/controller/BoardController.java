@@ -42,7 +42,7 @@ public class BoardController {
 		int startRow = (page - 1) * rowPerPage;
 		// 게시판 메인화면에 보여줄 문의내역 가져오기
 		List<SaleQuestion> Q_List = bs.getQuestionList(startRow, rowPerPage);
-		// 총 댓글 수
+		// 총 문의 수
 		int totalQuestion = bs.countAllQuestion();
 		// 페이징 계산
 		int totalPage = (int) Math.ceil((double) totalQuestion / rowPerPage);

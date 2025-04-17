@@ -22,5 +22,6 @@ public interface BoardService {
 
 	List<SaleQuestion> getMyQuestionByU_id(String u_id, int startRow, int rowPerPage);
 
-	int updateAnswerState(Integer q_id);
+	int updateAnswer(SaleQuestion sqAnswer);
+
 }
