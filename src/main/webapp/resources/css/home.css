@@ -1,0 +1,89 @@
+/* 기본 폰트 및 배경 */
+body {
+  background-color: #faf7f1;
+  font-family: 'Gowun Batang', serif;
+  color: #4a3f38;
+}
+
+/* 오늘의 발견 제목 */
+.container h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #5c4e3b;
+  border-left: 6px solid #a5b79d;
+  padding-left: 12px;
+  margin-bottom: 30px;
+}
+
+/* 카드 */
+.card {
+  background-color: #fffdf7;
+  border: 1px solid #e8e5df;
+  border-radius: 16px;
+  box-shadow: none;
+/*   transition: transform 0.2s ease-in-out; */
+  transition: all 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 이미지 */
+.card img {
+  border-radius: 12px;
+  object-fit: cover;
+  filter: contrast(105%) brightness(97%) saturate(90%);
+  transition: filter 0.3s ease;
+}
+.card:hover img {
+  filter: contrast(110%) brightness(102%) saturate(105%);
+}
+
+/* 카드 타이틀 */
+.card-title {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #3d342a;
+}
+
+/* 구매하기 버튼 */
+.btn-outline-dark {
+  border-color: #b2c1b1;
+  color: #4a4033;
+  background-color: #f6f6f4;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.btn-outline-dark:hover {
+  background-color: #dce6d9;
+  color: #2e2721;
+  border-color: #b2c1b1;
+}
+
+/* 지브리 감성 */
+.rank-badge {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  background-color: #dce6d6;
+  color: #4b4338;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 14px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Gowun Batang', serif;
+  z-index: 10;
+}
+
+.gold {
+  background-color: #f5d57c;
+}
+.silver {
+  background-color: #d4d4d4;
+}
+.bronze {
+  background-color: #d9a066;
+}

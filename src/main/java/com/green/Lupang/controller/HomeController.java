@@ -37,7 +37,7 @@ public class HomeController {
 			model.addAttribute("seller_role", user.getSeller_role());
 		}
 		List<ItemsCategory> ic_list = is.ic_list();
-		List<Items> topItems = is.findTopWishItems(4); // 인기상품 Top 4
+		List<Items> topItems = is.findTopWishItems(8); // 인기상품 Top 4
 		model.addAttribute("id", id);
 		model.addAttribute("ic_list", ic_list);
 		model.addAttribute("topItems", topItems);
