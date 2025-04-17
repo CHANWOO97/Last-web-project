@@ -52,9 +52,11 @@
 
 			<!-- 검색창 -->
 			<form class="search-area input-group flex-grow-1 me-4" action="/items/search" method="get">
-				<input type="text" name="q" class="form-control" placeholder="찾고 싶은 상품을 검색해보세요!"> 
-				<span class="input-group-text"><i class="bi bi-mic"></i></span>
-				<button class="input-group-text" type="submit"><i class="bi bi-search"></i></button>
+				<div class="search-area flex-grow-1 me-4">
+					<input type="text" name="q" class="form-control" placeholder="찾고 싶은 상품을 검색해보세요!"> 
+					<span class="input-group-text"><i class="bi bi-mic"></i></span>
+					<button class="input-group-text" type="submit"><i class="bi bi-search"></i></button>
+				</div>
 			</form>
 
 			<!-- 우측 아이콘 -->

@@ -2,7 +2,7 @@
   background-color: white;
   border-bottom: 1px solid #ddd;
   padding: 0 20px;
-  height: 80px;
+  height: 100px;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -35,6 +35,9 @@
 .search-area {
   flex-grow: 1;
   max-width: 650px;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
 }
 
 .search-area .input-group > select,
