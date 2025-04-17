@@ -47,7 +47,7 @@
 
 				<!-- 뒤로가기 버튼 -->
 				<div class="d-flex justify-content-end">
-					<a href="/board/boardForm" class="btn btn-secondary">목록으로</a>
+					<a href="/layout/home" class="btn btn-secondary">홈으로</a>
 				</div>
 			</div>
 		</c:forEach>
