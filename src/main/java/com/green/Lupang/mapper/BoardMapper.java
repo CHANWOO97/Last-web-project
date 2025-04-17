@@ -20,7 +20,11 @@ public interface BoardMapper {
 
 	List<SaleQuestion> getQuestion(int q_id);
 
-	List<SaleQuestion> getMyQuestion(Map<String, Object> map);
+	List<SaleQuestion> getQuestionListPage(Map<String, Object> map);
 
 	int myQuestionCount(String u_id);
+
+	List<SaleQuestion> getMyQuestionByU_id(Map<String, Object> map);
+
+	int updateAnswerState(Integer q_id);
 }

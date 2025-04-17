@@ -14,9 +14,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
+import com.green.Lupang.dto.SaleQuestion;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.TopSaleItemDTO;
 import com.green.Lupang.dto.User;
+import com.green.Lupang.service.BoardService;
 import com.green.Lupang.service.ItemsService;
 import com.green.Lupang.service.SaleService;
 import com.green.Lupang.service.SellerService;
@@ -34,6 +36,8 @@ public class AdminController {
 	private SellerService ses;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private BoardService bs;
 
 	// 향후 추가될 기능들
 	// 주문 관리
@@ -213,7 +217,46 @@ public class AdminController {
 		int result = us.updateDel(user);
 		return "redirect:/admin/users";
 	}
-	
+	@GetMapping("/admin/question")
+	public String question(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		// 전체 문의 리스트 가져오기
+		// 페이징
+		int rowPerPage = 15;
+		int startRow = (page - 1) * rowPerPage;
+		// 페이징을 위한 문의내역 가져오기(0~15개씩)
+		List<SaleQuestion> QuestionListPage = bs.getQuestionListPage(startRow, rowPerPage);
+		// 총 댓글 수
+		int totalQuestion = bs.countAllQuestion();
+		// 페이징 계산
+		int totalPage = (int) Math.ceil((double) totalQuestion / rowPerPage);
+		int pagePerBlock = 10;
+		int startPage = page - (page - 1) % pagePerBlock;
+		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("QuestionListPage", QuestionListPage);		
+		return "/admin/question";
+	} 
+		// admin/question 답변처리 => 답변하기
+		@GetMapping("/admin/approveQuestionForm")
+		public String approveQuestion(@RequestParam("q_id") int q_id,
+				@RequestParam("u_id") String u_id, @RequestParam("itemName") String itemName, Model model) {
+		List<SaleQuestion> questionListByq_id = bs.getQuestion(q_id);
+		model.addAttribute("questionListByq_id",questionListByq_id);
+		model.addAttribute("itemName",itemName);	
+		return "/admin/approveQuestionForm";
+		}
+		// admin/approveQuestionForm 문의 답변페이지
+		@PostMapping("/admin/approveQuestion")
+		public String approveQuestion(Model model, SaleQuestion saleQuestion) {
+			int result = bs.updateAnswerState(saleQuestion.getQ_id());
+			model.addAttribute("result", result);
+			return "/admin/approveQuestion";
+		}
+		
 	/// 여기부터는 관리자 통합 그래프 용도	
 	// 📍 AdminAnalyticsController.java
 	@GetMapping("/admin/adminForm")

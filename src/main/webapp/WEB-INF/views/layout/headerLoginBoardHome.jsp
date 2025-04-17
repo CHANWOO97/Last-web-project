@@ -61,7 +61,9 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="/board/boardForm">구매 문의</a></li>
 						<li><a class="dropdown-item" href="/board/boardForm">Q&A</a></li>
+						<c:if test="${id != null}"> <!-- 로그인 되어있으면 -->
 						<li><a class="dropdown-item" href="/board/myQuestion">내 문의 내역</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>
