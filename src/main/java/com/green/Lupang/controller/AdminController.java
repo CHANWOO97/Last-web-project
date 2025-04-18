@@ -1,7 +1,12 @@
 package com.green.Lupang.controller;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -294,7 +299,6 @@ public class AdminController {
 		model.addAttribute("result", result);
 		return "/admin/rejectQuestion";
 		}
-		
 	/// 여기부터는 관리자 통합 그래프 용도	
 	// 📍 AdminAnalyticsController.java
 	@GetMapping("/admin/adminForm")
@@ -302,5 +306,47 @@ public class AdminController {
 	    List<TopSaleItemDTO> topItems = ss.getTopSellingItems();
 	    model.addAttribute("topItems", topItems);
 	    return "admin/adminForm";
+	}
+	@GetMapping("/admin/analytics2")
+	public String analytics2(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		
+		int pageSize = 10; // 한 페이지당 보여줄 상품 수
+		int offset = (page - 1) * pageSize;
+		List<Items> adminItemsList = is.adminItemsList(offset, pageSize);
+		int totalCount = is.allItemCount();
+		int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		int blockSize = 10; 
+		int startPage = ((page - 1) / blockSize) * blockSize + 1;
+		int endPage = Math.min(startPage + blockSize - 1, totalPage);
+		
+		// 총 매출액 계산 => totalPrice
+		List<Integer> priceList = (List<Integer>) adminItemsList.stream()
+			.map(Items::getPrice)
+			.collect(Collectors.toList());
+		int totalPrice = 0; 
+		for(int p : priceList) {
+			totalPrice += p;
+		}
+		// 총 매출일 => totalPriceDay
+		List<Sale> getAdminOrderList = ss.getAdminOrderList(offset, pageSize);
+		List totalPriceDay = (List) getAdminOrderList.stream()
+			.map(Sale::getS_date)	
+			.collect(Collectors.toList());
+		// 월 별 수익 총합 => monthTotalMap
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		Map<Object, Integer> monthTotalMap = getAdminOrderList.stream()
+			    .collect(Collectors.groupingBy(sale ->
+			        sdf.format(sale.getS_date()), // ← 여기에서 월 단위 문자열로 포맷
+			        Collectors.summingInt(Sale::getTotal)
+			    ));
+			
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("adminItemsList", adminItemsList);
+		model.addAttribute("monthTotalMap", monthTotalMap);
+		model.addAttribute("totalPrice",totalPrice);
+		return "admin/analytics2";
 	}
 }
