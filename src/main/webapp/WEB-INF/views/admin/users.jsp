@@ -20,10 +20,11 @@
 </head>
 <body>
 <div class="content mt-5">
-    <h2 class="mb-5">전체 사용자 관리</h2>
+    <h2 class="mb-5">회원 관리</h2>
     <table class="table table-bordered table-hover align-middle text-center">
         <thead>
             <tr>
+            	<th>번호</th>
                 <th>ID</th>
                 <th>이름</th>
                 <th>이메일</th>
@@ -34,8 +35,12 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="user" items="${adminUserList}">
+        	
+            <c:forEach var="user" items="${adminUserList}" varStatus="vs">
                 <tr>
+                	<c:set var="pageSize" value="10" />
+                	<!-- currentPage = 현재 페이지, pageSize = 몇개씩 보여줄건지(10개씩), vs.index = 한페이지내에서 번호(0부터 9까지)  -->
+						<td>${(currentPage - 1) * pageSize + vs.index + 1}</td>
                     <td>${user.u_id}</td>
                     <td>${user.name}</td>
                     <td>${user.email}</td>

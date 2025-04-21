@@ -19,4 +19,6 @@ public class SaleQuestion {
 	private Date reg_date; // DEFAULT CURRENT_TIMESTAMP
 	// items 테이블에서 상품이름 가져오기
 	private String itemName;
+	// 관리자 구매문의 답변상태('n','y')
+	private String answer_state; // CHAR(1) DEFAULT 'n' COMMENT '답변 상태 (n/y)',
 }

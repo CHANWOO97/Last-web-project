@@ -55,7 +55,6 @@ public class SaleServiceImpl implements SaleService{
 
 	@Override
 	public int saleCountByOrder(String id) {
-		// TODO Auto-generated method stub
 		return sm.saleCountByOrder(id);
 	}
 	@Override

@@ -44,16 +44,30 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<SaleQuestion> getMyQuestion(String u_id, int startRow, int rowPerPage) {
+	public List<SaleQuestion> getQuestionListPage(int startRow, int rowPerPage) {
 		Map<String, Object> map = new HashMap<>();
-		map.put("u_id", u_id);
 		map.put("startRow", startRow);
 		map.put("rowPerPage", rowPerPage);
-		return bm.getMyQuestion(map);
+		return bm.getQuestionListPage(map);
 	}
 
 	@Override
 	public int myQuestionCount(String u_id) {
 		return bm.myQuestionCount(u_id);
 	}
+
+	@Override
+	public List<SaleQuestion> getMyQuestionByU_id(String u_id, int startRow, int rowPerPage) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("u_id",u_id);
+		map.put("startRow",startRow);
+		map.put("rowPerPage",rowPerPage);
+		return bm.getMyQuestionByU_id(map);
+	}
+
+	@Override
+	public int updateAnswer(SaleQuestion sqAnswer) {
+		return bm.updateAnswer(sqAnswer);
+	}
+
 }

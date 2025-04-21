@@ -12,6 +12,7 @@
 <div class="content">       
 	<!-- 탭 메뉴 -->
 	<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp" %>
+	<canvas id="popularityChart" width="800" height="350"></canvas>
 	<script>
 	  const ctx = document.getElementById('popularityChart').getContext('2d');
 	  const chart = new Chart(ctx, {

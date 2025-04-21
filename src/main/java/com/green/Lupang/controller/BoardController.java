@@ -42,7 +42,7 @@ public class BoardController {
 		int startRow = (page - 1) * rowPerPage;
 		// 게시판 메인화면에 보여줄 문의내역 가져오기
 		List<SaleQuestion> Q_List = bs.getQuestionList(startRow, rowPerPage);
-		// 총 댓글 수
+		// 총 문의 수
 		int totalQuestion = bs.countAllQuestion();
 		// 페이징 계산
 		int totalPage = (int) Math.ceil((double) totalQuestion / rowPerPage);
@@ -90,8 +90,7 @@ public class BoardController {
 		model.addAttribute("question", question);
 	}
 	@GetMapping("/board/myQuestion")
-	public void myQuestion(HttpSession session, Model model,
-			@RequestParam(value = "page", defaultValue = "1") int page) {
+	public void myQuestion(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		String u_id = (String)session.getAttribute("id");
 		
 		// 페이징
@@ -99,7 +98,7 @@ public class BoardController {
 		int rowPerPage = 10;
 		int startRow = (page - 1) * rowPerPage;
 		// /board/myQuestion => 내 문의 내역 가져오기
-		List<SaleQuestion> myquestionList = bs.getMyQuestion(u_id, startRow, rowPerPage);
+		List<SaleQuestion> myquestionList = bs.getMyQuestionByU_id(u_id, startRow, rowPerPage);
 		// 내가 한 총 문의
 		int myQCount = bs.myQuestionCount(u_id);
 		// 페이징 계산

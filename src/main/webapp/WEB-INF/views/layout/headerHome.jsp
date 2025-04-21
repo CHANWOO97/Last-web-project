@@ -22,7 +22,9 @@
 					<ul class="dropdown-menu">
 						<li><a class="dropdown-item" href="/board/boardForm">구매 문의</a></li>
 						<li><a class="dropdown-item" href="/board/boardForm">Q&A</a></li>
+						<c:if test="${id != null}"> <!-- 로그인 되어있으면 -->
 						<li><a class="dropdown-item" href="/board/myQuestion">내 문의 내역</a></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>

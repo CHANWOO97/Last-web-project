@@ -16,8 +16,12 @@ public interface BoardService {
 
 	List<SaleQuestion> getQuestion(int q_id);
 
-	List<SaleQuestion> getMyQuestion(String u_id, int startRow, int rowPerPage);
+	List<SaleQuestion> getQuestionListPage(int startRow, int rowPerPage);
 
 	int myQuestionCount(String u_id);
+
+	List<SaleQuestion> getMyQuestionByU_id(String u_id, int startRow, int rowPerPage);
+
+	int updateAnswer(SaleQuestion sqAnswer);
 
 }

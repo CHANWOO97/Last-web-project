@@ -1,7 +1,12 @@
 package com.green.Lupang.controller;
 
 import java.lang.ProcessBuilder.Redirect;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,9 +19,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.green.Lupang.dto.Items;
 import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
+import com.green.Lupang.dto.SaleQuestion;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.TopSaleItemDTO;
 import com.green.Lupang.dto.User;
+import com.green.Lupang.service.BoardService;
 import com.green.Lupang.service.ItemsService;
 import com.green.Lupang.service.SaleService;
 import com.green.Lupang.service.SellerService;
@@ -34,6 +41,8 @@ public class AdminController {
 	private SellerService ses;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private BoardService bs;
 
 	// 향후 추가될 기능들
 	// 주문 관리
@@ -213,7 +222,83 @@ public class AdminController {
 		int result = us.updateDel(user);
 		return "redirect:/admin/users";
 	}
-	
+	@GetMapping("/admin/question")
+	public String question(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		// 전체 문의 리스트 가져오기
+		// 페이징
+		int rowPerPage = 10;
+		int startRow = (page - 1) * rowPerPage;
+		// 페이징을 위한 문의내역 가져오기(0~10개씩)
+		List<SaleQuestion> QuestionListPage = bs.getQuestionListPage(startRow, rowPerPage);
+		// 총 댓글 수
+		int totalQuestion = bs.countAllQuestion();
+		// 페이징 계산
+		int totalPage = (int) Math.ceil((double) totalQuestion / rowPerPage);
+		int pagePerBlock = 10;
+		int startPage = page - (page - 1) % pagePerBlock;
+		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("QuestionListPage", QuestionListPage);		
+		return "/admin/question";
+	} 
+		// admin/question 답변처리 => 답변하기
+		@GetMapping("/admin/approveQuestionForm")
+		public String approveQuestion(@RequestParam("q_id") int q_id,
+				@RequestParam("u_id") String u_id, @RequestParam("itemName") String itemName, Model model) {
+		List<SaleQuestion> questionListByq_id = bs.getQuestion(q_id);
+		model.addAttribute("questionListByq_id",questionListByq_id);
+		model.addAttribute("itemName",itemName);	
+		return "/admin/approveQuestionForm";
+		}
+		// admin/approveQuestionForm 문의 답변페이지
+		@PostMapping("/admin/approveQuestion")
+		public String approveQuestion(Model model, 
+				@RequestParam("q_id") int q_id,
+                @RequestParam("u_id") String u_id,
+                @RequestParam("answer") String answer,
+                @RequestParam("answer_state") String answer_state) {
+			
+		SaleQuestion sqAnswer = new SaleQuestion();
+		sqAnswer.setQ_id(q_id);
+		sqAnswer.setU_id(u_id);
+		sqAnswer.setAnswer_state(answer_state);
+		sqAnswer.setAnswer(answer);
+		
+		int result = bs.updateAnswer(sqAnswer);
+		model.addAttribute("result", result);
+		return "/admin/approveQuestion";
+		}
+		// admin/question 답변 수정하기
+		@GetMapping("/admin/rejectQuestionForm")
+		public String rejectQuestionForm(@RequestParam("q_id") int q_id,
+				@RequestParam("u_id") String u_id, @RequestParam("itemName") String itemName, Model model) {
+		List<SaleQuestion> questionListByq_id = bs.getQuestion(q_id);
+		model.addAttribute("questionListByq_id",questionListByq_id);
+		model.addAttribute("itemName",itemName);	
+		return "/admin/rejectQuestionForm";
+		}
+		// admin/approveQuestionForm 문의 답변페이지
+		@PostMapping("/admin/rejectQuestion")
+		public String rejectQuestion(Model model, 
+				@RequestParam("q_id") int q_id,
+                @RequestParam("u_id") String u_id,
+                @RequestParam("answer") String answer,
+                @RequestParam("answer_state") String answer_state) {
+			
+		SaleQuestion sqAnswer = new SaleQuestion();
+		sqAnswer.setQ_id(q_id);
+		sqAnswer.setU_id(u_id);
+		sqAnswer.setAnswer_state(answer_state);
+		sqAnswer.setAnswer(answer);
+		
+		int result = bs.updateAnswer(sqAnswer);
+		model.addAttribute("result", result);
+		return "/admin/rejectQuestion";
+		}
 	/// 여기부터는 관리자 통합 그래프 용도	
 	// 📍 AdminAnalyticsController.java
 	@GetMapping("/admin/adminForm")
@@ -221,5 +306,47 @@ public class AdminController {
 	    List<TopSaleItemDTO> topItems = ss.getTopSellingItems();
 	    model.addAttribute("topItems", topItems);
 	    return "admin/adminForm";
+	}
+	@GetMapping("/admin/analytics2")
+	public String analytics2(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
+		
+		int pageSize = 10; // 한 페이지당 보여줄 상품 수
+		int offset = (page - 1) * pageSize;
+		List<Items> adminItemsList = is.adminItemsList(offset, pageSize);
+		int totalCount = is.allItemCount();
+		int totalPage = (int) Math.ceil((double) totalCount / pageSize);
+		int blockSize = 10; 
+		int startPage = ((page - 1) / blockSize) * blockSize + 1;
+		int endPage = Math.min(startPage + blockSize - 1, totalPage);
+		
+		// 총 매출액 계산 => totalPrice
+		List<Integer> priceList = (List<Integer>) adminItemsList.stream()
+			.map(Items::getPrice)
+			.collect(Collectors.toList());
+		int totalPrice = 0; 
+		for(int p : priceList) {
+			totalPrice += p;
+		}
+		// 총 매출일 => totalPriceDay
+		List<Sale> getAdminOrderList = ss.getAdminOrderList(offset, pageSize);
+		List totalPriceDay = (List) getAdminOrderList.stream()
+			.map(Sale::getS_date)	
+			.collect(Collectors.toList());
+		// 월 별 수익 총합 => monthTotalMap
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+		Map<Object, Integer> monthTotalMap = getAdminOrderList.stream()
+			    .collect(Collectors.groupingBy(sale ->
+			        sdf.format(sale.getS_date()), // ← 여기에서 월 단위 문자열로 포맷
+			        Collectors.summingInt(Sale::getTotal)
+			    ));
+			
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("adminItemsList", adminItemsList);
+		model.addAttribute("monthTotalMap", monthTotalMap);
+		model.addAttribute("totalPrice",totalPrice);
+		return "admin/analytics2";
 	}
 }

@@ -173,9 +173,12 @@ CREATE TABLE sale_question (
     email VARCHAR(100),
     content TEXT NOT NULL,              -- 문의 내용
     answer TEXT,                        -- 관리자 답변
+    answer_state CHAR(1) DEFAULT 'n' COMMENT '답변 상태 (n/y)',
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 ALTER TABLE sale_question MODIFY COLUMN i_id VARCHAR(255) NULL;
+ALTER TABLE sale_question ADD COLUMN answer_state CHAR(1) DEFAULT 'n'; 
+
 select * from sale_question
 
 -- admin 계정 미리 생성 -- 패스워드 1234 
