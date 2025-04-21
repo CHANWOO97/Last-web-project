@@ -25,4 +25,7 @@ public interface SellerMapper {
 	void updateNullCnMsg(Seller seller);
 	int countItemsBySeller(int sr_id);
 	List<Items> getItemsBySeller(Map<String, Object> param);
+	List<Seller> sellerListbySr_id(Map<String, Object> map);
+	int countSeller();
+	
 }

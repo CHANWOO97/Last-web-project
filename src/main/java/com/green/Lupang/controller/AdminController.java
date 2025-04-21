@@ -21,6 +21,7 @@ import com.green.Lupang.dto.ItemsCategory;
 import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleQuestion;
 import com.green.Lupang.dto.Seller;
+import com.green.Lupang.dto.SellerItems;
 import com.green.Lupang.dto.TopSaleItemDTO;
 import com.green.Lupang.dto.User;
 import com.green.Lupang.service.BoardService;
@@ -327,7 +328,7 @@ public class AdminController {
 		for(int p : priceList) {
 			totalPrice += p;
 		}
-		// 총 매출일 => totalPriceDay
+		// 매출일 => totalPriceDay
 		List<Sale> getAdminOrderList = ss.getAdminOrderList(offset, pageSize);
 		List totalPriceDay = (List) getAdminOrderList.stream()
 			.map(Sale::getS_date)	
@@ -349,4 +350,44 @@ public class AdminController {
 		model.addAttribute("totalPrice",totalPrice);
 		return "admin/analytics2";
 	}
+	@GetMapping("/admin/settleStatementForm")
+	public void settleStatementForm(@RequestParam(value = "page", defaultValue = "1")int page, 
+			Model model) {
+		// 페이징
+		// 사용자 목록 가져오기
+		int rowPerPage = 10;
+		int offset = (page - 1) * rowPerPage;
+		List<Seller> sellerList = ses.sellerListbySr_id(offset, rowPerPage);
+
+		// 총 유저 수
+		int totalSeller = ses.countSeller();
+		// 페이징 계산
+		int totalPage = (int) Math.ceil((double) totalSeller / rowPerPage);
+		int pagePerBlock = 10;
+		int startPage = page - (page - 1) % pagePerBlock;
+		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+		
+		
+		model.addAttribute("sellerList",sellerList);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
+		model.addAttribute("totalPage", totalPage);
+	}
+//	@GetMapping("/admin/settleStatement")
+//	public void settleStatement(@RequestParam("sr_id") String sr_id, Model model) {
+//		
+//		// 매출일 => totalPriceDay
+//		List<Items> itemsListBySr_id = is.itemsListBySr_id(sr_id);
+//		// 월별 총 수익금액
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+//		Map<Object, Integer> monthTotalMap = itemsListBySr_id.stream()
+//			    .collect(Collectors.groupingBy(sale ->
+//			        sdf.format(sale.getS_date()), // ← 여기에서 월 단위 문자열로 포맷
+//			        Collectors.summingInt(Sale::getTotal)
+//			    ));
+//		
+//		Seller seller = ses.select_id(sr_id);
+//		model.addAttribute("seller",seller);	
+//	}
 }

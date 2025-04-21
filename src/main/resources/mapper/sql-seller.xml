@@ -69,8 +69,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateCnMsg" parameterType="seller">
 	    update seller_request set cn_msg = #{cn_msg} where sr_id = #{sr_id}
 	</update>
-			<!-- 마이페이지 메시지 전달 후 cn_msg를 null로 -->
+		<!-- 마이페이지 메시지 전달 후 cn_msg를 null로 -->
 	<update id="updateNullCnMsg" parameterType="seller">
 	    update seller_request set cn_msg = null where sr_id = #{sr_id}
 	</update>
+		<!-- admin/analytics2 / 관리자 페이지 정산명세서 리스트 가져오기(*sr_state(판매자일때만 = 'y')) -->
+	<select id="sellerListbySr_id" parameterType="map" resultType="seller">
+		select s.*, u.seller_role, ic_name from seller_request s, user_table u, items_category ic 
+		where s.u_id = u.u_id and s.sr_id in (select max(sr_id) from seller_request group by u_id) 
+		and s.ic_id = ic.ic_id and s.sr_state = 'y'order by reg_date desc limit #{offset}, #{rowPerPage}
+	</select>
+		<!-- admin/analytics2 / 관리자 페이지 정산명세서 총 갯수 가져오기(*sr_state(판매자일때만 = 'y')) -->
+	<select id="countSeller" parameterType="integer" resultType="integer">
+		select count(*) from seller_request s join user_table u on s.u_id = u.u_id
+		where s.sr_id in (select max(sr_id) from seller_request group by u_id)
+		and s.sr_state = 'y'order by reg_date DESC 
+	</select>
 </mapper>

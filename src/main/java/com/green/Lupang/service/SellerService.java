@@ -34,4 +34,9 @@ public interface SellerService {
 	int countItemsBySeller(int sr_id);
 
 	List<Items> getItemsBySeller(int sr_id, int startRow, int rowPerPage);
+
+
+	int countSeller();
+
+	List<Seller> sellerListbySr_id(int offset, int rowPerPage);
 }

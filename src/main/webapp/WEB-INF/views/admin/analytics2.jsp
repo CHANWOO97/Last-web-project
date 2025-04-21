@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="/WEB-INF/views/setting/include.jsp"%>
+<%@ include file="sidebar.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,53 +8,58 @@
 <title>월별 매출 통계</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-  .content {
-    padding: 30px;
-  }
-  table {
-    margin-top: 40px;
-  }
+.content {
+	padding: 30px;
+}
+
+table {
+	margin-top: 40px;
+}
 </style>
 </head>
 <body>
-  <div class="content">       
-	<!-- 탭 메뉴 -->
-	<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp" %>
-    <!-- ✅ 그래프 출력 영역 -->
-    
-    <canvas id="popularityChart" width="400" height="250"></canvas>
-    <!-- ✅ 통계 테이블 -->
-    <table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
-      <!-- 월 헤더 -->
-      <tr style="background-color: #f0f0f0; border-bottom: 2px solid #555;">
-        <c:forEach var="i" begin="1" end="12">
-          <th style="padding: 10px;">${i}월</th>
-        </c:forEach>
-      </tr>
-      <!-- 수익 금액 -->
-      <tr style="border-top: 2px solid #555;">
-        <c:forEach var="i" begin="1" end="12">
-          <c:set var="keyMonth">
-            <c:choose>
-              <c:when test="${i lt 10}">2025-0${i}</c:when>
-              <c:otherwise>2025-${i}</c:otherwise>
-            </c:choose>
-          </c:set>
-          <td style="padding: 10px;">
-            <c:choose>
-              <c:when test="${monthTotalMap[keyMonth] != null}">
-                <fmt:formatNumber value="${monthTotalMap[keyMonth]}" type="number"/>
-              </c:when>
-              <c:otherwise>0</c:otherwise>
-            </c:choose>
-          </td>
-        </c:forEach>
-      </tr>
-    </table>
-  </div>
-
-  <!-- ✅ Chart.js 스크립트 -->
-  <script>
+	<div class="content">
+		<!-- 탭 메뉴 -->
+		<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp"%>
+		<!-- ✅ 그래프 출력 영역 -->
+		<canvas id="popularityChart" width="800" height="200"></canvas>
+		<!-- ✅ 통계 테이블 -->
+		<table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
+			<!-- 월 헤더 -->
+			<tr style="background-color: #f0f0f0; border-bottom: 2px solid #555;">
+				<c:forEach var="i" begin="1" end="12">
+					<th style="padding: 10px;">${i}월</th>
+				</c:forEach>
+			</tr>
+			<!-- 수익 금액 -->
+			<tr style="border-top: 2px solid #555;">
+				<c:forEach var="i" begin="1" end="12">
+					<c:set var="keyMonth">
+						<c:choose>
+							<c:when test="${i lt 10}">2025-0${i}</c:when>
+							<c:otherwise>2025-${i}</c:otherwise>
+						</c:choose>
+					</c:set>
+					<td style="padding: 10px;"><c:choose>
+							<c:when test="${monthTotalMap[keyMonth] != null}">
+								<fmt:formatNumber value="${monthTotalMap[keyMonth]}" type="number" />
+							</c:when>
+							<c:otherwise>0</c:otherwise>
+						</c:choose></td>
+				</c:forEach>
+			</tr>
+		</table>
+		<div><p>
+			<form action="/admin/taxInvoice" method="post" >
+				<div class="d-flex justify-content-end gap-2"> <!-- 오른쪽 정렬 -->
+					  <a href="/admin/settleStatementForm" class="btn btn-primary">정산명세서 발행</a>
+					<button type="submit" class="btn btn-success">세금계산서 발행</button>
+				</div>
+			</form>	
+		</div>
+	</div>
+	<!-- ✅ Chart.js 스크립트 -->
+	<script>
     const labels = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 
     const data = [

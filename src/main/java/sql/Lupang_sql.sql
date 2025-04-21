@@ -12,6 +12,9 @@ DROP TABLE sale;
 DROP TABLE sale_items;
 DROP TABLE wishlist;
 DROP TABLE sale_question;
+DROP TABLE settle_statement;
+DROP TABLE tax_invoice;
+
 
 -- 게시판 카테고리 테이블
 CREATE TABLE board_category (
@@ -166,7 +169,6 @@ CREATE TABLE wishlist (
 
 -- 구매문의 테이블 추가
 CREATE TABLE sale_question (
-    q_id INT AUTO_INCREMENT PRIMARY KEY,-- 구매문의 ID
     u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',  
     i_id VARCHAR(255) NULL COMMENT '상품코드 (FK: items_table.i_id)',
     name VARCHAR(100) NOT NULL,         -- 문의자 이름
@@ -174,12 +176,39 @@ CREATE TABLE sale_question (
     content TEXT NOT NULL,              -- 문의 내용
     answer TEXT,                        -- 관리자 답변
     answer_state CHAR(1) DEFAULT 'n' COMMENT '답변 상태 (n/y)',
-    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    q_id INT AUTO_INCREMENT PRIMARY KEY;-- 구매문의 ID
 );
 ALTER TABLE sale_question MODIFY COLUMN i_id VARCHAR(255) NULL;
 ALTER TABLE sale_question ADD COLUMN answer_state CHAR(1) DEFAULT 'n'; 
 
 select * from sale_question
 
+-- 정산 명세서 테이블 추가
+create table settle_statement (
+    sr_id INT NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
+    u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',
+    total_amount INT NOT NULL COMMENT '결제금액 (총 판매금액)',
+    fee_amount INT NOT NULL COMMENT '수수료 금액',
+    pg_fee INT NOT NULL COMMENT 'PG 수수료',
+    net_amount INT NOT NULL COMMENT '최종 정산금액',
+    settle_date DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '정산일',
+    st_invoice CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 취소 = n 등)',
+    ss_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '정산명세서 ID';
+);
+select * from settle_statement;
+-- 세금 계산서 테이블 추가
+create table tax_invoice (
+    ss_id int not null comment '정산명세서 ID (FK: settle_statement.ss_id)',
+    u_id varchar(255) not null comment '작성자 ID (FK: user_table.u_id)',
+    invoice_number varchar(100) comment '전자세금계산서 번호',
+    supply_amount INT NOT NULL comment '공급가액 (수수료 기준)',
+    vat_amount INT NOT NULL comment '부가세',
+    total_amount INT NOT NULL comment '합계금액',
+    issued_at DATETIME DEFAULT current_timestamp comment '발행일시',
+   	invoice_state CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 실패 = n 등)',
+   	ti_id int auto_increment primary key comment '세금계산서 ID';
+);
+select * from tax_invoice;
 -- admin 계정 미리 생성 -- 패스워드 1234 
 insert into user_table (u_id ,name, password) values('admin', '관리자', '$2a$10$ty1UwZwvhK2TPP7Y/cNzV.URmSgXKysy7l4iJl6n5o8s5bMDuXU2e');

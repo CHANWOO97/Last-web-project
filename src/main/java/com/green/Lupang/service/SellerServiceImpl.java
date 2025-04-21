@@ -79,5 +79,16 @@ public class SellerServiceImpl implements SellerService{
 		    param.put("rowPerPage", rowPerPage);
 		return sm.getItemsBySeller(param);
 	}
+	@Override
+	public int countSeller() {
+		return sm.countSeller();
+	}
+	@Override
+	public List<Seller> sellerListbySr_id(int offset, int rowPerPage) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", offset);
+		map.put("rowPerPage", rowPerPage);
+		return sm.sellerListbySr_id(map);
+	}
 
 }

@@ -25,6 +25,5 @@
     </li>
 </ul>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-	<!-- <canvas id="popularityChart" width="800" height="350"></canvas> -->
 </body>
 </html>
