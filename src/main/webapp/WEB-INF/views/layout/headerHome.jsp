@@ -35,7 +35,7 @@
 			<!-- 카테고리 드롭다운 버튼 -->
 			<div class="dropdown me-3">
 				<button
-					class="btn btn-primary dropdown-toggle d-flex flex-column align-items-center"
+					class="btn btn-primary dropdown-toggle d-flex flex-column align-items-center category-button"
 					type="button" data-bs-toggle="dropdown">
 					<i class="bi bi-list mb-1"></i> <span style="font-size: 0.85rem;">카테고리</span>
 				</button>
