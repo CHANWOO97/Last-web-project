@@ -177,7 +177,7 @@ CREATE TABLE sale_question (
     answer TEXT,                        -- 관리자 답변
     answer_state CHAR(1) DEFAULT 'n' COMMENT '답변 상태 (n/y)',
     reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    q_id INT AUTO_INCREMENT PRIMARY KEY;-- 구매문의 ID
+    q_id INT AUTO_INCREMENT PRIMARY KEY  -- 구매문의 ID
 );
 ALTER TABLE sale_question MODIFY COLUMN i_id VARCHAR(255) NULL;
 ALTER TABLE sale_question ADD COLUMN answer_state CHAR(1) DEFAULT 'n'; 
@@ -185,7 +185,7 @@ ALTER TABLE sale_question ADD COLUMN answer_state CHAR(1) DEFAULT 'n';
 select * from sale_question
 
 -- 정산 명세서 테이블 추가
-create table settle_statement (
+CREATE TABLE settle_statement (
     sr_id INT NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
     u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',
     total_amount INT NOT NULL COMMENT '결제금액 (총 판매금액)',
@@ -193,21 +193,21 @@ create table settle_statement (
     pg_fee INT NOT NULL COMMENT 'PG 수수료',
     net_amount INT NOT NULL COMMENT '최종 정산금액',
     settle_date DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '정산일',
-    st_invoice CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 취소 = n 등)',
-    ss_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '정산명세서 ID';
+    st_invoice CHAR(1) DEFAULT 'w' COMMENT '발행 상태 (대기 = w, 완료 = y, 취소 = n 등)',
+    ss_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '정산명세서 ID'
 );
 select * from settle_statement;
 -- 세금 계산서 테이블 추가
-create table tax_invoice (
-    ss_id int not null comment '정산명세서 ID (FK: settle_statement.ss_id)',
-    u_id varchar(255) not null comment '작성자 ID (FK: user_table.u_id)',
-    invoice_number varchar(100) comment '전자세금계산서 번호',
-    supply_amount INT NOT NULL comment '공급가액 (수수료 기준)',
-    vat_amount INT NOT NULL comment '부가세',
-    total_amount INT NOT NULL comment '합계금액',
-    issued_at DATETIME DEFAULT current_timestamp comment '발행일시',
-   	invoice_state CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 실패 = n 등)',
-   	ti_id int auto_increment primary key comment '세금계산서 ID';
+CREATE TABLE tax_invoice (
+    ss_id INT NOT NULL COMMENT '정산명세서 ID (FK: settle_statement.ss_id)',
+    u_id VARCHAR(255) NOT NULL COMMENT '작성자 ID (FK: user_table.u_id)',
+    invoice_number VARCHAR(100) COMMENT '전자세금계산서 번호',
+    supply_amount INT NOT NULL COMMENT '공급가액 (수수료 기준)',
+    vat_amount INT NOT NULL COMMENT '부가세',
+    total_amount INT NOT NULL COMMENT '합계금액',
+    issued_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '발행일시',
+    invoice_state CHAR(1) DEFAULT 'w' COMMENT '발행 상태 (대기 = w, 완료 = y, 실패 = n 등)',
+    ti_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '세금계산서 ID'
 );
 select * from tax_invoice;
 -- admin 계정 미리 생성 -- 패스워드 1234 

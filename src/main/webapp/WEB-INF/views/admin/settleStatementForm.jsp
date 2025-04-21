@@ -63,7 +63,7 @@
 									class="btn btn-sm btn-outline-danger">정산서 발행하기</a>
 								</c:when>
 								<c:when test="${seller.sr_state eq 'n'}">
-									<a href="/admin/reSettleStatement" 
+									<a href="/admin/ReSettleStatement?sr_id=${seller.sr_id}" 
 									class="btn btn-sm btn-outline-success" onclick="return chk()">재발행</a>	
 								</c:when>
 							</c:choose></td>

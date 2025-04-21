@@ -374,20 +374,15 @@ public class AdminController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
 	}
-//	@GetMapping("/admin/settleStatement")
-//	public void settleStatement(@RequestParam("sr_id") String sr_id, Model model) {
-//		
-//		// 매출일 => totalPriceDay
-//		List<Items> itemsListBySr_id = is.itemsListBySr_id(sr_id);
-//		// 월별 총 수익금액
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-//		Map<Object, Integer> monthTotalMap = itemsListBySr_id.stream()
-//			    .collect(Collectors.groupingBy(sale ->
-//			        sdf.format(sale.getS_date()), // ← 여기에서 월 단위 문자열로 포맷
-//			        Collectors.summingInt(Sale::getTotal)
-//			    ));
-//		
-//		Seller seller = ses.select_id(sr_id);
-//		model.addAttribute("seller",seller);	
-//	}
+	@GetMapping("/admin/settleStatement")
+	public void settleStatement(@RequestParam("sr_id") String sr_id, Model model) {
+		
+		// 매출일 => totalPriceDay
+		// List<Items> itemsListBySr_id = is.itemsListBySr_id(sr_id);
+		// 월별 총 수익금액
+
+		
+		Seller seller = ses.select_id(sr_id);
+		model.addAttribute("seller",seller);	
+	}
 }
