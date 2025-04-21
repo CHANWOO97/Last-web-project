@@ -22,7 +22,7 @@
 	<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp" %>
     <!-- ✅ 그래프 출력 영역 -->
     
-    
+    <canvas id="popularityChart" width="400" height="250"></canvas>
     <!-- ✅ 통계 테이블 -->
     <table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
       <!-- 월 헤더 -->
