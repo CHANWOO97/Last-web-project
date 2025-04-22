@@ -20,7 +20,9 @@ public class SettleStatement {
     private String st_invoice; // CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 취소 = n 등)'
     
     //월별 매출액
-    private String month;
+    private String month; // 1월 ~ 12월 
+    private String targetMonth; // 각 월 
     private int total;
+    
 
 }

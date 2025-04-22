@@ -15,5 +15,7 @@ public interface InvoiceMapper {
 	Items itemMonthSale(String u_id);
 
 	List<SettleStatement> getMonthPrice(String u_id);
+
+	List<SettleStatement> getMonthPriceFiltered(Map<String, Object> map);
 	
 }

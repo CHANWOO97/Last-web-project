@@ -27,5 +27,13 @@ public class InvoiceServiceImpl implements InvoiceService{
 	@Override
 	public List<SettleStatement> getMonthPrice(String u_id) {
 		return ivm.getMonthPrice(u_id);
+	}
+
+	@Override
+	public List<SettleStatement> getMonthPriceFiltered(String u_id, String targetMonth) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("u_id", u_id);
+		map.put("targetMonth", targetMonth);
+		return ivm.getMonthPriceFiltered(map);
 	}		
 }

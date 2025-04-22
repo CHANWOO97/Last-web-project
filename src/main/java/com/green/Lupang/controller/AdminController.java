@@ -378,16 +378,40 @@ public class AdminController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
 	}
+	// @RequestParam(required = false) String targetMonth => jsp에서 넘어오 파라미터 값이 required = false 즉, 없어도 상관없다는 의미
 	@GetMapping("/admin/settleStatement")
 	public void settleStatement(@RequestParam(value = "page", defaultValue = "1")int page,
-			@RequestParam("sr_id") String sr_id, Model model ) {
+			@RequestParam("sr_id") String sr_id, Model model) {
 		Seller seller = ses.select_id(sr_id);
 		User user = us.select(seller.getU_id());	 
 		// 판매자 월별 매출액
-		List<SettleStatement> getMonthPrice = ivs.getMonthPrice(seller.getU_id());
-		
+		List<SettleStatement> getMonthPrice;
+		// 월 선택
+		getMonthPrice = ivs.getMonthPrice(seller.getU_id());
 		model.addAttribute("seller",seller);
 		model.addAttribute("user", user);
 		model.addAttribute("getMonthPrice",getMonthPrice);
+	}
+	@GetMapping("/admin/settleStatementMonth")
+	public String settleStatementMonth(
+	    @RequestParam(required = false) String targetMonth,
+	    @RequestParam("sr_id") String sr_id,
+	    Model model) {
+	    
+	    Seller seller = ses.select_id(sr_id);
+	    User user = us.select(seller.getU_id());
+
+	    List<SettleStatement> getMonthPrice;
+	    if (targetMonth != null && !targetMonth.isEmpty()) {
+	        getMonthPrice = ivs.getMonthPriceFiltered(seller.getU_id(), targetMonth);
+	        
+	    } else {
+	        getMonthPrice = ivs.getMonthPrice(seller.getU_id());
+	    }
+	    model.addAttribute("getMonthPrice", getMonthPrice);
+	    model.addAttribute("seller", seller);
+	    model.addAttribute("user", user);
+	    model.addAttribute("targetMonth", targetMonth); // JSP에서 사용하려면 필요
+	    return "/admin/settleStatement";
 	}
 }
