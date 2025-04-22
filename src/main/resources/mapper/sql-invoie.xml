@@ -3,7 +3,12 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.Lupang.mapper.InvoiceMapper">
-	<select id="settleList" parameterType="map" resultType="settlestatement">
+	<select id="settleList" parameterType="map" resultType="settle_statement">
 		select * from settle_statement where limit #{offset}, #{rowPerPage}
+	</select>
+		<!-- 관리자 페이지 판매자별 월별매출 가져오기 / '%Y-%m' = 2025-04 형식 -->
+	<select id="getMonthPrice" parameterType="string" resultType="settle_statement">
+		select u_id, date_format(s_date, '%Y-%m') month, sum(total) total from sale where u_id=#{u_id} and date_format(s_date, '%Y-%m')
+	    group by u_id, date_format(s_date, '%Y-%m')
 	</select>
 </mapper>

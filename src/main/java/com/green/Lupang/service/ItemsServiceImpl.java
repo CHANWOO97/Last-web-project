@@ -49,7 +49,6 @@ public class ItemsServiceImpl implements ItemsService{
 	}
 	@Override
 	public int countSearchItems(String query) {
-		// TODO Auto-generated method stub
 		return im.countSearchItems(query);
 	}
 	@Override

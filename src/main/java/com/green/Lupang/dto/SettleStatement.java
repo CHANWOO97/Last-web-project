@@ -7,7 +7,7 @@ import org.apache.ibatis.type.Alias;
 import lombok.Data;
 
 @Data
-@Alias("settlestatement")
+@Alias("settle_statement")
 public class SettleStatement {
 	private int ss_id; // INT AUTO_INCREMENT PRIMARY KEY COMMENT '정산명세서 ID',
     private int sr_id; // INT NOT NULL COMMENT '판매자 요청 ID (FK: seller_request.sr_id)',
@@ -18,4 +18,9 @@ public class SettleStatement {
     private int net_amount; // INT NOT NULL COMMENT '최종 정산금액',
     private Date settle_date; // DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '정산일',
     private String st_invoice; // CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 취소 = n 등)'
+    
+    //월별 매출액
+    private String month;
+    private int total;
+
 }

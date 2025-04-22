@@ -22,9 +22,11 @@ import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SaleQuestion;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
+import com.green.Lupang.dto.SettleStatement;
 import com.green.Lupang.dto.TopSaleItemDTO;
 import com.green.Lupang.dto.User;
 import com.green.Lupang.service.BoardService;
+import com.green.Lupang.service.InvoiceService;
 import com.green.Lupang.service.ItemsService;
 import com.green.Lupang.service.SaleService;
 import com.green.Lupang.service.SellerService;
@@ -44,6 +46,8 @@ public class AdminController {
 	private UserService us;
 	@Autowired
 	private BoardService bs;
+	@Autowired
+	private InvoiceService ivs;
 
 	// 향후 추가될 기능들
 	// 주문 관리
@@ -375,14 +379,15 @@ public class AdminController {
 		model.addAttribute("totalPage", totalPage);
 	}
 	@GetMapping("/admin/settleStatement")
-	public void settleStatement(@RequestParam("sr_id") String sr_id, Model model) {
-		
-		// 매출일 => totalPriceDay
-		// List<Items> itemsListBySr_id = is.itemsListBySr_id(sr_id);
-		// 월별 총 수익금액
-
-		
+	public void settleStatement(@RequestParam(value = "page", defaultValue = "1")int page,
+			@RequestParam("sr_id") String sr_id, Model model ) {
 		Seller seller = ses.select_id(sr_id);
-		model.addAttribute("seller",seller);	
+		User user = us.select(seller.getU_id());	 
+		// 판매자 월별 매출액
+		List<SettleStatement> getMonthPrice = ivs.getMonthPrice(seller.getU_id());
+		
+		model.addAttribute("seller",seller);
+		model.addAttribute("user", user);
+		model.addAttribute("getMonthPrice",getMonthPrice);
 	}
 }
