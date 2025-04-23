@@ -11,4 +11,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select date_format(s.s_date, '%Y-%m') month, sum(s.total) total_sum from sale s, seller_request sr 
 		where s.u_id = sr.u_id and sr.u_id = #{u_id} group by month order by month;
 	</select>
+	<insert id="settleInsert" parameterType="settle_statement">
+		 INSERT INTO settle_statement (sr_id, u_id, total_amount, fee_amount, pg_fee, net_amount, st_invoice, settle_date) 
+		 VALUES (#{sr_id}, #{u_id}, #{total_amount}, #{fee_amount}, #{pg_fee}, #{net_amount}, #{st_invoice}, NOW())
+	</insert>
+	<select id="invoiceState" parameterType="int" resultType="settle_statement">
+		SELECT st_invoice FROM settle_statement WHERE sr_id = #{srId} LIMIT 1
+	</select>
 </mapper>

@@ -32,7 +32,7 @@
 </script>
 <body>
 	<div class="content mt-5">
-		<h2 class="mb-5">${year_month}월정산명세서 목록</h2>
+		<h2 class="mb-5">${year_month}월정산명세서목록</h2>
 		<table class="table table-bordered table-hover align-middle text-center">
 			<thead>
 				<tr>
@@ -43,6 +43,7 @@
 					<th>카테고리</th>
 					<th>정산금액</th>
 					<th>발행상태</th>
+					<th>관리</th>
 					<th>상세보기</th>
 				</tr>
 			</thead>
@@ -55,15 +56,38 @@
 						<td>${seller.on_id}</td>
 						<td>${seller.sr_ev}</td>
 						<td>${seller.ic_name}</td>
-						<td>
+						<td><fmt:formatNumber value="${seller.total_sum}" type="number" groupingUsed="true" /></td>
 						<td><c:choose>
-								<c:when test="${seller.sr_state eq 'y'}">
-									<a href="/admin/settleStatement?sr_id=${seller.sr_id}" class="btn btn-sm btn-outline-danger">정산서 발행하기</a>
+								<c:when test="${stsm == 'y'}">
+									<span class="text-success fw-bold">발행완료</span>
 								</c:when>
-								<c:when test="${seller.sr_state eq 'n'}">
-									<a href="/admin/ReSettleStatement?sr_id=${seller.sr_id}" class="btn btn-sm btn-outline-success" onclick="return chk()">재발행</a>
+								<c:when test="${stsm == 'w'}">
+									<span class="text-warning fw-bold">미발행</span>
+								</c:when>
+								<c:when test="${stsm == 'n'}">
+									<span class="text-danger fw-bold">발행취소</span>
 								</c:when>
 							</c:choose></td>
+						<td><c:set var="totalAmount">
+								<!-- maxFractionDigits="0" => 정수로 변환 -->
+								<fmt:formatNumber value="${seller.total_sum}" maxFractionDigits="0" />
+							</c:set>
+								<c:choose>
+										<c:when test="${seller.st_invoice eq 'w'}">
+											<form action="/admin/settleStatementGo" method="post" style="display: inline;">
+												<input type="hidden" name="sr_id" value="${seller.sr_id}" /> 
+												<input type="hidden" name="u_id" value="${seller.u_id}" /> 
+												<input type="hidden" name="year_month" value="${year_month}" /> 
+												<input type="hidden" name="page" value="${page}" /> 
+												<input type="hidden" name="total_sum" value="${seller.total_sum}" />
+												<button type="submit" class="btn btn-sm btn-outline-success">정산서 발행하기</button>
+											</form></td>
+										</c:when>
+									<c:otherwise>
+										<a href="/admin/ReSettleStatementGo?sr_id=${seller.sr_id}" class="btn btn-sm btn-outline-danger" onclick="return chk()">정산서 재발행</a>
+									</c:otherwise>
+								</c:choose>
+					
 						<td><a href="/admin/settleStatement?sr_id=${seller.sr_id}" class="btn btn-sm btn-outline-primary">상세보기</a></td>
 					</tr>
 				</c:forEach>
@@ -78,12 +102,12 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/settleStatementForm?page=${currentPage - 1}"> <span aria-hidden="true">&laquo;</span></a></li>
+						<li class="page-item"><a class="page-link" href="/admin/settleStatementForm?year_month=${year_month}&page=${currentPage - 1}"> <span aria-hidden="true">&laquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>
 				<!-- 숫자 페이지 -->
 				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/settleStatementForm?page=${i}">${i}</a></li>
+					<li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/settleStatementForm?year_month=${year_month}&page=${i}">${i}</a></li>
 				</c:forEach>
 				<!-- 다음 버튼 -->
 				<c:choose>
@@ -91,7 +115,7 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/settleStatementForm?page=${currentPage + 1}"><span aria-hidden="true">&raquo;</span></a></li>
+						<li class="page-item"><a class="page-link" href="/admin/settleStatementForm?year_month=${year_month}&page=${currentPage + 1}"><span aria-hidden="true">&raquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

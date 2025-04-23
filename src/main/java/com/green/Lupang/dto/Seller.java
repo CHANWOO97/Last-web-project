@@ -28,5 +28,9 @@ public class Seller {
     private String seller_role;
     // 관리자 페이지 정산명세서 발행여부 추가
     private String st_invoice;
+    // 월별 구매일, 월별 매출총합
+    private String year_month;
+    private int total_sum;
+    
     
 }

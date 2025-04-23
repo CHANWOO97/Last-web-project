@@ -17,17 +17,8 @@ label {
 		<c:forEach var="m_price" items="${getMonthPrice}">
 			<!-- 상단 타이틀 및 필터 폼 -->
 			<div class="d-flex justify-content-between align-items-end mb-3">
-				<h2 class="mb-0">Lupang ${param.targetMonth}월 정산명세서 상세보기</h2>
-				<form action="/admin/settleStatement" method="get" class="d-flex align-items-end gap-2">
-					<input type="hidden" name="sr_id" value="${seller.sr_id}">
-					<div class="d-flex align-items-center gap-2">
-						<label for="targetMonth" class="form-label mb-0">정산 월:</label> 
-						<input type="month" id="targetMonth" name="targetMonth"
-							class="form-control form-control-sm w-auto" value="${m_price.settle_date}">
-					</div>
-					<button type="submit" class="btn btn-primary btn-sm">조회</button>
-				</form>
-			</div>
+				<h2 class="mb-0">Lupang ${param.targetMonth}월 정산명세서</h2>
+			</div><br>
 			<!-- 정산 데이터 폼 -->
 			<form action="/admin/insertSettle" method="post">
 				<input type="hidden" name="u_id" value="${seller.u_id}"> 

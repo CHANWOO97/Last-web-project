@@ -17,5 +17,6 @@ public interface InvoiceMapper {
 	List<SettleStatement> getMonthPrice(String u_id);
 
 	List<SettleStatement> getMonthPriceFiltered(Map<String, Object> map);
-	
+
+	int settleInsert(SettleStatement ss);
 }

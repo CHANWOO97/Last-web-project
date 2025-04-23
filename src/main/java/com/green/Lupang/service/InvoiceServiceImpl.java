@@ -35,5 +35,11 @@ public class InvoiceServiceImpl implements InvoiceService{
 		map.put("u_id", u_id);
 		map.put("targetMonth", targetMonth);
 		return ivm.getMonthPriceFiltered(map);
-	}		
+	}
+
+	@Override
+	public int settleInsert(SettleStatement ss) {
+		return ivm.settleInsert(ss);
+	}
+
 }

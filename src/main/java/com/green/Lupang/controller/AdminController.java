@@ -351,7 +351,7 @@ public class AdminController {
 		int rowPerPage = 10;
 		int offset = (page - 1) * rowPerPage;
 		List<Seller> sellerList = ses.sellerListbySr_id(offset, rowPerPage);
-
+		int sr_id = sellerList.get(0).getSr_id();
 		// 총 유저 수
 		int totalSeller = ses.countSeller();
 		// 페이징 계산
@@ -359,7 +359,6 @@ public class AdminController {
 		int pagePerBlock = 10;
 		int startPage = page - (page - 1) % pagePerBlock;
 		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
-		
 		
 		model.addAttribute("sellerList",sellerList);
 		model.addAttribute("currentPage", page);
@@ -403,5 +402,26 @@ public class AdminController {
 	    model.addAttribute("user", user);
 	    model.addAttribute("targetMonth", targetMonth); // JSP에서 사용하려면 필요
 	    return "/admin/settleStatement";
+	}
+	@PostMapping("/admin/settleStatementGo")
+	public String settleStatementGo(Model model, SettleStatement ss,@RequestParam("total_sum") int total_sum,
+			@RequestParam("year_month") String year_month,@RequestParam(value = "page", defaultValue = "1") int page) {
+		int total = total_sum;
+		int fee = (int)(total * 0.06);
+		int pg = (int)(total * 0.035);
+		int net = total - fee - pg;
+		// 매출액 계산
+		ss.setTotal_amount(total);
+		ss.setFee_amount(fee);
+		ss.setPg_fee(pg);
+		ss.setNet_amount(net);
+		ss.setSt_invoice("y");
+	
+		int result = ivs.settleInsert(ss);
+		model.addAttribute("result", result);
+		model.addAttribute("year_month", year_month);
+		model.addAttribute("page", page);
+		
+		return "/admin/settleStatementGo";
 	}
 }
