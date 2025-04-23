@@ -2,7 +2,9 @@ package com.green.Lupang.controller;
 
 import java.lang.ProcessBuilder.Redirect;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -323,39 +325,26 @@ public class AdminController {
 		int blockSize = 10; 
 		int startPage = ((page - 1) / blockSize) * blockSize + 1;
 		int endPage = Math.min(startPage + blockSize - 1, totalPage);
-		
-		// 총 매출액 계산 => totalPrice
-		List<Integer> priceList = (List<Integer>) adminItemsList.stream()
-			.map(Items::getPrice)
-			.collect(Collectors.toList());
-		int totalPrice = 0; 
-		for(int p : priceList) {
-			totalPrice += p;
+
+		// 판매자 월별 매출액 
+		List<Sale> saleMonthList = ss.saleMonthList();
+		// monthTotalMap = 테이블에 표시할 월별 수익금액 매핑
+		Map<String, Object> monthTotalMap  = new HashMap<>();
+		for (Sale s : saleMonthList) {
+		    monthTotalMap.put(s.getYear_month(), s.getTotal_sum());
 		}
-		// 매출일 => totalPriceDay
-		List<Sale> getAdminOrderList = ss.getAdminOrderList(offset, pageSize);
-		List totalPriceDay = (List) getAdminOrderList.stream()
-			.map(Sale::getS_date)	
-			.collect(Collectors.toList());
-		// 월 별 수익 총합 => monthTotalMap
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
-		Map<Object, Integer> monthTotalMap = getAdminOrderList.stream()
-			    .collect(Collectors.groupingBy(sale ->
-			        sdf.format(sale.getS_date()), // ← 여기에서 월 단위 문자열로 포맷
-			        Collectors.summingInt(Sale::getTotal)
-			    ));
-			
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("adminItemsList", adminItemsList);
-		model.addAttribute("monthTotalMap", monthTotalMap);
-		model.addAttribute("totalPrice",totalPrice);
+		model.addAttribute("saleMonthList",saleMonthList);
+		model.addAttribute("monthTotalMap",monthTotalMap);
 		return "admin/analytics2";
 	}
 	@GetMapping("/admin/settleStatementForm")
-	public void settleStatementForm(@RequestParam(value = "page", defaultValue = "1")int page, 
+	public void settleStatementForm(@RequestParam(value = "page", defaultValue = "1")int page,
+			@RequestParam("year_month") String year_month,
 			Model model) {
 		// 페이징
 		// 사용자 목록 가져오기
@@ -377,6 +366,7 @@ public class AdminController {
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("year_month", year_month);
 	}
 	// @RequestParam(required = false) String targetMonth => jsp에서 넘어오 파라미터 값이 required = false 즉, 없어도 상관없다는 의미
 	@GetMapping("/admin/settleStatement")

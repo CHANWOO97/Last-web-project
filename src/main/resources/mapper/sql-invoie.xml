@@ -6,9 +6,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="settleList" parameterType="map" resultType="settle_statement">
 		select * from settle_statement where limit #{offset}, #{rowPerPage}
 	</select>
-		<!-- 관리자 페이지 판매자별 월별매출 가져오기 / '%Y-%m' = 2025-04 형식 -->
+		<!-- u_id를 통해 월별 매출액 가져오기 -->
 	<select id="getMonthPrice" parameterType="string" resultType="settle_statement">
-		select u_id, date_format(s_date, '%Y-%m') month, sum(total) total from sale where u_id=#{u_id} and date_format(s_date, '%Y-%m')
-	    group by u_id, date_format(s_date, '%Y-%m')
+		select date_format(s.s_date, '%Y-%m') month, sum(s.total) total_sum from sale s, seller_request sr 
+		where s.u_id = sr.u_id and sr.u_id = #{u_id} group by month order by month;
 	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.green.Lupang.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.green.Lupang.dto.Items;
@@ -20,4 +21,5 @@ public interface SaleService {
 	List<Items> getbuyItems(String u_id);
 	List<TopSaleItemDTO> getTopSellingItems();
 	List<Integer> findItemIdsBySaleId(String s_id);
+	List<Sale> saleMonthList();
 }

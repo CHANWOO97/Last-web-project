@@ -3,6 +3,7 @@ package com.green.Lupang.service;
 import java.util.List;
 
 import com.green.Lupang.dto.Items;
+import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.SettleStatement;
 
 public interface InvoiceService {
@@ -12,5 +13,4 @@ public interface InvoiceService {
 	List<SettleStatement> getMonthPrice(String u_id);
 
 	List<SettleStatement> getMonthPriceFiltered(String u_id, String targetMonth);
-	
 }

@@ -15,7 +15,6 @@ public class Sale {
     private Date s_date; 	// TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '구매일',
     private String s_status; //CHAR(1) DEFAULT 'n' COMMENT '구매 상태 (n: 미결제)',
     private String c_id; 	// VARCHAR(255) NOT NULL COMMENT '장바구니 ID (FK: cart.c_id)',
-    
     // 주문 시 배송 정보 
     private String receiver;
     private String tel;
@@ -29,5 +28,9 @@ public class Sale {
     private String customer_name; // 보내는 사람
     // 한번에 여러개 구매 시 카운트
     private int item_count; 
-    
+    // 판매자
+    private int sr_id;
+    // 월별 구매일, 월별 매출총합
+    private String year_month;
+    private int total_sum;
 }

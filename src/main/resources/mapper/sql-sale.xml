@@ -46,10 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!--  관리자 용도 -->
 	<select id="getAdminOrderList" parameterType="map" resultType="sale">
-	    SELECT s.s_id, u.name AS customer_name, s.tel, s.address, s.total, s.s_date, s.s_status
-    	FROM sale s
-    	JOIN user_table u ON s.u_id = u.u_id
-    	ORDER BY s.s_date DESC
+	    select s.s_id, s.u_id customerid, u.name customer, s.tel, s.address, s.total, s.s_date, s.s_status, sr.sr_id 
+		from sale s, user_table u, seller_request sr where s.u_id = u.u_id and u.sr_id= sr.sr_id  order by s.s_date desc
     	limit #{pageSize} offset #{offset};
 	</select>
 	<!-- 구매문의 페이지 사용자가 구매한 물건 조회 -->
@@ -69,5 +67,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		GROUP BY si.i_id
 		ORDER BY count DESC
 		LIMIT 5
+	</select>
+			<!-- 관리자페이지 판매자 월별 매출액 / '%Y-%m' = 2025-04.. 형식 -->
+	<select id="saleMonthList" parameterType="list" resultType="sale">
+		select date_format(s.s_date, '%Y-%m') `year_month`, sum(s.total) total_sum
+		from sale s where date_format(s.s_date, '%Y-%m') group by `year_month` order by `year_month`
 	</select>
 </mapper>

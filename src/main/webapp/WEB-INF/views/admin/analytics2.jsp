@@ -21,41 +21,51 @@ table {
 	<div class="content">
 		<!-- 탭 메뉴 -->
 		<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp"%>
+		<div class="d-flex justify-content-end gap-2">
+		<select name="targetMonth" class="form-select form-select-sm w-auto">
+			<c:forEach var="date" items="${saleMonthList}">
+				<option value="${date.year_month}">${date.year_month}월</option>
+			</c:forEach>
+		</select>
+			</div>
 		<!-- ✅ 그래프 출력 영역 -->
 		<canvas id="popularityChart" width="800" height="200"></canvas>
 		<!-- ✅ 통계 테이블 -->
 		<table border="1" style="width: 100%; text-align: center; border-collapse: collapse;">
-			<!-- 월 헤더 -->
+			<tr>
+				<!-- 테이블 월표시 -->
 			<tr style="background-color: #f0f0f0; border-bottom: 2px solid #555;">
 				<c:forEach var="i" begin="1" end="12">
 					<th style="padding: 10px;">${i}월</th>
 				</c:forEach>
 			</tr>
-			<!-- 수익 금액 -->
-			<tr style="border-top: 2px solid #555;">
-				<c:forEach var="i" begin="1" end="12">
-					<c:set var="keyMonth">
-						<c:choose>
-							<c:when test="${i lt 10}">2025-0${i}</c:when>
-							<c:otherwise>2025-${i}</c:otherwise>
-						</c:choose>
-					</c:set>
-					<td style="padding: 10px;"><c:choose>
-							<c:when test="${monthTotalMap[keyMonth] != null}">
-								<fmt:formatNumber value="${monthTotalMap[keyMonth]}" type="number" />
-							</c:when>
-							<c:otherwise>0</c:otherwise>
-						</c:choose></td>
-				</c:forEach>
-			</tr>
+			<c:forEach var="i" begin="1" end="12">
+				<c:set var="keyMonth">
+					<c:choose>
+						<c:when test="${i lt 10}">2025-0${i}</c:when>
+						<c:otherwise>2025-${i}</c:otherwise>
+					</c:choose>
+				</c:set>
+				<!-- 테이블 금액표시 -->
+				<td><c:choose>
+						<c:when test="${monthTotalMap[keyMonth] != null}">
+							<fmt:formatNumber value="${monthTotalMap[keyMonth]}" type="number" />
+						</c:when>
+						<c:otherwise>0</c:otherwise>
+					</c:choose></td>
+			</c:forEach>
 		</table>
-		<div><p>
-			<form action="/admin/taxInvoice" method="post" >
-				<div class="d-flex justify-content-end gap-2"> <!-- 오른쪽 정렬 -->
-					  <a href="/admin/settleStatementForm" class="btn btn-primary">정산명세서 발행</a>
+		<div>
+			<p>
+			<form action="/admin/taxInvoice" method="post">
+				<!-- 오른쪽 정렬 -->
+				<div class="d-flex justify-content-end gap-2">
+				<c:forEach var="date" items="${saleMonthList}">
+					<a href="/admin/settleStatementForm?year_month=${date.year_month}" class="btn btn-primary">정산명세서 발행</a>
+				</c:forEach>
 					<button type="submit" class="btn btn-success">세금계산서 발행</button>
 				</div>
-			</form>	
+			</form>
 		</div>
 	</div>
 	<!-- ✅ Chart.js 스크립트 -->

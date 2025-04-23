@@ -1,5 +1,6 @@
 package com.green.Lupang.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,4 +86,8 @@ public class SaleServiceImpl implements SaleService{
 		return sm.findItemIdsBySaleId(s_id);
 	}
 
+	@Override
+	public List<Sale> saleMonthList() {
+		return sm.saleMonthList();
+	}
 }
