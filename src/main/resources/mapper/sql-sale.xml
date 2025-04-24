@@ -70,7 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 			<!-- 관리자페이지 판매자 월별 매출액 / '%Y-%m' = 2025-04.. 형식 -->
 	<select id="saleMonthList" parameterType="list" resultType="sale">
-		select date_format(s.s_date, '%Y-%m') `year_month`, sum(s.total) total_sum
-		from sale s where date_format(s.s_date, '%Y-%m') group by `year_month` order by `year_month`
+		select date_format(s.s_date, '%Y-%m') `year_month`, sr.sr_id ,sum(s.total) total_sum
+		from sale s, seller_request sr 
+		where date_format(s.s_date, '%Y-%m') and s.u_id = sr.u_id 
+		group by `year_month`, sr.sr_id order by `year_month`
 	</select>
 </mapper>

@@ -19,4 +19,7 @@ public interface InvoiceMapper {
 	List<SettleStatement> getMonthPriceFiltered(Map<String, Object> map);
 
 	int settleInsert(SettleStatement ss);
+
+	SettleStatement settleState(int sr_id);
+
 }

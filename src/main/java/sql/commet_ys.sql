@@ -277,7 +277,20 @@ from sale s, user_table u, seller_request sr where s.u_id = u.u_id and u.sr_id= 
 SELECT s.s_id, u.name AS customer_name, s.tel, s.address, s.total, s.s_date, s.s_status
 FROM sale s JOIN user_table u ON s.u_id = u.u_id ORDER BY s.s_date DESC;
 
-select date_format(s.s_date, '%Y-%m') `year_month`, sum(s.total) total_sum
-		from sale s, sale_items si, items i, seller_request sr 
-		where date_format(s.s_date, '%Y-%m') and s.s_id = si.s_id and si.i_id = i.i_id and 
-		group by `year_month` order by `year_month`
+
+-- 정산명세서 리스트 가져오기
+SELECT s.sr_id, s.u_id, s.ic_id, s.sr_state, s.srq_at, s.on_id, s.sr_ev, u.seller_role, u.address, ic.ic_name, ses.st_invoice, u.email,  
+IFNULL(sales.total_sum, 0) AS total_sum
+FROM seller_request s 
+JOIN user_table u ON s.u_id = u.u_id 
+JOIN items_category ic ON s.ic_id = ic.ic_id 
+-- 판매 테이블(sale)에서 유저별(u_id)로 총 매출(SUM(total))을 미리 계산,그 결과를 메인 쿼리의 사용자(user_table u)에 붙이는 역할	
+-- LEFT JOIN으로 매출이 없는 사용자도 결과에 포함			
+LEFT JOIN (SELECT u_id, SUM(total) AS total_sum	FROM sale GROUP BY u_id) sales ON sales.u_id = u.u_id
+-- MAX(st_invoice) 사용자별로 가장 최신 상태 또는 아무거나 하나의 상태를 가져오기
+LEFT JOIN (SELECT u_id, MAX(st_invoice) AS st_invoice FROM settle_statement GROUP BY u_id) ses ON ses.u_id = u.u_id 
+-- MAX(sr_id) GROUP BY u_id	사용자별로 가장 최근 신청만 조회
+WHERE s.sr_id IN (SELECT MAX(sr_id) FROM seller_request GROUP BY u_id) AND s.sr_state = 'y' and s.sr_id = 1
+ORDER BY s.srq_at;
+
+ 

@@ -42,4 +42,8 @@ public class InvoiceServiceImpl implements InvoiceService{
 		return ivm.settleInsert(ss);
 	}
 
+	@Override
+	public SettleStatement settleState(int sr_id) {
+		return ivm.settleState(sr_id);
+	}
 }

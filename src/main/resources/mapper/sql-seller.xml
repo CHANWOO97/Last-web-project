@@ -75,7 +75,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- admin/analytics2 / 관리자 페이지 정산명세서 리스트 가져오기(*sr_state(판매자일때만 = 'y')) -->
 	<select id="sellerListbySr_id" parameterType="map" resultType="seller">
 		select s.sr_id, s.u_id, s.ic_id, s.sr_state, s.srq_at, s.on_id, s.sr_ev, u.seller_role, ic.ic_name,
-		sum(sa.total) total_sum FROM seller_request s, user_table u, items_category ic, sale sa
+		sum(sa.total) total_sum 
+		FROM seller_request s, user_table u, items_category ic, sale sa
 		where s.u_id = u.u_id and s.ic_id = ic.ic_id and sa.u_id = u.u_id
 		and s.sr_id in (select max(sr_id) from seller_request group by u_id) and s.sr_state = 'y'
 		group by s.sr_id, s.u_id, s.ic_id, s.sr_state, s.srq_at, u.seller_role, ic.ic_name, s.on_id, s.sr_ev
@@ -86,5 +87,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from seller_request s join user_table u on s.u_id = u.u_id
 		where s.sr_id in (select max(sr_id) from seller_request group by u_id)
 		and s.sr_state = 'y'order by reg_date DESC 
+	</select>
+		<!-- 월 정산명세서 목록 가져오기 / seller request + join문을 이용한 리스트 가져오기 -->
+	<select id="saleJoinList" parameterType="map" resultType="sale">
+		SELECT s.sr_id, s.u_id, s.ic_id, s.sr_state, s.srq_at, s.on_id, s.sr_ev, u.seller_role, ic.ic_name, ses.st_invoice,    
+		IFNULL(sales.total_sum, 0) AS total_sum
+		FROM seller_request s 
+		JOIN user_table u ON s.u_id = u.u_id 
+		JOIN items_category ic ON s.ic_id = ic.ic_id 
+		<!-- 판매 테이블(sale)에서 유저별(u_id)로 총 매출(SUM(total))을 미리 계산,그 결과를 메인 쿼리의 사용자(user_table u)에 붙이는 역할	
+		LEFT JOIN으로 매출이 없는 사용자도 결과에 포함	 -->		
+		LEFT JOIN (SELECT u_id, SUM(total) AS total_sum	FROM sale GROUP BY u_id) sales ON sales.u_id = u.u_id
+    	<!-- MAX(st_invoice) 사용자별로 가장 최신 상태 또는 아무거나 하나의 상태를 가져오기 -->
+		LEFT JOIN (SELECT u_id, MAX(st_invoice) AS st_invoice FROM settle_statement GROUP BY u_id) ses ON ses.u_id = u.u_id 
+		<!-- MAX(sr_id) GROUP BY u_id	사용자별로 가장 최근 신청만 조회 -->
+    	WHERE s.sr_id IN (SELECT MAX(sr_id) FROM seller_request GROUP BY u_id) AND s.sr_state = 'y'
+		ORDER BY s.srq_at desc limit #{offset}, #{rowPerPage};
 	</select>
 </mapper>

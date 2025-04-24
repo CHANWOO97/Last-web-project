@@ -3,6 +3,7 @@ package com.green.Lupang.service;
 import java.util.List;
 
 import com.green.Lupang.dto.Items;
+import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
 
@@ -35,8 +36,9 @@ public interface SellerService {
 
 	List<Items> getItemsBySeller(int sr_id, int startRow, int rowPerPage);
 
-
 	int countSeller();
 
 	List<Seller> sellerListbySr_id(int offset, int rowPerPage);
+
+	List<Sale> saleJoinList(int offset, int rowPerPage);
 }

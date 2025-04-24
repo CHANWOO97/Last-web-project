@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.Lupang.dto.Items;
+import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
 import com.green.Lupang.mapper.SellerMapper;
@@ -90,5 +91,11 @@ public class SellerServiceImpl implements SellerService{
 		map.put("rowPerPage", rowPerPage);
 		return sm.sellerListbySr_id(map);
 	}
-
+	@Override
+	public List<Sale> saleJoinList(int offset, int rowPerPage) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("offset", offset);
+		map.put("rowPerPage", rowPerPage);
+		return sm.saleJoinList(map);
+	}
 }

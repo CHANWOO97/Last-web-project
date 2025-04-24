@@ -15,4 +15,6 @@ public interface InvoiceService {
 	List<SettleStatement> getMonthPriceFiltered(String u_id, String targetMonth);
 
 	int settleInsert(SettleStatement ss);
+
+	SettleStatement settleState(int sr_id);
 }

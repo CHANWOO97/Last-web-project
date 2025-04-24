@@ -4,12 +4,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.Lupang.mapper.InvoiceMapper">
 	<select id="settleList" parameterType="map" resultType="settle_statement">
-		select * from settle_statement where limit #{offset}, #{rowPerPage}
+		select * from settle_statement ORDER BY ss_id DESC limit #{offset}, #{rowPerPage}
 	</select>
 		<!-- u_id를 통해 월별 매출액 가져오기 -->
 	<select id="getMonthPrice" parameterType="string" resultType="settle_statement">
 		select date_format(s.s_date, '%Y-%m') month, sum(s.total) total_sum from sale s, seller_request sr 
-		where s.u_id = sr.u_id and sr.u_id = #{u_id} group by month order by month;
+		where s.u_id = sr.u_id and sr.u_id = #{u_id} group by month order by month
 	</select>
 	<insert id="settleInsert" parameterType="settle_statement">
 		 INSERT INTO settle_statement (sr_id, u_id, total_amount, fee_amount, pg_fee, net_amount, st_invoice, settle_date) 
@@ -17,5 +17,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="invoiceState" parameterType="int" resultType="settle_statement">
 		SELECT st_invoice FROM settle_statement WHERE sr_id = #{srId} LIMIT 1
+	</select>
+	<select id="getSettleStatementList" parameterType="list"></select>
+		<!-- settleState 가져오기  -->
+	<select id="settleState" parameterType="int" resultType="settle_statement">
+		select ss.st_invoice from settle_statement ss where sr_id=#{sr_id}
 	</select>
 </mapper>

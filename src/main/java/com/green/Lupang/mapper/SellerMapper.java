@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.green.Lupang.dto.Items;
+import com.green.Lupang.dto.Sale;
 import com.green.Lupang.dto.Seller;
 import com.green.Lupang.dto.SellerItems;
 
@@ -27,5 +28,5 @@ public interface SellerMapper {
 	List<Items> getItemsBySeller(Map<String, Object> param);
 	List<Seller> sellerListbySr_id(Map<String, Object> map);
 	int countSeller();
-	
+	List<Sale> saleJoinList(Map<String, Object> map);
 }

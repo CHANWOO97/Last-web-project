@@ -344,14 +344,12 @@ public class AdminController {
 	}
 	@GetMapping("/admin/settleStatementForm")
 	public void settleStatementForm(@RequestParam(value = "page", defaultValue = "1")int page,
-			@RequestParam("year_month") String year_month,
-			Model model) {
+			@RequestParam("targetMonth") String targetMonth, Model model, SettleStatement settleStatement) {
 		// 페이징
 		// 사용자 목록 가져오기
-		int rowPerPage = 10;
+		int rowPerPage = 12;
 		int offset = (page - 1) * rowPerPage;
-		List<Seller> sellerList = ses.sellerListbySr_id(offset, rowPerPage);
-		int sr_id = sellerList.get(0).getSr_id();
+		List<Sale> saleJoinList = ses.saleJoinList(offset, rowPerPage);
 		// 총 유저 수
 		int totalSeller = ses.countSeller();
 		// 페이징 계산
@@ -359,69 +357,21 @@ public class AdminController {
 		int pagePerBlock = 10;
 		int startPage = page - (page - 1) % pagePerBlock;
 		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
+		// 정산명세서 insert추가
+
 		
-		model.addAttribute("sellerList",sellerList);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("year_month", year_month);
+		model.addAttribute("targetMonth", targetMonth);
+		model.addAttribute("saleJoinList",saleJoinList);
 	}
-	// @RequestParam(required = false) String targetMonth => jsp에서 넘어오 파라미터 값이 required = false 즉, 없어도 상관없다는 의미
-	@GetMapping("/admin/settleStatement")
-	public void settleStatement(@RequestParam(value = "page", defaultValue = "1")int page,
-			@RequestParam("sr_id") String sr_id, Model model) {
-		Seller seller = ses.select_id(sr_id);
-		User user = us.select(seller.getU_id());	 
-		// 판매자 월별 매출액
-		List<SettleStatement> getMonthPrice;
-		// 월 선택
-		getMonthPrice = ivs.getMonthPrice(seller.getU_id());
-		model.addAttribute("seller",seller);
-		model.addAttribute("user", user);
-		model.addAttribute("getMonthPrice",getMonthPrice);
-	}
-	@GetMapping("/admin/settleStatementMonth")
-	public String settleStatementMonth(
-	    @RequestParam(required = false) String targetMonth,
-	    @RequestParam("sr_id") String sr_id,
-	    Model model) {
-	    
-	    Seller seller = ses.select_id(sr_id);
-	    User user = us.select(seller.getU_id());
-
-	    List<SettleStatement> getMonthPrice;
-	    if (targetMonth != null && !targetMonth.isEmpty()) {
-	        getMonthPrice = ivs.getMonthPriceFiltered(seller.getU_id(), targetMonth);
-	        
-	    } else {
-	        getMonthPrice = ivs.getMonthPrice(seller.getU_id());
-	    }
-	    model.addAttribute("getMonthPrice", getMonthPrice);
-	    model.addAttribute("seller", seller);
-	    model.addAttribute("user", user);
-	    model.addAttribute("targetMonth", targetMonth); // JSP에서 사용하려면 필요
-	    return "/admin/settleStatement";
-	}
-	@PostMapping("/admin/settleStatementGo")
-	public String settleStatementGo(Model model, SettleStatement ss,@RequestParam("total_sum") int total_sum,
-			@RequestParam("year_month") String year_month,@RequestParam(value = "page", defaultValue = "1") int page) {
-		int total = total_sum;
-		int fee = (int)(total * 0.06);
-		int pg = (int)(total * 0.035);
-		int net = total - fee - pg;
-		// 매출액 계산
-		ss.setTotal_amount(total);
-		ss.setFee_amount(fee);
-		ss.setPg_fee(pg);
-		ss.setNet_amount(net);
-		ss.setSt_invoice("y");
 	
-		int result = ivs.settleInsert(ss);
-		model.addAttribute("result", result);
-		model.addAttribute("year_month", year_month);
-		model.addAttribute("page", page);
+	@PostMapping("/admin/detailSettleStatement")
+	public void detailSettleStatement(Model model, SettleStatement settleStatement) {
+		SettleStatement settlerStatement = new SettleStatement();
 		
-		return "/admin/settleStatementGo";
+		model.addAttribute(settleStatement);
 	}
 }

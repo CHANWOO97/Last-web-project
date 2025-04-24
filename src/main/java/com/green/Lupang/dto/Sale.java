@@ -28,9 +28,13 @@ public class Sale {
     private String customer_name; // 보내는 사람
     // 한번에 여러개 구매 시 카운트
     private int item_count; 
-    // 판매자
+    // 판매자 정보
     private int sr_id;
-    // 월별 구매일, 월별 매출총합
+    private String on_id;
+    private String sr_ev;
+    private String ic_name;
+    // 증빙 정보(월별 구매일, 월별 매출총합)
     private String year_month;
     private int total_sum;
+    private String st_invoice;
 }

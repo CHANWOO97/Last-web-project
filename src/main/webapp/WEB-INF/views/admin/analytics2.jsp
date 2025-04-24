@@ -21,13 +21,15 @@ table {
 	<div class="content">
 		<!-- 탭 메뉴 -->
 		<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp"%>
-		<div class="d-flex justify-content-end gap-2">
-		<select name="targetMonth" class="form-select form-select-sm w-auto">
-			<c:forEach var="date" items="${saleMonthList}">
-				<option value="${date.year_month}">${date.year_month}월</option>
-			</c:forEach>
-		</select>
-			</div>
+		<form action="/admin/settleStatementForm" method="get">
+			<input type="hidden" name="page" value="1">
+				<div class="d-flex justify-content-end gap-2">
+					<select name="targetMonth" class="form-select form-select-sm w-auto">
+						<c:forEach var="monthList" items="${saleMonthList}">
+							<option value="${monthList.year_month}">${monthList.year_month}월</option>
+						</c:forEach>
+					</select>
+				</div>
 		<!-- ✅ 그래프 출력 영역 -->
 		<canvas id="popularityChart" width="800" height="200"></canvas>
 		<!-- ✅ 통계 테이블 -->
@@ -57,13 +59,9 @@ table {
 		</table>
 		<div>
 			<p>
-			<form action="/admin/taxInvoice" method="post">
-				<!-- 오른쪽 정렬 -->
+				<!-- 정산명세서 버튼 오른쪽 정렬 -->
 				<div class="d-flex justify-content-end gap-2">
-				<c:forEach var="date" items="${saleMonthList}">
-					<a href="/admin/settleStatementForm?year_month=${date.year_month}" class="btn btn-primary">정산명세서 발행</a>
-				</c:forEach>
-					<button type="submit" class="btn btn-success">세금계산서 발행</button>
+					<input type="submit" class="btn btn-primary" value="정산명세서 발행">
 				</div>
 			</form>
 		</div>
