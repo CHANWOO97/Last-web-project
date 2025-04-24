@@ -1,0 +1,21 @@
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.Lupang.mapper.EventMapper">
+	<!-- 이벤트 상품 가져오기 -->
+	<select id="getEventItems" resultType="items">
+		SELECT * FROM items  WHERE ic_id = 'event' and deleted = FALSE
+	</select>
+	
+	<select id="findItemsByCategory" parameterType="string" resultType="Items">
+  		SELECT * FROM items WHERE ic_id = #{ic_id} AND deleted = FALSE
+	</select>
+	
+	<select id="countByUserId" parameterType="string" resultType="int">
+		SELECT COUNT(*) FROM event_result WHERE u_id = #{u_id}
+	</select>
+
+	<insert id="insertResult">
+		INSERT INTO event_result (u_id, i_id) VALUES (#{userId}, #{i_id})
+	</insert>
+</mapper>

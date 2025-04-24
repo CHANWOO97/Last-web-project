@@ -78,59 +78,68 @@
 		<%@ include file="../layout/headerHome.jsp"%>
 	</c:if>
 	<div class="container py-5">
-		<div class="mx-auto p-5 bg-white shadow-lg rounded-4"
-			style="max-width: 960px;">
-			<div class="row g-5 align-items-center">
-				<!-- 좌측: 이미지 -->
-				<div class="col-md-5">
-					<img src="/resources/images/items_photo/${items.photo}"
-						class="img-fluid rounded-3 shadow-sm" alt="${items.name}">
-				</div>
-
-				<!-- 우측: 상품 설명 -->
-				<div class="col-md-7">
-					<h3 class="fw-bold mb-3">${items.name}</h3>
-					<p class="mb-2 text-muted">
-						<strong>원산지:</strong> ${items.location}
-					</p>
-					<p class="mb-4">${items.description}</p>
-
-					<div class="mb-3 fs-5">
-						<span><strong>총 금액:</strong> <span id="saleprice"
-							class="text-danger fw-bold"> <fmt:formatNumber
-									value="${items.price}" />원
-						</span> </span>
-					</div>
-
-					<div class="d-flex align-items-center mb-4">
-						<label for="quantity" class="me-3 fw-semibold">수량</label> <input
-							type="number" id="quantity" name="quantity" value="1" min="1"
-							class="form-control text-center w-25" onchange="clk()">
-					</div>
-					<!-- 버튼 -->
-					<div class="d-grid gap-2">
-					  <div class="d-flex align-items-center gap-2 flex-wrap">					    
-					    <!-- 찜하기 버튼 -->
-					    <button type="button" class="btn ${isWishlisted ? 'btn-danger' : 'btn-outline-danger'} wishlist-btn d-flex align-items-center justify-content-center px-3 py-2"
-					      data-iid="${items.i_id}">
-					      <i class="bi ${isWishlisted ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
-					    </button>					
-					    <!-- 장바구니 담기 버튼 -->
-					    <button type="button" class="btn btn-outline-primary fw-bold px-3 py-2" onclick="innerCart()">
-					      🛒 장바구니 담기
-					    </button>					
-					    <!-- 지금 구매 버튼 -->
-					    <form id="orderForm" method="post" action="/itemsOrder/order" class="mb-0">
-					      <input type="hidden" name="selectedItems" id="selectedItemInput" />
-					      <button type="button" class="btn btn-success fw-bold px-3 py-2" onclick="submitOrder()">
-					        ✅ 지금 구매
-					      </button>
-					    </form>
-					
-					  </div>
-					</div>
-				</div>
-			</div>
+		<div class="mx-auto p-5 bg-white shadow-lg rounded-4" style="max-width: 960px;">
+		  <c:choose>
+		    <c:when test="${items.deleted eq true}">
+		      <div class="text-center py-5">
+		        <i class="bi bi-exclamation-triangle-fill text-warning fs-1 mb-3"></i>
+		        <h4 class="fw-bold mb-3">이 상품은 더 이상 판매되지 않습니다.</h4>
+		        <p class="text-muted">관리자에 의해 삭제된 상품입니다. 다른 상품을 확인해보세요.</p>
+		        <a href="/items/itemsByCategory?ic_id=${items.ic_id }" class="btn btn-outline-secondary mt-4">상품 목록으로 이동</a>
+		      </div>
+		    </c:when>
+		    <c:otherwise>
+		      <div class="row g-5 align-items-center">
+		        <!-- 좌측: 이미지 -->
+		        <div class="col-md-5">
+		          <img src="/resources/images/items_photo/${items.photo}" class="img-fluid rounded-3 shadow-sm" alt="${items.name}">
+		        </div>
+		
+		        <!-- 우측: 상품 설명 + 버튼 -->
+		        <div class="col-md-7">
+		          <h3 class="fw-bold mb-3">${items.name}</h3>
+		          <p class="mb-2 text-muted"><strong>원산지:</strong> ${items.location}</p>
+		          <p class="mb-4">${items.description}</p>
+		
+		          <div class="mb-3 fs-5">
+		            <strong>총 금액:</strong>
+		            <span id="saleprice" class="text-danger fw-bold">
+		              <fmt:formatNumber value="${items.price}" />원
+		            </span>
+		          </div>
+		
+		          <div class="d-flex align-items-center mb-4">
+		            <label for="quantity" class="me-3 fw-semibold">수량</label>
+		            <input type="number" id="quantity" name="quantity" value="1" min="1"
+		                   class="form-control text-center w-25" onchange="clk()">
+		          </div>
+		
+		          <div class="d-grid gap-2">
+		            <div class="d-flex align-items-center gap-2 flex-wrap">
+		              <!-- 찜하기 버튼 -->
+		              <button type="button" class="btn ${isWishlisted ? 'btn-danger' : 'btn-outline-danger'} wishlist-btn d-flex align-items-center justify-content-center px-3 py-2"
+		                      data-iid="${items.i_id}">
+		                <i class="bi ${isWishlisted ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
+		              </button>
+		
+		              <!-- 장바구니 담기 버튼 -->
+		              <button type="button" class="btn btn-outline-primary fw-bold px-3 py-2" onclick="innerCart()">
+		                🛒 장바구니 담기
+		              </button>
+		
+		              <!-- 지금 구매 버튼 -->
+		              <form id="orderForm" method="post" action="/itemsOrder/order" class="mb-0">
+		                <input type="hidden" name="selectedItems" id="selectedItemInput" />
+		                <button type="button" class="btn btn-success fw-bold px-3 py-2" onclick="submitOrder()">
+		                  ✅ 지금 구매
+		                </button>
+		              </form>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </c:otherwise>
+		  </c:choose>
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/views/layout/footer.jsp"%>

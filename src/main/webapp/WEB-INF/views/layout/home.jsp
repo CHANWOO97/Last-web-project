@@ -19,10 +19,20 @@
 	  <div class="carousel-inner">
 	    <c:forEach var="img" items="${images}" varStatus="status">
 	      <div class="carousel-item ${status.first ? 'active' : ''} b-item" data-bs-interval="3000">
-	        <img src="/resources/images/banner/${img}" class="d-block w-100 b-img" alt="..." width="1920" height="450">
-	        <div class="carousel-caption d-none d-md-block">
-	          <!-- 필요시 여기에 설명 추가 -->
-	        </div>
+	      <!-- 이미지 클릭 시 /event/roulette 이동 -->
+			<c:if test="${img eq '아이묭_001.png'}">
+				<a href="/event/roulette" class="banner-link">
+				  <span class="banner-img-wrap">
+				    <img src="/resources/images/banner/${img}" class="d-block w-100 b-img" alt="아이묭 이벤트" width="1920" height="450">
+				    <span class="carousel-caption-custom">
+				      <span class="banner-caption-text">이벤트 추첨 룰렛 돌리기</span>
+				    </span>
+				  </span>
+				</a>	  
+			</c:if>
+			<c:if test="${img ne '아이묭_001.png'}">
+	        	<img src="/resources/images/banner/${img}" class="d-block w-100 b-img" alt="..." width="1920" height="450">	        	
+	        </c:if>	        
 	      </div>
 	    </c:forEach>
 	  </div>
