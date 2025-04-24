@@ -33,13 +33,13 @@
 <body>
 <div class="sidebar">
     <h4 class="text-center text-white mb-4">관리자 메뉴</h4>
-    <a href="/admin/orders">구매 관리</a>
-    <a href="/admin/categories">카테고리 관리</a>
-    <a href="/admin/items">상품 관리</a>    
-    <a href="/admin/sellers">판매자 승인 관리</a>
-    <a href="/admin/users">회원 관리</a>
-    <a href="/admin/question">고객문의 관리</a>
-    <a href="/admin/adminForm">관리자 홈</a>
+    <a href="/admin/order/orders">구매 관리</a>
+    <a href="/admin/cat/categories">카테고리 관리</a>
+    <a href="/admin/item/items">상품 관리</a>    
+    <a href="/admin/seller/sellers">판매자 승인 관리</a>
+    <a href="/admin/user/users">회원 관리</a>
+    <a href="/admin/questionboard/question">고객문의 관리</a>
+    <a href="/admin/home/adminForm">관리자 홈</a>
     <a href="/">메인 홈</a>
 </div>
 </body>

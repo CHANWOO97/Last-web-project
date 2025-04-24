@@ -71,7 +71,7 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 					<c:if test="${id == 'admin'}">
 						<!-- 'admin'으로 로그인 되었을때 관리자페이지 보이기 -->
 						<a class="nav-link" href="../user/logout">로그아웃</a>
-						<a class="nav-link" href="../admin/adminForm">관리자페이지</a>
+						<a class="nav-link" href="../admin/home/adminForm">관리자페이지</a>
 					</c:if>
 				</c:if>
 				<!-- ✅ dropdown 감싸기 -->

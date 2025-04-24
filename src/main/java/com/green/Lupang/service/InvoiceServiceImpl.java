@@ -23,27 +23,14 @@ public class InvoiceServiceImpl implements InvoiceService{
 		map.put("rowPerPage", rowPerPage);
 		return ivm.settleList(map);
 	}
-	
+
 	@Override
-	public List<SettleStatement> getMonthPrice(String u_id) {
-		return ivm.getMonthPrice(u_id);
+	public void insertSettleInvoice(SettleStatement settleStatement) {
+		ivm.insertSettleInvoice(settleStatement);
 	}
 
 	@Override
-	public List<SettleStatement> getMonthPriceFiltered(String u_id, String targetMonth) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("u_id", u_id);
-		map.put("targetMonth", targetMonth);
-		return ivm.getMonthPriceFiltered(map);
-	}
-
-	@Override
-	public int settleInsert(SettleStatement ss) {
-		return ivm.settleInsert(ss);
-	}
-
-	@Override
-	public SettleStatement settleState(int sr_id) {
-		return ivm.settleState(sr_id);
+	public SettleStatement getSettleInvoice(int sr_id) {
+		return ivm.getSettleInvoice(sr_id);
 	}
 }

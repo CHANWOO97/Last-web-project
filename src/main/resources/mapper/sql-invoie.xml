@@ -11,16 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select date_format(s.s_date, '%Y-%m') month, sum(s.total) total_sum from sale s, seller_request sr 
 		where s.u_id = sr.u_id and sr.u_id = #{u_id} group by month order by month
 	</select>
-	<insert id="settleInsert" parameterType="settle_statement">
-		 INSERT INTO settle_statement (sr_id, u_id, total_amount, fee_amount, pg_fee, net_amount, st_invoice, settle_date) 
-		 VALUES (#{sr_id}, #{u_id}, #{total_amount}, #{fee_amount}, #{pg_fee}, #{net_amount}, #{st_invoice}, NOW())
+		<!-- settleStatement 테이블 insert  -->
+	<insert id="insertSettleInvoice" parameterType="settle_statement">
+		insert into settle_statement (sr_id, u_id, total_amount, fee_amount, pg_fee, net_amount, settle_date, st_invoice) 
+		values (#{sr_id}, #{u_id}, #{total_amount}, #{fee_amount}, #{pg_fee}, #{net_amount}, now(), #{st_invoice})
 	</insert>
-	<select id="invoiceState" parameterType="int" resultType="settle_statement">
-		SELECT st_invoice FROM settle_statement WHERE sr_id = #{srId} LIMIT 1
-	</select>
-	<select id="getSettleStatementList" parameterType="list"></select>
-		<!-- settleState 가져오기  -->
-	<select id="settleState" parameterType="int" resultType="settle_statement">
-		select ss.st_invoice from settle_statement ss where sr_id=#{sr_id}
+		<!-- salemonthtab/issueAnInvoice -> 정산명세서에 들어갈 값 가져오기, sr_id기준-->
+	<select id="getSettleInvoice" parameterType="int" resultType="settle_statement">
+		select ss.*, sr.on_id, sr.sr_ev, u.address, u.email, sr.on_id 
+		from settle_statement ss join seller_request sr on ss.sr_id = sr.sr_id join user_table u on u.sr_id = sr.sr_id
+		where ss.ss_id = (select max(ss_id) from settle_statement where sr_id = #{sr_id})
 	</select>
 </mapper>

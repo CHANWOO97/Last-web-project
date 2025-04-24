@@ -18,7 +18,7 @@
 		<h3 class="mb-4 text-primary">📨 문의 답변</h3>
 
 		<c:forEach var="q" items="${questionListByq_id}">
-			<form action="/admin/approveQuestion" method="post">
+			<form action="/admin/questionboard/approveQuestion" method="post">
 				<input type="hidden" name="q_id" value="${q.q_id}" /> 
 				<input type="hidden" name="answer_state" value="y" />
 				<input type="hidden" name="u_id" value="${q.u_id}" />

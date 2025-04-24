@@ -53,7 +53,7 @@ public class AdminController {
 
 	// 향후 추가될 기능들
 	// 주문 관리
-	@GetMapping("/admin/orders")
+	@GetMapping("/admin/order/orders")
 	public String adminOrderList(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		int pageSize = 12; // 한 페이지당 보여줄 상품 수
 		int offset = (page - 1) * pageSize;
@@ -70,19 +70,19 @@ public class AdminController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("orders", ordersList);
-		return "admin/orders";
+		return "admin/order/orders";
 	}
 
 	// 주문 관리 업데이트
-	@PostMapping("/admin/orderUpdate")
+	@PostMapping("/admin/order/orderUpdate")
 	public String orderUpdate(Model model, Sale sale) {
 		int result = ss.updateStatus(sale);
 		model.addAttribute("result", result);
-		return "/admin/orderUpdate";
+		return "/admin/order/orderUpdate";
 	}
 
 	// 카테고리 목록 조회
-	@GetMapping("/admin/categories")
+	@GetMapping("/admin/cat/categories")
 	public String categories(Model model) {
 		List<ItemsCategory> categories = is.ic_list();
 		String lastId = categories.get(categories.size() - 1).getIc_id();
@@ -90,28 +90,28 @@ public class AdminController {
 		String newId = String.format("cat%03d", number);
 		model.addAttribute("categories", categories);
 		model.addAttribute("newIc_id",newId);
-		return "admin/categories";
+		return "admin/cat/categories";
 	}
 
 	// 카테고리 추가
-	@PostMapping("/admin/categories/add")
+	@PostMapping("/admin/cat/categories/add")
 	public String addCategory(@RequestParam("ic_id") String ic_id, @RequestParam("ic_name") String ic_name) {
 		ItemsCategory ic = new ItemsCategory();
 		ic.setIc_id(ic_id);
 		ic.setIc_name(ic_name);
 		is.insertCategory(ic);
-		return "redirect:/admin/categories";
+		return "redirect:/admin/cat/categories";
 	}
 
 	// 카테고리 삭제
-	@PostMapping("/admin/categories/delete")
+	@PostMapping("/admin/cat/categories/delete")
 	public String deleteCategory(@RequestParam("ic_id") String ic_id) {
 		is.deleteCategory(ic_id);
-		return "redirect:/admin/categories";
+		return "redirect:/admin/cat/categories";
 	}
 
 	// 판매자, 회원, 상품 팀원 작업은 미리 경로만 잡아놓기
-		@GetMapping("/admin/sellers")
+		@GetMapping("/admin/seller/sellers")
 		public String sellers(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 			// 페이징
 			// 사용자 목록 가져오기
@@ -131,21 +131,21 @@ public class AdminController {
 			model.addAttribute("endPage", endPage);
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("sellerRequests", sellerRequests);
-			return "admin/sellers";
+			return "admin/seller/sellers";
 		}
 
 	// 판매자 요청 승인시
-	@GetMapping("/admin/approveSeller")
+	@GetMapping("/admin/seller/approveSeller")
 	public String approveSeller(HttpSession session, Model model, @RequestParam("sr_id") int sr_id,
 			@RequestParam("u_id") String u_id) {
 		// DB에 승인 처리
 		ses.approve(sr_id); // 판매자 승인 (sr_state = 'y')
 		us.updateSellerRole_Y(u_id); // 유저 테이블 승인 (seller_role = 'y')
 		model.addAttribute("sr_id",sr_id);
-		return "redirect:/admin/sellers";
+		return "redirect:/admin/seller/sellers";
 	}
 	// 판매자 승인 취소시
-	@GetMapping("/admin/rejectSeller")
+	@GetMapping("/admin/seller/rejectSeller")
 	public String rejectSeller(HttpSession session, Model model, @RequestParam("sr_id") int sr_id,
 			@RequestParam("u_id") String u_id) {
 		// DB에 승인 처리
@@ -159,10 +159,10 @@ public class AdminController {
 		ses.updateCnMsg(seller);
 		
 		model.addAttribute("sr_id",sr_id);
-		return "redirect:/admin/sellers";
+		return "redirect:/admin/seller/sellers";
 	}
 	// 상품 관리
-	@GetMapping("/admin/items")
+	@GetMapping("/admin/item/items")
 	public String items(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		int pageSize = 12; // 한 페이지당 보여줄 상품 수
 		int offset = (page - 1) * pageSize;
@@ -179,10 +179,10 @@ public class AdminController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("adminItemsList", adminItemsList);
-		return "admin/items";
+		return "admin/item/items";
 	}
 	
-	@PostMapping("/admin/updateItemStatus")
+	@PostMapping("/admin/item/updateItemStatus")
 	public String updateItemStatus(@RequestParam("i_id") String i_id,
 	                               @RequestParam("deleted") boolean deleted,
 	                               Model model) {
@@ -193,10 +193,10 @@ public class AdminController {
 	    int result = is.updateItemStatusDeleted(item); // → update items set is_deleted = ? where i_id = ?
 	    model.addAttribute("result", result);
 	    // 2. 목록 페이지 이동하기전 업데이트 완료 페이지로 리다이렉트
-	    return "admin/itemsUpdate";
+	    return "admin/item/itemsUpdate";
 	}
 
-	@GetMapping("/admin/users")
+	@GetMapping("/admin/user/users")
 	public String users(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		// 페이징
 		// 사용자 목록 가져오기
@@ -217,19 +217,19 @@ public class AdminController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("totalUser", totalUser);
-		return "admin/users";
+		return "admin/user/users";
 	}
 	
-	@PostMapping("/admin/updateDel")
+	@PostMapping("/admin/user/updateDel")
 	public String updateDel(@RequestParam("u_id") String u_id,
 			@RequestParam("del") String del) {
 		User user = new User();
 		user.setU_id(u_id);
 		user.setDel(del);
 		int result = us.updateDel(user);
-		return "redirect:/admin/users";
+		return "redirect:/admin/user/users";
 	}
-	@GetMapping("/admin/question")
+	@GetMapping("/admin/questionboard/question")
 	public String question(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		// 전체 문의 리스트 가져오기
 		// 페이징
@@ -250,19 +250,19 @@ public class AdminController {
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("QuestionListPage", QuestionListPage);		
-		return "/admin/question";
+		return "/admin/questionboard/question";
 	} 
 		// admin/question 답변처리 => 답변하기
-		@GetMapping("/admin/approveQuestionForm")
+		@GetMapping("/admin/questionboard/approveQuestionForm")
 		public String approveQuestion(@RequestParam("q_id") int q_id,
 				@RequestParam("u_id") String u_id, @RequestParam("itemName") String itemName, Model model) {
 		List<SaleQuestion> questionListByq_id = bs.getQuestion(q_id);
 		model.addAttribute("questionListByq_id",questionListByq_id);
 		model.addAttribute("itemName",itemName);	
-		return "/admin/approveQuestionForm";
+		return "/admin/questionboard/approveQuestionForm";
 		}
 		// admin/approveQuestionForm 문의 답변페이지
-		@PostMapping("/admin/approveQuestion")
+		@PostMapping("/admin/questionboard/approveQuestion")
 		public String approveQuestion(Model model, 
 				@RequestParam("q_id") int q_id,
                 @RequestParam("u_id") String u_id,
@@ -277,19 +277,19 @@ public class AdminController {
 		
 		int result = bs.updateAnswer(sqAnswer);
 		model.addAttribute("result", result);
-		return "/admin/approveQuestion";
+		return "/admin/questionboard/approveQuestion";
 		}
 		// admin/question 답변 수정하기
-		@GetMapping("/admin/rejectQuestionForm")
+		@GetMapping("/admin/questionboard/rejectQuestionForm")
 		public String rejectQuestionForm(@RequestParam("q_id") int q_id,
 				@RequestParam("u_id") String u_id, @RequestParam("itemName") String itemName, Model model) {
 		List<SaleQuestion> questionListByq_id = bs.getQuestion(q_id);
 		model.addAttribute("questionListByq_id",questionListByq_id);
 		model.addAttribute("itemName",itemName);	
-		return "/admin/rejectQuestionForm";
+		return "/admin/questionboard/rejectQuestionForm";
 		}
 		// admin/approveQuestionForm 문의 답변페이지
-		@PostMapping("/admin/rejectQuestion")
+		@PostMapping("/admin/questionboard/rejectQuestion")
 		public String rejectQuestion(Model model, 
 				@RequestParam("q_id") int q_id,
                 @RequestParam("u_id") String u_id,
@@ -304,17 +304,17 @@ public class AdminController {
 		
 		int result = bs.updateAnswer(sqAnswer);
 		model.addAttribute("result", result);
-		return "/admin/rejectQuestion";
+		return "/admin/questionboard/rejectQuestion";
 		}
 	/// 여기부터는 관리자 통합 그래프 용도	
 	// 📍 AdminAnalyticsController.java
-	@GetMapping("/admin/adminForm")
+	@GetMapping("/admin/home/adminForm")
 	public String analytics1(Model model) {
 	    List<TopSaleItemDTO> topItems = ss.getTopSellingItems();
 	    model.addAttribute("topItems", topItems);
-	    return "admin/adminForm";
+	    return "admin/home/adminForm";
 	}
-	@GetMapping("/admin/analytics2")
+	@GetMapping("/admin/home/salemonthtab/analytics2")
 	public String analytics2(Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		
 		int pageSize = 10; // 한 페이지당 보여줄 상품 수
@@ -340,9 +340,9 @@ public class AdminController {
 		model.addAttribute("adminItemsList", adminItemsList);
 		model.addAttribute("saleMonthList",saleMonthList);
 		model.addAttribute("monthTotalMap",monthTotalMap);
-		return "admin/analytics2";
+		return "admin/home/salemonthtab/analytics2";
 	}
-	@GetMapping("/admin/settleStatementForm")
+	@GetMapping("/admin/home/salemonthtab/settleStatementForm")
 	public void settleStatementForm(@RequestParam(value = "page", defaultValue = "1")int page,
 			@RequestParam("targetMonth") String targetMonth, Model model, SettleStatement settleStatement) {
 		// 페이징
@@ -368,10 +368,15 @@ public class AdminController {
 		model.addAttribute("saleJoinList",saleJoinList);
 	}
 	
-	@PostMapping("/admin/detailSettleStatement")
-	public void detailSettleStatement(Model model, SettleStatement settleStatement) {
-		SettleStatement settlerStatement = new SettleStatement();
+	@PostMapping("/admin/home/salemonthtab/issueAnInvoice")
+	public void detailSettleStatement(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id) {
+		ivs.insertSettleInvoice(settleStatement);
+		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
+		model.addAttribute("settleInvoice", settleInvoice);
+	}
+	@PostMapping("/admin/home/salemonthtab/issueAnInvoice")
+	public String issueAnInvoice() {
 		
-		model.addAttribute(settleStatement);
+		return "/admin/home/salemonthtab/issueAnInvoice";
 	}
 }

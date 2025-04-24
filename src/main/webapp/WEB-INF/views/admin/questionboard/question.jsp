@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp"%>
-<%@ include file="sidebar.jsp"%>
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,11 +71,11 @@
 						<!-- 답변 처리 버튼 -->
 						<td><c:choose>
 								<c:when test="${q.answer_state == 'n'}">
-									<a href="/admin/approveQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" 
+									<a href="/admin/questionboard/approveQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" 
 									class="btn btn-sm btn-outline-danger">답변하기</a>
 								</c:when>
 								<c:when test="${q.answer_state == 'y'}">
-									<a href="/admin/rejectQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" 
+									<a href="/admin/questionboard/rejectQuestionForm?q_id=${q.q_id}&u_id=${q.u_id}&itemName=${q.itemName}" 
 									class="btn btn-sm btn-outline-success" onclick="return chk()">답변완료</a>	
 								</c:when>
 							</c:choose></td>
@@ -97,12 +97,12 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/question?page=${currentPage - 1}"><span aria-hidden="true"> &laquo;</span></a></li>
+						<li class="page-item"><a class="page-link" href="/admin/questionboard/question?page=${currentPage - 1}"><span aria-hidden="true"> &laquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>
 				<!-- 숫자 페이지 -->
 				<c:forEach var="i" begin="${startPage}" end="${endPage}">
-					<li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/question?page=${i}">${i}</a></li>
+					<li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/questionboard/question?page=${i}">${i}</a></li>
 				</c:forEach>
 				<!-- 다음 버튼 -->
 				<c:choose>
@@ -110,7 +110,7 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/question?page=${currentPage + 1}"><span aria-hidden="true"> &raquo;</span></a></li>
+						<li class="page-item"><a class="page-link" href="/admin/questionboard/question?page=${currentPage + 1}"><span aria-hidden="true"> &raquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

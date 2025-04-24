@@ -12,14 +12,7 @@ import com.green.Lupang.dto.SettleStatement;
 public interface InvoiceMapper {
 	List<SettleStatement> settleList(Map<String, Object> map);
 
-	Items itemMonthSale(String u_id);
+	void insertSettleInvoice(SettleStatement settleStatement);
 
-	List<SettleStatement> getMonthPrice(String u_id);
-
-	List<SettleStatement> getMonthPriceFiltered(Map<String, Object> map);
-
-	int settleInsert(SettleStatement ss);
-
-	SettleStatement settleState(int sr_id);
-
+	SettleStatement getSettleInvoice(int sr_id);
 }

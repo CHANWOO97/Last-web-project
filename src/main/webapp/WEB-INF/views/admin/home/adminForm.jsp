@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>

@@ -19,7 +19,11 @@ public class SettleStatement {
     private Date settle_date; // DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '정산일',
     private String st_invoice; // CHAR(1) DEFAULT 'w' comment '발행 상태 (대기 = w, 완료 = y, 취소 = n 등)'
     
-    // 월별 구매일, 월별 매출총합
+    // 판매자 정보 (월별 구매일, 월별 매출총합..)
     private String year_month;
     private int total_sum;
+    private String on_id;
+    private String sr_ev;
+    private String address;
+    private String email;
 }

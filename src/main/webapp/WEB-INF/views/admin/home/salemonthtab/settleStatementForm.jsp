@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp"%>
-<%@ include file="sidebar.jsp"%>
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,19 +77,19 @@
 								<fmt:formatNumber value="${saleList.total_sum}" maxFractionDigits="0" />
 							</c:set> <c:choose>
 								<c:when test="${saleList.st_invoice eq 'n' || stsm eq null}">
-									<form action="/admin/detailSettleStatement?sr_id=${saleList.sr_id}" method="post" style="display:inline;">
+									<form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}" method="post" style="display:inline;">
 										<input type="hidden" name="sr_id" value="${saleList.sr_id}" />
 										<input type="hidden" name="u_id" value="${saleList.u_id}" />
-										<input type="hidden" name="total_amount" value="${saleList.total_sum}" />
-										<input type="hidden" name="fee_amount" value="${saleList.total_sum * 0.06}" />
-										<input type="hidden" name="pg_fee" value="${saleList.total_sum * 0.035}" />
-										<input type="hidden" name="net_amount" value="${saleList.total_sum - (saleList.total_sum * 0.06) - (saleList.total_sum * 0.035)}" />
+										<input type="hidden" name="total_amount" value="<fmt:formatNumber value='${saleList.total_sum}' pattern='#' />" />
+										<input type="hidden" name="fee_amount" value="<fmt:formatNumber value='${saleList.total_sum * 0.06}' pattern='#' />" />
+										<input type="hidden" name="pg_fee" value="<fmt:formatNumber value='${saleList.total_sum * 0.035}' pattern='#' />" />
+										<input type="hidden" name="net_amount" value="<fmt:formatNumber value='${saleList.total_sum - (saleList.total_sum * 0.06) - (saleList.total_sum * 0.035)}' pattern='#' />" />
 										<input type="hidden" name="st_invoice" value="y" />
 										<button type="submit" class="btn btn-sm btn-outline-success">정산서 발행하기</button>
 									</form>
 								</c:when>
 								<c:otherwise>
-									<a href="/admin/ReSettleStatementGo?sr_id=${saleList.sr_id}" class="btn btn-sm btn-outline-danger" 
+									<a href="/admin/home/salemonthtab/ReSettleStatementGo?sr_id=${saleList.sr_id}" class="btn btn-sm btn-outline-danger" 
 									onclick="return chk()">정산서 재발행</a>
 								</c:otherwise>
 							</c:choose>
@@ -106,14 +106,14 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/settleStatementForm?page=${currentPage - 1}&targetMonth=${targetMonth}"> <span
+						<li class="page-item"><a class="page-link" href="/admin/home/salemonthtab/settleStatementForm?page=${currentPage - 1}&targetMonth=${targetMonth}"> <span
 								aria-hidden="true">&laquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>
 				<!-- 숫자 페이지 -->
 				<c:forEach var="i" begin="${startPage}" end="${endPage}">
 					<li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link"
-						href="/admin/settleStatementForm?page=${i}&targetMonth=${targetMonth}">${i}</a></li>
+						href="/admin/home/salemonthtab/settleStatementForm?page=${i}&targetMonth=${targetMonth}">${i}</a></li>
 				</c:forEach>
 				<!-- 다음 버튼 -->
 				<c:choose>
@@ -121,7 +121,7 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/settleStatementForm?page=${currentPage + 1}&targetMonth=${targetMonth}"><span
+						<li class="page-item"><a class="page-link" href="/admin/home/salemonthtab/settleStatementForm?page=${currentPage + 1}&targetMonth=${targetMonth}"><span
 								aria-hidden="true">&raquo;</span></a></li>
 					</c:otherwise>
 				</c:choose>

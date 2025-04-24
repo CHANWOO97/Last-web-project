@@ -6,7 +6,7 @@
 	<c:if test="${result == 1 }">
 		<script type="text/javascript">
 			alert("답변이 수정되었습니다.")
-			location.href="/admin/question"
+			location.href="/admin/questionboard/question"
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">

@@ -10,11 +10,7 @@ public interface InvoiceService {
 
 	List<SettleStatement> settleList(int offset, int rowPerPage);
 
-	List<SettleStatement> getMonthPrice(String u_id);
+	void insertSettleInvoice(SettleStatement settleStatement);
 
-	List<SettleStatement> getMonthPriceFiltered(String u_id, String targetMonth);
-
-	int settleInsert(SettleStatement ss);
-
-	SettleStatement settleState(int sr_id);
+	SettleStatement getSettleInvoice(int sr_id);
 }

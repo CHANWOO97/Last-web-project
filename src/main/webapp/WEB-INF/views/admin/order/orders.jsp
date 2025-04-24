@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,7 +54,7 @@
 	                <td><fmt:formatDate value="${order.s_date}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 	                <td>${order.s_status}</td>
 	                <td>
-	                    <form action="/admin/orderUpdate" method="post" style="display: flex; align-items: center; gap: 8px; margin: 0;">
+	                    <form action="/admin/order/orderUpdate" method="post" style="display: flex; align-items: center; gap: 8px; margin: 0;">
 	                        <input type="hidden" name="s_id" value="${order.s_id}" />
 	                        <select name="s_status" class="form-select form-select-sm" style="width: 100px;">
 	                            <option value="n" ${order.s_status == 'n' ? 'selected' : ''}>미결제</option>

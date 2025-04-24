@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>    
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +57,7 @@
                         </span>
                     </td>
                     <td>
-                        <form action="/admin/updateItemStatus" method="post" class="d-inline">
+                        <form action="/admin/item/updateItemStatus" method="post" class="d-inline">
                             <input type="hidden" name="i_id" value="${item.i_id}" />
                             <input type="hidden" name="deleted" value="${!item.deleted}" />
                             <button type="submit" class="btn btn-sm ${item.deleted ? 'btn-outline-success' : 'btn-outline-danger'}">

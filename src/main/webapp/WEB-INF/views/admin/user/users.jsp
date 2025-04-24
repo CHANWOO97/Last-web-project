@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,7 +59,7 @@
                         </span>
                     </td>
                     <td>
-                        <form action="/admin/updateDel" method="post" class="d-inline">
+                        <form action="/admin/user/updateDel" method="post" class="d-inline">
                             <input type="hidden" name="u_id" value="${user.u_id}" />
                             <input type="hidden" name="del" value="${user.del == 'y' ? 'n' : 'y'}" />
                             <button type="submit" class="btn btn-sm ${user.del == 'y' ? 'btn-outline-success' : 'btn-outline-danger'}">
@@ -81,13 +81,13 @@
                     <li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" href="/admin/users?page=${currentPage - 1}"><span aria-hidden="true">&laquo;</span></a></li>
+                    <li class="page-item"><a class="page-link" href="/admin/user/users?page=${currentPage - 1}"><span aria-hidden="true">&laquo;</span></a></li>
                 </c:otherwise>
             </c:choose>
 
             <!-- 숫자 페이지 -->
             <c:forEach var="i" begin="${startPage}" end="${endPage}">
-                <li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/users?page=${i}">${i}</a></li>
+                <li class="page-item ${i == currentPage ? 'active' : ''}"><a class="page-link" href="/admin/user/users?page=${i}">${i}</a></li>
             </c:forEach>
 
             <!-- 다음 버튼 -->
@@ -96,7 +96,7 @@
                     <li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>
                 </c:when>
                 <c:otherwise>
-                    <li class="page-item"><a class="page-link" href="/admin/users?page=${currentPage + 1}"><span aria-hidden="true">&raquo;</span></a></li>
+                    <li class="page-item"><a class="page-link" href="/admin/user/users?page=${currentPage + 1}"><span aria-hidden="true">&raquo;</span></a></li>
                 </c:otherwise>
             </c:choose>
         </ul>

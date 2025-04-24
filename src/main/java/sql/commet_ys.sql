@@ -293,4 +293,22 @@ LEFT JOIN (SELECT u_id, MAX(st_invoice) AS st_invoice FROM settle_statement GROU
 WHERE s.sr_id IN (SELECT MAX(sr_id) FROM seller_request GROUP BY u_id) AND s.sr_state = 'y' and s.sr_id = 1
 ORDER BY s.srq_at;
 
+select 
+    ss.*, 
+    sr.on_id, sr.sr_ev, 
+    u.address, u.email, 
+    sr.on_id 
+from 
+    settle_statement ss
+join 
+    seller_request sr on ss.sr_id = sr.sr_id
+join 
+    user_table u on u.sr_id = sr.sr_id
+where 
+    ss.ss_id = (
+        select max(ss_id)
+        from settle_statement
+        where sr_id = 1
+    )
+
  

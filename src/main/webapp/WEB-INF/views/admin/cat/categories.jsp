@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp" %>
-<%@ include file="sidebar.jsp" %>        
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,7 @@
 		<h2 class="mb-5">카테고리 관리</h2>
 		<!-- 상단: 등록 폼 -->
 		<div class="card shadow-sm p-3 mb-4" style="max-width: 800px;">
-			<form method="post" action="/admin/categories/add"	class="row g-2 align-items-center">
+			<form method="post" action="/admin/cat/categories/add"	class="row g-2 align-items-center">
 				<div class="col-md-4">
 					<label class="form-label mb-1 fw-semibold">카테고리 ID</label> <input
 						type="text" name="ic_id" value="${newIc_id}" readonly
@@ -51,7 +51,7 @@
 						<td>${cat.ic_id}</td>
 						<td>${cat.ic_name}</td>
 						<td>
-							<form method="post" action="/admin/categories/delete" class="d-inline" onsubmit="return del('${cat.ic_name}');">
+							<form method="post" action="/admin/cat/categories/delete" class="d-inline" onsubmit="return del('${cat.ic_name}');">
 								<input type="hidden" name="ic_id" value="${cat.ic_id}" />
 								<button class="btn btn-danger btn-sm">삭제</button>
 							</form>

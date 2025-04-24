@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/setting/include.jsp"%>
-<%@ include file="sidebar.jsp"%>
+<%@ include file="/WEB-INF/views/admin/home/sidebar.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@ table {
 	<div class="content">
 		<!-- 탭 메뉴 -->
 		<%@ include file="/WEB-INF/views/admin/graph/analyticsTab.jsp"%>
-		<form action="/admin/settleStatementForm" method="get">
+		<form action="/admin/home/salemonthtab/settleStatementForm" method="get">
 			<input type="hidden" name="page" value="1">
 				<div class="d-flex justify-content-end gap-2">
 					<select name="targetMonth" class="form-select form-select-sm w-auto">
