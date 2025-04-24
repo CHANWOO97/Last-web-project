@@ -223,3 +223,61 @@ select * from event_result;
 -- admin 계정 미리 생성 -- 패스워드 1234 
 insert into user_table (u_id ,name, password) values('admin', '관리자', '$2a$10$ty1UwZwvhK2TPP7Y/cNzV.URmSgXKysy7l4iJl6n5o8s5bMDuXU2e');
 
+
+select * from board_category;
+select * from board;
+select * from user_table;
+select * from cart;
+select * from cart_items;
+select * from seller_request;
+select * from items_category;
+select * from items;
+select * from seller_items;
+select * from sale;
+select * from sale_items;
+select * from wishlist;
+select * from sale_question;
+select * from settle_statement;
+select * from tax_invoice;
+
+
+-- 전체 판매자 조회
+select * from seller_request where  sr_id in(select max(sr_id) from seller_request group by u_id) order by srq_at desc;
+-- 전체 판매자의 연도별 매출액
+select date_format(s.s_date, '%Y') `year`, sum(s.total) total_sum
+from sale s where date_format(s.s_date, '%Y') = '2025'
+group by `year` order by `year`;
+-- 전체 판매자의 월별 매출액
+select date_format(s.s_date, '%Y-%m') `year_month`, sum(s.total) total_sum
+from sale s where date_format(s.s_date, '%Y-%m') = '2025-04'
+group by `year_month` order by `year_month`;
+
+-- 판매자가 등록한 상품 조회
+select i.*, si.sr_id from seller_items si, items i where si.i_id = i.i_id and si.sr_id = 1 order by i.reg_date desc;
+-- 판매자 id가 1인사람이 판매한 상품 조회
+select date_format(s.s_date, '%Y-%m') month, s.s_id, sr.sr_id sellerid,s.u_id customerid, u.name customer, s.tel, s.address, s.total, s.s_date, s.s_status
+from sale s, user_table u, seller_request sr where s.u_id = u.u_id and u.sr_id= sr.sr_id and sr.sr_id = 1 order by s.s_date desc;
+-- 판매자 id가 1인사람의 총 매출액 
+select sum(s.total) total_sum from sale s, seller_request sr where s.u_id = sr.u_id and sr.sr_id = 1;
+-- 판매자 id가 1인사람의 월별 매출액
+select date_format(s.s_date, '%Y-%m') month, sum(s.total) total_sum from sale s, seller_request sr 
+	where s.u_id = sr.u_id and sr.sr_id = 1 group by month order by month;
+-- 판매자 id가 1인사람의 일별 매출액	
+select date_format(s.s_date, '%Y-%m-%d') month, sum(s.total) total_sum from sale s, seller_request sr 
+	where s.u_id = sr.u_id and sr.sr_id = 1 group by month order by month;
+-- 판매자 id가 1인사람의 매출이 있는 달
+select date_format(s.s_date, '%Y-%m') month from sale s, seller_request sr where 
+s.u_id = sr.u_id and sr.sr_id = 1 group by month order by month 
+
+-- [수정] 사용자가 구매한 상품 조회
+select s.s_id, sr.sr_id sellerid,s.u_id customerid, u.name customer, s.tel, s.address, s.total, s.s_date, s.s_status
+from sale s, user_table u, seller_request sr where s.u_id = u.u_id and u.sr_id= sr.sr_id  order by s.s_date desc;
+
+-- 사용자가 구매한 상품 조회 (판매자가 누구인지 빠져있음 / sql-sale(getAdminOrderList))
+SELECT s.s_id, u.name AS customer_name, s.tel, s.address, s.total, s.s_date, s.s_status
+FROM sale s JOIN user_table u ON s.u_id = u.u_id ORDER BY s.s_date DESC;
+
+select date_format(s.s_date, '%Y-%m') `year_month`, sum(s.total) total_sum
+		from sale s, sale_items si, items i, seller_request sr 
+		where date_format(s.s_date, '%Y-%m') and s.s_id = si.s_id and si.i_id = i.i_id and 
+		group by `year_month` order by `year_month`
