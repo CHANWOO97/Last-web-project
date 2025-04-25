@@ -14,15 +14,15 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link <%= uri.contains("/admin/home/salemonth/analytics2") ? "active" : "" %>" href="/admin/home/salemonthtab/analytics2">
+        <a class="nav-link <%= uri.contains("/admin/home/salemonthtab/analytics2") ? "active" : "" %>" href="/admin/home/salemonthtab/analytics2">
             월 매출 통계
         </a>
     </li>
-    <li class="nav-item">
+    <%-- <li class="nav-item">
         <a class="nav-link <%= uri.contains("/admin/home/analytics3") ? "active" : "" %>" href="/admin/home/analytics3">
             카테고리별 비율
         </a>
-    </li>
+    </li> --%>
 </ul>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
