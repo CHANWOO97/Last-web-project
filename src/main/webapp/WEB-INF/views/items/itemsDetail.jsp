@@ -128,7 +128,7 @@
 		              </button>
 		
 		              <!-- 지금 구매 버튼 -->
-		              <form id="orderForm" method="post" action="/itemsOrder/order" class="mb-0">
+		              <form id="orderForm" method="post" action="/itemsOrder/orderDirect" class="mb-0">
 		                <input type="hidden" name="selectedItems" id="selectedItemInput" />
 		                <button type="button" class="btn btn-success fw-bold px-3 py-2" onclick="submitOrder()">
 		                  ✅ 지금 구매
