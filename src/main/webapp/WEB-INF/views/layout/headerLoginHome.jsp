@@ -92,7 +92,7 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 		<div class="lupang-header">
 			<!-- 카테고리 드롭다운 버튼 -->
 			<div class="dropdown me-3">
-				<button class="btn btn-primary dropdown-toggle d-flex flex-column align-items-center" type="button" data-bs-toggle="dropdown">
+				<button class="btn btn-primary dropdown-toggle d-flex flex-column align-items-center category-button" type="button" data-bs-toggle="dropdown">
 					<i class="bi bi-list mb-1"></i> <span style="font-size: 0.85rem;">카테고리</span>
 				</button>
 				<ul class="dropdown-menu">
