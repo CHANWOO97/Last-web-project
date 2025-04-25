@@ -45,14 +45,11 @@
 								<c:when test="${sale.s_status == 'y'}">
 									<span class="badge bg-warning text-dark">배송준비중</span>
 								</c:when>
-								<c:when test="${sale.s_status == 'p'}">
+								<c:when test="${sale.s_status == 'd'}">
 									<span class="badge bg-info text-dark">📦 배송중</span>
 								</c:when>
 								<c:when test="${sale.s_status == 'f'}">
 									<span class="badge bg-success">✅ 배송완료</span>
-								</c:when>
-								<c:when test="${sale.s_status == 'c'}">
-									<span class="badge bg-danger">❌ 주문취소</span>
 								</c:when>
 								<c:otherwise>
 									<span class="badge bg-secondary">미결제</span>
