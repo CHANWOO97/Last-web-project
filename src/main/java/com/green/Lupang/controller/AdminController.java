@@ -374,4 +374,9 @@ public class AdminController {
 		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
 		model.addAttribute("settleInvoice", settleInvoice);
 	}
+	@PostMapping("/admin/home/salemonthtab/settleInvoiceMsg")
+	public String settleInvoiceMsg(SettleStatement settleStatement) {
+		
+		return "/admin/home/salemonthtab/settleInvoiceMsg";
+	}
 }

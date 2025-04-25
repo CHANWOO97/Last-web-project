@@ -14,6 +14,7 @@ DROP TABLE wishlist;
 DROP TABLE sale_question;
 DROP TABLE settle_statement;
 DROP TABLE tax_invoice;
+Drop TABLE event_result;
 
 
 -- 게시판 카테고리 테이블
