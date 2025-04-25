@@ -113,7 +113,7 @@ CREATE TABLE items (
     price INT NOT NULL,
     reg_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     description TEXT,
-    is_deleted BOOLEAN DEFAULT FALSE,
+    deleted BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (i_id)
 );
 ALTER TABLE items
@@ -210,6 +210,7 @@ CREATE TABLE tax_invoice (
     ti_id INT AUTO_INCREMENT PRIMARY KEY COMMENT '세금계산서 ID'
 );
 select * from tax_invoice;
+
 -- EVENT 테이블 추가
 CREATE TABLE event_result (
   er_id INT AUTO_INCREMENT PRIMARY KEY,

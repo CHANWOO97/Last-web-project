@@ -5,6 +5,16 @@
 <title>루팡!</title>
 <link rel="stylesheet" href="/resources/css/home.css">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
+<script type="text/javascript">
+	function openRoulettePopUp(e){
+		e.preventDefault(); // 기본 링크 이동 막기
+		window.open(
+			'/event/roulette',
+			'aimyonRoulettePopup',
+			'width=720,height=820,resizable=no,scrollbars=no'
+		);
+	}
+</script>
 </head>
 <body>
 <c:if test="${not empty id }">
@@ -21,7 +31,7 @@
 	      <div class="carousel-item ${status.first ? 'active' : ''} b-item" data-bs-interval="3000">
 	      <!-- 이미지 클릭 시 /event/roulette 이동 -->
 			<c:if test="${img eq '아이묭_001.png'}">
-				<a href="/event/roulette" class="banner-link">
+				<a href="#" class="banner-link" onclick="openRoulettePopUp(event)">
 				  <span class="banner-img-wrap">
 				    <img src="/resources/images/banner/${img}" class="d-block w-100 b-img" alt="아이묭 이벤트" width="1920" height="450">
 				    <span class="carousel-caption-custom">
