@@ -63,14 +63,14 @@
           <td>
             <c:choose>
               <c:when test="${seller.seller_role == 'y'}">
-                <a href="/admin/rejectSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-danger">승인취소</a>
+                <a href="/admin/seller/rejectSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-danger">승인취소</a>
               </c:when>
               <c:when test="${seller.seller_role == 'w'}">
-                <a href="/admin/approveSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-success">승인</a>
-                <a href="/admin/rejectSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-danger">취소</a>
+                <a href="/admin/seller/approveSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-success">승인</a>
+                <a href="/admin/seller/rejectSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-danger">취소</a>
               </c:when>
               <c:when test="${seller.seller_role == 'n'}">
-                <a href="/admin/approveSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-warning">재승인</a>
+                <a href="/admin/seller/approveSeller?sr_id=${seller.sr_id}&u_id=${seller.u_id}" class="btn btn-sm btn-outline-warning">재승인</a>
               </c:when>
             </c:choose>
           </td>

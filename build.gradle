@@ -29,6 +29,10 @@ dependencies {
 	implementation 'commons-io:commons-io:2.6'
  	implementation 'commons-fileupload:commons-fileupload:1.4'
 	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '4.2.4.RELEASE'
+	//이메일 전송
+	implementation 'org.springframework.boot:spring-boot-starter-mail' /* 이메일 전송 */
+	//pdf 변환
+	implementation 'org.xhtmlrenderer:flying-saucer-pdf:9.1.22' 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	compileOnly 'org.projectlombok:lombok'

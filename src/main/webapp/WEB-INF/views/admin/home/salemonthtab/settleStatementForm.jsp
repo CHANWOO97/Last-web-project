@@ -76,7 +76,7 @@
 						<td><c:set var="totalAmount">
 								<fmt:formatNumber value="${saleList.total_sum}" maxFractionDigits="0" />
 							</c:set> <c:choose>
-								<c:when test="${saleList.st_invoice eq 'n' || stsm eq null}">
+								<c:when test="${saleList.st_invoice eq 'n' || saleList.st_invoice eq null}">
 									<form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}" method="post" style="display:inline;">
 										<input type="hidden" name="sr_id" value="${saleList.sr_id}" />
 										<input type="hidden" name="u_id" value="${saleList.u_id}" />
