@@ -14,12 +14,17 @@ public interface SaleService {
 	Sale findById(String s_id);
 	int updateStatus(Sale sale);
 	List<SaleItems> getSaleItems(String s_id);
+	
 	List<Sale> findAllByUserId(String id, int offset, int pageSize);
+	List<Sale> findCancleByUserId(String id, int offset, int pageSize);
+	
 	int saleCountByOrder(String id);
+	int saleCountByCancleOrder(String id);
+	
 	int saleCountByOrderAll();
 	List<Sale> getAdminOrderList(int offset, int pageSize);
 	List<Items> getbuyItems(String u_id);
 	List<TopSaleItemDTO> getTopSellingItems();
 	List<Integer> findItemIdsBySaleId(String s_id);
-	List<Sale> saleMonthList();
+	List<Sale> saleMonthList();	
 }

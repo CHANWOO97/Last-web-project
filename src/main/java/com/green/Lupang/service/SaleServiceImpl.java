@@ -53,10 +53,23 @@ public class SaleServiceImpl implements SaleService{
 		map.put("pageSize", pageSize);
 		return sm.findAllByUserId(map);
 	}
+	@Override
+	public List<Sale> findCancleByUserId(String id, int offset, int pageSize) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("u_id", id);
+		map.put("offset", offset);
+		map.put("pageSize", pageSize);
+		return sm.findCancleByUserId(map);
+	}
+	
 
 	@Override
 	public int saleCountByOrder(String id) {
 		return sm.saleCountByOrder(id);
+	}
+	@Override
+	public int saleCountByCancleOrder(String id) {
+		return sm.saleCountByCancleOrder(id);
 	}
 	@Override
 	public int saleCountByOrderAll() {

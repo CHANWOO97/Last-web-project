@@ -23,7 +23,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 유저가 주문한 개수 -->
 	<select id="saleCountByOrder" parameterType="String" resultType="Integer">
-		select count(*) from sale where u_id = #{u_id}
+		select count(*) from sale where u_id = #{u_id} and s_status != 'n'
+	</select>
+	<select id="saleCountByCancleOrder" parameterType="String" resultType="Integer">
+		select count(*) from sale where u_id = #{u_id} and s_status = 'n'
 	</select>
 	<!-- 전체 유저가 주문한 개수 -->
 	<select id="saleCountByOrderAll" resultType="Integer">
@@ -36,10 +39,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            (select i.name from sale_items si JOIN items i ON si.i_id = i.i_id
 		             where si.s_id=s.s_id limit 1) as name,
 		            (select count(*) from sale_items where s_id = s.s_id) as item_count 
-		            FROM sale s 	             			
+		            FROM sale s where s_status != 'n'     			
 					order by s.s_date desc 
 					limit #{pageSize} offset #{offset}
-	</select>	
+	</select>
+	<select id="findCancleByUserId" parameterType="map" resultType="sale">
+		select s.*, (select i.photo from sale_items si JOIN items i ON si.i_id = i.i_id
+		             where si.s_id=s.s_id limit 1) as photo, 
+		            (select i.name from sale_items si JOIN items i ON si.i_id = i.i_id
+		             where si.s_id=s.s_id limit 1) as name,
+		            (select count(*) from sale_items where s_id = s.s_id) as item_count 
+		            FROM sale s where s_status = 'n' 	             			
+					order by s.s_date desc 
+					limit #{pageSize} offset #{offset}
+	</select>
+	
 	<update id="updateStatus" parameterType="sale">
 		update sale set s_status=#{s_status} where s_id=#{s_id} 
 	</update>
