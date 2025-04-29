@@ -72,7 +72,7 @@
 					</a>
 					<ul class="dropdown-menu text-center">
 						<li><a class="dropdown-item" href="/itemsOrder/orderList">주문목록</a></li>
-						<li><a class="dropdown-item" href="#">취소/반품</a></li>
+						<li><a class="dropdown-item" href="/itemsOrder/orderCancleList">취소/반품</a></li>
 						<li><a class="dropdown-item" href="/items/wishlist">찜리스트</a></li>
 					</ul>
 				</div>

@@ -60,7 +60,7 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 							</c:when>
 							<c:when test="${seller_role == 'w'}">
 								<!-- 승인 대기중일 때 -->
-								<a class="nav-link text-secondary" href="#" onclick="return showAlert();">판매자 신청</a>
+								<a class="nav-link text-secondary" onclick="return showAlert();">판매자 신청</a>
 							</c:when>
 							<c:otherwise>
 								<!-- 아직 신청 안 한 상태 -->
@@ -123,7 +123,7 @@ a { /* 로그인 및 로그아웃 부분 <a>로 감쌌을때 나오는 밑줄과
 					<ul class="dropdown-menu text-center">
 						<li><a class="dropdown-item" href="/user/mypage">마이페이지</a></li>
 						<li><a class="dropdown-item" href="/itemsOrder/orderList">주문목록</a></li>
-						<li><a class="dropdown-item" href="#">취소/반품</a></li>
+						<li><a class="dropdown-item" href="/itemsOrder/orderCancleList">취소/반품</a></li>
 						<li><a class="dropdown-item" href="/items/wishlist">찜리스트</a></li>
 					</ul>
 				</div>

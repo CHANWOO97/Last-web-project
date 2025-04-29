@@ -19,8 +19,8 @@
     function clk() {
       const price = parseInt(document.getElementById("product-info").dataset.price);
       const qty = parseInt(document.getElementById("quantity").value);
-      document.getElementById("qt").innerText = qty;
-      document.getElementById("saleprice").innerText = (price * qty).toLocaleString() + "원";
+      document.getElementById("quantity").innerText = qty;
+      document.getElementById("product-info").innerText = (price * qty).toLocaleString() + "원";
     }
 
     function innerCart() {
@@ -102,10 +102,10 @@
 		          <p class="mb-4">${items.description}</p>
 		
 		          <div class="mb-3 fs-5">
-		            <strong>총 금액:</strong>
-		            <span id="saleprice" class="text-danger fw-bold">
-		              <fmt:formatNumber value="${items.price}" />원
-		            </span>
+		            <strong>총 금액:</strong>		            
+			            <span id="product-info" data-price="${items.price}" class="text-danger fw-bold">
+			              <fmt:formatNumber value="${items.price}" />원
+			            </span>
 		          </div>
 		
 		          <div class="d-flex align-items-center mb-4">

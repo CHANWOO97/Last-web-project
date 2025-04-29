@@ -47,9 +47,9 @@
 								    <c:when test="${order.s_status == 'n'}">
 								      <span class="text-warning fw-bold">미결제</span>
 								    </c:when>
-								    <c:when test="${order.s_status == 'c'}">
+								    <%-- <c:when test="${order.s_status == 'c'}">
 								      <span class="text-danger fw-bold">주문취소</span>
-								    </c:when>
+								    </c:when> --%>
 								    <c:otherwise>
 								      <span class="text-success fw-bold">결제완료</span>
 								    </c:otherwise>

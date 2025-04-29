@@ -24,8 +24,7 @@
       <div class="col-md-4 mb-3">
         <h6 class="fw-bold">바로가기</h6>
         <ul class="list-unstyled small">
-          <li><a href="/" class="text-white text-decoration-none">홈</a></li>
-          <li><a href="/items/itemsByCategory?ic_id=fashion" class="text-white text-decoration-none">카테고리</a></li>
+          <li><a href="/" class="text-white text-decoration-none">홈</a></li>         
           <li><a href="/mypage/wishlist" class="text-white text-decoration-none">찜 목록</a></li>
           <li><a href="/mypage/orderList" class="text-white text-decoration-none">주문내역</a></li>
         </ul>
