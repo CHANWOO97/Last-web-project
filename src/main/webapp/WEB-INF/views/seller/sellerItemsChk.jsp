@@ -40,7 +40,7 @@
 		<table class="table table-bordered table-hover align-middle text-center">
 			<thead class="table-light">
 				<tr>
-					<th>상품코드</th>
+					<th>번호</th>
 					<th>이미지</th>
 					<th>상품명</th>
 					<th>사이즈</th>
@@ -53,9 +53,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="item" items="${myItems}">
+				<c:forEach var="item" items="${myItems}" varStatus="vs">
+				 <input type="hidden" name="i_id" value="${item.i_id}" />
 					<tr>
-						<td>${item.i_id}</td>
+						<c:set var="pageSize" value="10" />
+                		<!-- currentPage = 현재 페이지, pageSize = 몇개씩 보여줄건지(10개씩), vs.index = 한페이지내에서 번호(0부터 9까지)  -->
+						<td>${(currentPage - 1) * pageSize + vs.index + 1}</td>
 						<td><img src="/resources/images/items_photo/${item.photo}" alt="상품 이미지" class="product-img"></td>
 
 						<!-- 상품명 + 삭제문구 -->
