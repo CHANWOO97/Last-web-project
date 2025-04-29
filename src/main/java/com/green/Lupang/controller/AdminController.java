@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.green.Lupang.dto.Items;
@@ -369,10 +370,11 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/home/salemonthtab/issueAnInvoice")
-	public void detailSettleStatement(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id) {
+	@ResponseBody
+	public SettleStatement detailSettleStatement(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id) {
 		ivs.insertSettleInvoice(settleStatement);
 		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
-		model.addAttribute("settleInvoice", settleInvoice);
+		return settleInvoice;
 	}
 	@PostMapping("/admin/home/salemonthtab/settleInvoiceMsg")
 	public String settleInvoiceMsg(SettleStatement settleStatement) {
