@@ -61,12 +61,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 인기 구매 top 5 그래프를 위한 쿼리! -->
 	<select id="getTopSellingItems" resultType="TopSaleItemDTO">
-		SELECT i.name, COUNT(*) AS count
-		FROM sale_items si
-		JOIN items i ON si.i_id = i.i_id
+		<!-- SELECT i.name, COUNT(*) AS count
+		FROM sale_items si, items i where si.i_id = i.i_id
 		GROUP BY si.i_id
 		ORDER BY count DESC
-		LIMIT 5
+		LIMIT 5 -->
+		SELECT i.name, SUM(si.quantity) AS count FROM sale_items si, items i
+		WHERE si.i_id = i.i_id
+		GROUP BY i.name	ORDER BY count DESC LIMIT 5
 	</select>
 			<!-- 관리자페이지 판매자 월별 매출액 / '%Y-%m' = 2025-04.. 형식 -->
 	<select id="saleMonthList" parameterType="list" resultType="sale">

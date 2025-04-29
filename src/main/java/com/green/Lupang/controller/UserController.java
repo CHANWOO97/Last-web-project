@@ -133,7 +133,7 @@ public class UserController {
 		User user = us.select(u_id);
 		Seller seller = ses.select_id(String.valueOf(user.getSr_id()));	
 		ses.updateNullCnMsg(seller);
-		return "/user/mypage";
+		return "/layout/home";
 	}
 	
 	@PostMapping("/user/mypageEdit")

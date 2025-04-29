@@ -33,13 +33,17 @@
 	      responsive: true,
 	      plugins: {
 	        legend: { display: false },
-	        title: {
+	        title: {	
 	          display: true,
 	          text: '가장 많이 구매된 상품 TOP 5'
 	        }
 	      },
 	      scales: {
-	        y: { beginAtZero: true }
+	        y: { beginAtZero: true, 
+	        	max:10,
+	        	 ticks: {
+	                 stepSize: 1}
+	        }
 	      }
 	    }
 	  });
