@@ -86,4 +86,9 @@ public class UserServiceImpl implements UserService{
 	public int countAllUser() {
 		return um.countAllUser();
 	}
+
+	@Override
+	public String selectId(User user) {
+		return um.selectId(user);
+	}
 }

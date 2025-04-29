@@ -31,4 +31,6 @@ public interface UserService {
 	int updateDel(User user);
 
 	int countAllUser();
+
+	String selectId(User user);
 }

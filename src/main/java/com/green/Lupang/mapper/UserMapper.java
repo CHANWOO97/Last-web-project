@@ -22,4 +22,5 @@ public interface UserMapper {
 	List<User> user_list(Map<String, Object> map);
 	int updateDel(User user);
 	int countAllUser();
+	String selectId(User user);
 }
