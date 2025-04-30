@@ -23,4 +23,5 @@ public interface UserMapper {
 	int updateDel(User user);
 	int countAllUser();
 	String selectId(User user);
+	int updatePw(User user);
 }

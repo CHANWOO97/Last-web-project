@@ -33,4 +33,6 @@ public interface UserService {
 	int countAllUser();
 
 	String selectId(User user);
+
+	int updatePw(User user, String randomPassword);
 }

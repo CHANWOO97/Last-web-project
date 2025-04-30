@@ -58,4 +58,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectId" parameterType="user">
 		select u_id from user_table where name=#{name} and tel=#{tel}	
 	</select>
+		<!-- 패스워드 찾기 -->
+	<update id="updatePw" parameterType="user">
+		update user_table set password=#{password} where u_id=#{u_id} and email=#{email}
+	</update>
 </mapper>

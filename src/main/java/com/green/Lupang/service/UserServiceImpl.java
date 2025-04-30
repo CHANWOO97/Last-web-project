@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.green.Lupang.dto.User;
 import com.green.Lupang.mapper.UserMapper;
@@ -14,6 +16,10 @@ import com.green.Lupang.mapper.UserMapper;
 public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserMapper um;
+	@Autowired
+	private MailService ms;
+	@Autowired
+	private BCryptPasswordEncoder bpe;
 
 	@Override
 	public User select(String u_id) {
@@ -90,5 +96,18 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public String selectId(User user) {
 		return um.selectId(user);
+	}
+
+	@Override
+	public int updatePw(User user, String randomPassword) {		
+		int result = um.updatePw(user);
+		if(result > 0) {
+			try {
+				ms.sendPwMail(user.getEmail(), randomPassword);
+			} catch (Exception e) {
+				e.printStackTrace();	
+			}		
+		}
+		return result;
 	}
 }

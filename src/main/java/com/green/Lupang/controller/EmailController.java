@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.green.Lupang.configuration.RandomPassword;
 import com.green.Lupang.dto.SettleStatement;
 import com.green.Lupang.dto.User;
 import com.green.Lupang.service.InvoiceService;
@@ -38,6 +39,23 @@ public class EmailController {
 		model.addAttribute("id", userid);
 		model.addAttribute("result", result);
 	}
+	@GetMapping("/email/mailToPwForm")
+	public void mailToPwForm() {}
+	
+	@PostMapping("/email/mailToPw")
+	public void mailToPw(User user, Model model) {
+		String randomPassword = RandomPassword.genRandomPassword(6);
+		user.setPassword(bpe.encode(randomPassword));
+		int result = 0;
+        try {
+            result = us.updatePw(user, randomPassword); 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("result", result);
+	}
+
+	
 	//  MimeMessage 용 (html,pdf 등 복잡한 형식)
 	@PostMapping("/admin/home/salemonthtab/settleInvoiceMsg")
 	@ResponseBody

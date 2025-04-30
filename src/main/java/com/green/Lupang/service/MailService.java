@@ -7,4 +7,6 @@ public interface MailService {
 	void sendSimpleInvoiceMail(SettleStatement settleStatement);
 
 	void sendMimeInvoiceMail(SettleStatement settleStatement);
+
+	void sendPwMail(String toEmail, String randomPassword);
 }
