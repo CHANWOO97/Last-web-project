@@ -360,15 +360,13 @@ public class AdminController {
 		int endPage = Math.min(startPage + pagePerBlock - 1, totalPage);
 		// 정산명세서 insert추가
 
-		
 		model.addAttribute("currentPage", page);
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("targetMonth", targetMonth);
 		model.addAttribute("saleJoinList",saleJoinList);
-	}
-	
+	}	
 	@PostMapping("/admin/home/salemonthtab/issueAnInvoice")
 	public void issueAnInvoice(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id,
 			@RequestParam("targetMonth") String targetMonth) {
@@ -376,16 +374,5 @@ public class AdminController {
 		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
 		model.addAttribute("settleInvoice", settleInvoice);
 		model.addAttribute("targetMonth",targetMonth);
-		
 	}
-//	@GetMapping("/admin/home/salemonthtab/issueAnInvoiceRe")
-//	public String issueAnInvoiceRe(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id,
-//			@RequestParam("targetMonth") String targetMonth) {
-//		ivs.insertSettleInvoice(settleStatement);
-//		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
-//		model.addAttribute("settleInvoice", settleInvoice);
-//		model.addAttribute("targetMonth",targetMonth);
-//		return "/admin/home/salemonthtab/issueAnInvoiceRe";
-//		
-//	}
 }

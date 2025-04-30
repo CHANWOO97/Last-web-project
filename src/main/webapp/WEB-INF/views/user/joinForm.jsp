@@ -41,10 +41,7 @@ to {
 	box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
 }
 
-/* drop & drag */
-.drag-over {
-	background: transparent;
-}
+/* 사진첨부 */
 
 .thumb {
   width: 100%;
@@ -86,11 +83,6 @@ to {
 			$('#idChk').html(data);
 		});
 	}
-	// drag & drop
-/*  $(document).on("drop", function(e) {
-		// 태그에 파일 넣기
-		$('input[type="file"]').prop("files", e.originalEvent.dataTransfer.files);
-	}); */
 	$(function() {
 		var uploadfiles = [];
 		

@@ -89,8 +89,16 @@
 									</form>
 								</c:when>
 								<c:otherwise>
-									<a href="/admin/home/salemonthtab/issueAnInvoiceRe?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" 
-									class="btn btn-sm btn-outline-danger" onclick="return chk()">정산서 재발행</a>
+										<form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" method="post" style="display:inline;">
+												<input type="hidden" name="sr_id" value="${saleList.sr_id}" />
+												<input type="hidden" name="u_id" value="${saleList.u_id}" />
+												<input type="hidden" name="total_amount" value="<fmt:formatNumber value='${saleList.total_sum}' pattern='#' />" />
+												<input type="hidden" name="fee_amount" value="<fmt:formatNumber value='${saleList.total_sum * 0.06}' pattern='#' />" />
+												<input type="hidden" name="pg_fee" value="<fmt:formatNumber value='${saleList.total_sum * 0.035}' pattern='#' />" />
+												<input type="hidden" name="net_amount" value="<fmt:formatNumber value='${saleList.total_sum - (saleList.total_sum * 0.06) - (saleList.total_sum * 0.035)}' pattern='#' />" />
+												<input type="hidden" name="st_invoice" value="y" />
+												<button type="submit" class="btn btn-sm btn-outline-danger" onclick="return chk()">정산서 재발행</button>
+										</form>
 								</c:otherwise>
 							</c:choose>
 					</tr>

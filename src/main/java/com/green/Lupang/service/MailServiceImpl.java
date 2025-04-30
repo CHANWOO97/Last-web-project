@@ -46,7 +46,7 @@ public class MailServiceImpl implements MailService{
 		    // true = 멀티파트 메일 
 		    MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-		    helper.setTo("smile0537@naver.com");
+		    helper.setTo(settleStatement.getEmail());
 		    helper.setSubject("첨부파일 포함 메일입니다, test!!");
 		    helper.setText(
 		    		"안녕하세요 " + settleStatement.getOn_id() + "님,\n\n" +
