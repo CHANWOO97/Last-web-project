@@ -48,16 +48,16 @@ label {
  				<input type="hidden" name="u_id" value="${settleInvoice.u_id}"> 
  				<input type="hidden" name="sr_id" value="${settleInvoice.sr_id}">
  				<div class="mb-3">
- 					<label>판매자 이름</label> <input type="text" name="on_id" class="form-control" value="${settleInvoice.on_id}" disabled>
+ 					<label>판매자 이름</label> <input type="text" name="on_id" class="form-control" value="${settleInvoice.on_id}" >
  				</div>
  				<div class="mb-3">
- 					<label>사업자등록번호</label> <input type="text" name="sr_ev" class="form-control" value="${settleInvoice.sr_ev}" disabled>
+ 					<label>사업자등록번호</label> <input type="text" name="sr_ev" class="form-control" value="${settleInvoice.sr_ev}" >
  				</div>
  				<div class="mb-3">
- 					<label>주소</label> <input type="text" name="address" class="form-control" value="${settleInvoice.address}" disabled>
+ 					<label>주소</label> <input type="text" name="address" class="form-control" value="${settleInvoice.address}" >
  				</div>
  				<div class="mb-3">
- 					<label>이메일</label> <input type="text" name="email" class="form-control" value="${settleInvoice.email}" disabled>
+ 					<label>이메일</label> <input type="text" name="email" class="form-control" value="${settleInvoice.email}" >
  				</div>
  				<div class="mb-3">
  					<label>총 결제금액(vat 포함)</label> 

@@ -370,7 +370,7 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/home/salemonthtab/issueAnInvoice")
-	public void detailSettleStatement(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id,
+	public void issueAnInvoice(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id,
 			@RequestParam("targetMonth") String targetMonth) {
 		ivs.insertSettleInvoice(settleStatement);
 		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
@@ -378,4 +378,14 @@ public class AdminController {
 		model.addAttribute("targetMonth",targetMonth);
 		
 	}
+//	@GetMapping("/admin/home/salemonthtab/issueAnInvoiceRe")
+//	public String issueAnInvoiceRe(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id,
+//			@RequestParam("targetMonth") String targetMonth) {
+//		ivs.insertSettleInvoice(settleStatement);
+//		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
+//		model.addAttribute("settleInvoice", settleInvoice);
+//		model.addAttribute("targetMonth",targetMonth);
+//		return "/admin/home/salemonthtab/issueAnInvoiceRe";
+//		
+//	}
 }

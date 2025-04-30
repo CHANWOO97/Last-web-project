@@ -89,8 +89,8 @@
 									</form>
 								</c:when>
 								<c:otherwise>
-									<a href="/admin/home/salemonthtab/ReSettleStatementGo?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" class="btn btn-sm btn-outline-danger" 
-									onclick="return chk()">정산서 재발행</a>
+									<a href="/admin/home/salemonthtab/issueAnInvoiceRe?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" 
+									class="btn btn-sm btn-outline-danger" onclick="return chk()">정산서 재발행</a>
 								</c:otherwise>
 							</c:choose>
 					</tr>

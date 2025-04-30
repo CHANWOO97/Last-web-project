@@ -1,12 +1,16 @@
-package com.green.Lupang.service;import org.springframework.beans.factory.annotation.Autowired;
+package com.green.Lupang.service;import java.io.File;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.green.Lupang.configuration.CreatePdfFile;
 import com.green.Lupang.dto.SettleStatement;
 
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.ServletContext;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j	
@@ -14,13 +18,15 @@ import lombok.extern.slf4j.Slf4j;
 public class MailServiceImpl implements MailService{
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired 
+	private ServletContext servletContext;
 	@Override
 	public void sendSimpleInvoiceMail(SettleStatement settleStatement) {
 		 SimpleMailMessage message = new SimpleMailMessage(); 
 		 	message.setTo("smile0537@naver.com"); // **수신자 test 용 계정 (user.getEmail())
 	        message.setSubject("[Lupang] 정산명세서 발송 안내");
 	        message.setText(
-	            "안녕하세요 " + settleStatement.getOn_id() + "님,\n\n" +
+	            "안녕하세요 " + settleStatement.getU_id() + "님,\n\n" +
 	            "Lupang 정산명세서가 발행되었습니다.\n" +
 	            "- 총 결제금액: " + settleStatement.getTotal_amount() + "원\n" +
 	            "- Lupang 수수료금액: " + settleStatement.getFee_amount() + "원\n" +
@@ -31,8 +37,40 @@ public class MailServiceImpl implements MailService{
 	        mailSender.send(message);
 	    }
 	@Override
-	public void sendMimeInvoiceMail(SettleStatement settleStatement) {		
+	public void sendMimeInvoiceMail(SettleStatement settleStatement) throws Exception {
+		 MimeMessage message = mailSender.createMimeMessage();
+		 	// 1. PDF 암호화 생성
+	        String password = "1234"; // 또는 고객 고유정보 활용 가능
+	        File pdfFile = CreatePdfFile.createEncryptedInvoicePdf(settleStatement, password);
+		 
+		    // true = 멀티파트 메일 
+		    MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+
+		    helper.setTo("smile0537@naver.com");
+		    helper.setSubject("첨부파일 포함 메일입니다, test!!");
+		    helper.setText(
+		    		"안녕하세요 " + settleStatement.getOn_id() + "님,\n\n" +
+ 	            "Lupang 정산명세서가 발행되었습니다.\n" +
+ 	            "- 총 결제금액: " + settleStatement.getTotal_amount() + "원\n" +
+ 	            "- Lupang 수수료금액: " + settleStatement.getFee_amount() + "원\n" +
+ 	            "- PG 수수료금액: " + settleStatement.getPg_fee() + "원\n" +
+		    	"- 정산금액: " + settleStatement.getNet_amount() + "원\n\n" + 
+ 	            "열람 비밀번호는 1234입니다.\n" + 
+		    	"감사합니다.");
+			    helper.addAttachment("정산명세서.pdf", pdfFile);
+	
+		        // 3. 전송
+		        mailSender.send(message);
+	
+		        // 4. 임시 파일 삭제
+		        pdfFile.delete();
 	}
+
+//		    // 첨부파일 추가
+//		    String realPath = servletContext.getRealPath("/resources/images/email_photo/test.pdf");
+//		    File file = new File(realPath);
+//		    helper.addAttachment("정산명세서.pdf", file);	
+
 	@Override
 	public void sendPwMail(String toEmail, String randomPassword) {
 		try {
@@ -67,7 +105,5 @@ public class MailServiceImpl implements MailService{
 	        e.printStackTrace();
 	        log.error("비밀번호 메일 전송 실패: {}", e.getMessage());
 	    }
-		
 	}
-
 }

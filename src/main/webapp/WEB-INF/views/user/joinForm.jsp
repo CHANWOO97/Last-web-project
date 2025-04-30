@@ -192,8 +192,9 @@ to {
       </div>
 
       <!-- 회원가입 form 시작 -->
-      <form name="frm" onsubmit="return false;"> <!-- AJAX처리를 위해 서버로 전송안되게 방지 -->
-
+      <%-- <form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" method="post" 
+      style="display:inline;"> --%>
+		<form action="/user/join" method="post" id="frm" enctype="multipart/form-data"s>
         <!-- 아이디 입력 -->
         <div class="mb-3 row align-items-center">
           <!-- 라벨 + 아이콘 -->
@@ -281,7 +282,7 @@ to {
               <!-- 아이콘과 텍스트 묶기 -->
 			  <div id="uploadIcon">
 			    <i class="bi bi-upload" style="font-size: 1.5rem;"></i><br>
-			    <div>사진을 올려 주세요</div>
+			    <div>클릭하여 사진 첨부</div>
 			  </div>
 			  <div id="photo" class="mt-2"></div>
             </div>
@@ -289,9 +290,7 @@ to {
         </div>
         <!-- 가입 버튼 -->
         <div class="text-center mb-3">
-          <button type="button" id="submit" class="btn btn-primary px-4">
-            가입하기
-          </button>
+          <input type="submit" value="가입하기" class="btn btn-primary px-4"/>
         </div>
         <!-- 로그인 이동 버튼 -->
         <div class="text-center">
@@ -304,7 +303,5 @@ to {
     </div>
   </div>
 </div>
-
-
 </body>
 </html>

@@ -56,14 +56,13 @@ public class EmailController {
 	}
 
 	
-	//  MimeMessage 용 (html,pdf 등 복잡한 형식)
+	//  MimeMessage 용 (html,파일첨부 등 복잡한 형식)
 	@PostMapping("/admin/home/salemonthtab/settleInvoiceMsg")
 	@ResponseBody
 	public String sendMimeSettleInvoiceMail(Model model, SettleStatement settleStatement) {
 	    try {
 	        // 1. 메일 전송 로직 호출
 	        ms.sendMimeInvoiceMail(settleStatement);
-
 	        return "success";  // 프론트엔드에서 success 메시지로 처리
 	    } catch (Exception e) {
 	        e.printStackTrace();

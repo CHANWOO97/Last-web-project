@@ -29,11 +29,12 @@ dependencies {
 	implementation 'commons-io:commons-io:2.6'
  	implementation 'commons-fileupload:commons-fileupload:1.4'
 	implementation group: 'org.springframework.security', name: 'spring-security-crypto', version: '4.2.4.RELEASE'
-	//이메일 전송
+	// 이메일 전송
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	//pdf 변환
-	implementation 'com.openhtmltopdf:openhtmltopdf-core:1.0.11'
-	implementation 'com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.11'
+	// pdf 추가 (iText 5.5.13.3 버전 사용 /  PDF 문서를 Java 코드로 생성하거나 조작할 수 있는 라이브러리)
+	implementation 'com.itextpdf:itextpdf:5.5.13.3'
+	// pdf 추가 (비밀번호 설정을 위해)
+	implementation 'org.bouncycastle:bcprov-jdk15on:1.70'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	
 	compileOnly 'org.projectlombok:lombok'
