@@ -370,15 +370,12 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/home/salemonthtab/issueAnInvoice")
-	@ResponseBody
-	public SettleStatement detailSettleStatement(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id) {
+	public void detailSettleStatement(Model model, SettleStatement settleStatement, @RequestParam("sr_id") int sr_id,
+			@RequestParam("targetMonth") String targetMonth) {
 		ivs.insertSettleInvoice(settleStatement);
 		SettleStatement settleInvoice = ivs.getSettleInvoice(sr_id);
-		return settleInvoice;
-	}
-	@PostMapping("/admin/home/salemonthtab/settleInvoiceMsg")
-	public String settleInvoiceMsg(SettleStatement settleStatement) {
+		model.addAttribute("settleInvoice", settleInvoice);
+		model.addAttribute("targetMonth",targetMonth);
 		
-		return "/admin/home/salemonthtab/settleInvoiceMsg";
 	}
 }

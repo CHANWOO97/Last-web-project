@@ -77,7 +77,7 @@
 								<fmt:formatNumber value="${saleList.total_sum}" maxFractionDigits="0" />
 							</c:set> <c:choose>
 								<c:when test="${saleList.st_invoice eq 'n' || saleList.st_invoice eq null}">
-									<form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}" method="post" style="display:inline;">
+									<form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" method="post" style="display:inline;">
 										<input type="hidden" name="sr_id" value="${saleList.sr_id}" />
 										<input type="hidden" name="u_id" value="${saleList.u_id}" />
 										<input type="hidden" name="total_amount" value="<fmt:formatNumber value='${saleList.total_sum}' pattern='#' />" />
@@ -89,7 +89,7 @@
 									</form>
 								</c:when>
 								<c:otherwise>
-									<a href="/admin/home/salemonthtab/ReSettleStatementGo?sr_id=${saleList.sr_id}" class="btn btn-sm btn-outline-danger" 
+									<a href="/admin/home/salemonthtab/ReSettleStatementGo?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" class="btn btn-sm btn-outline-danger" 
 									onclick="return chk()">정산서 재발행</a>
 								</c:otherwise>
 							</c:choose>
@@ -106,8 +106,10 @@
 						<li class="page-item disabled"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a class="page-link" href="/admin/home/salemonthtab/settleStatementForm?page=${currentPage - 1}&targetMonth=${targetMonth}"> <span
-								aria-hidden="true">&laquo;</span></a></li>
+						<li class="page-item">
+							<a class="page-link" href="/admin/home/salemonthtab/settleStatementForm?page=${currentPage - 1}&targetMonth=${targetMonth}"> 
+							<span aria-hidden="true">&laquo;</span></a>
+						</li>
 					</c:otherwise>
 				</c:choose>
 				<!-- 숫자 페이지 -->
