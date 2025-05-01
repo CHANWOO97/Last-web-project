@@ -70,14 +70,15 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 ---
 
 ## 📸 주요 구현 화면
-
+- 메인 페이지
+  <p align="center">
+    <img src="https://github.com/user-attachments/assets/a4edee3a-d7e0-4404-880f-0d47251918e6" width="100%"/>
+  </p>
 - 회원가입 및 로그인
   <p align="center">
-  <img src="https://github.com/user-attachments/assets/33055e0f-9ded-49a5-a617-49cd23d7def0" width="45%"/>
-  <img src="https://github.com/user-attachments/assets/371975a9-798d-406b-90c1-d748505a3339" width="45%"/>
+    <img src="https://github.com/user-attachments/assets/33055e0f-9ded-49a5-a617-49cd23d7def0" width="45%"/>
+    <img src="https://github.com/user-attachments/assets/371975a9-798d-406b-90c1-d748505a3339" width="45%"/>
   </p>
-
-
 - 상품 목록 및 상세 페이지
 - 장바구니 및 주문 프로세스
 - 관리자 통계 대시보드
@@ -87,10 +88,7 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 ---
 
 ## 📌 ERD
-
-> [ERD Cloud 링크 또는 ERD 이미지 캡처 삽입]
-
----
+https://www.erdcloud.com/d/3eWXvgssHCCTvfHoh
 
 ## ✉️ 이메일 기능
 
