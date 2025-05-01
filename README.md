@@ -134,7 +134,10 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 </p>
 
 ## 📌 ERD
-https://www.erdcloud.com/d/3eWXvgssHCCTvfHoh
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b71d4cdf-bb9b-4f20-a395-5bf1ed5f6e47" width="80%"/>
+</p>
+
 
 ## ✉️ 이메일 기능
 
