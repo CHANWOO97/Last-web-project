@@ -158,6 +158,7 @@ public class SaleController {
 	@GetMapping("/itemsOrder/orderList")
 	public String orderList(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		String id = (String)session.getAttribute("id");
+		String title = "주문목록";
 		int pageSize = 12; // 한 페이지당 보여줄 상품 수
 		int offset = (page - 1) * pageSize;
 		
@@ -173,6 +174,7 @@ public class SaleController {
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("title", title);
 		return "itemsOrder/orderList";
 	}
 	
