@@ -156,8 +156,12 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 - `style:` UI 스타일링 및 CSS
 
 ---
+## 📄 프로젝트 발표자료
+
+👉 [Lupang 프로젝트 발표자료.pdf](https://github.com/user-attachments/files/19997777/project_Lupang.4.pdf)
 
 ## 🙌 팀원 및 담당 역할
+
 
 | 이름 | 역할 | 주요 업무 | 공동 작업 |
 |------|------|-----------|-----------|
