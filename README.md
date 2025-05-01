@@ -1,4 +1,4 @@
-# 🛒 Lupang - 쿠팡 클론 프로젝트
+![image](https://github.com/user-attachments/assets/aff2dae2-9704-41c6-960c-6ab78d01c073)# 🛒 Lupang - 쿠팡 클론 프로젝트
 
 > **안산 그린컴퓨터 아카데미 풀스택 개발과정 최종 프로젝트 (2025)**  
 > 실사용자 경험을 고려한 쇼핑몰 통합 시스템 구현
@@ -70,26 +70,68 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 ---
 
 ## 📸 주요 구현 화면
-- 메인 페이지
-  <p align="center">
-    <img src="https://github.com/user-attachments/assets/a4edee3a-d7e0-4404-880f-0d47251918e6" width="100%"/>
-  </p>
-- 회원가입 및 로그인
-  <p align="center">
-    <img src="https://github.com/user-attachments/assets/33055e0f-9ded-49a5-a617-49cd23d7def0" width="45%"/>
-    <img src="https://github.com/user-attachments/assets/371975a9-798d-406b-90c1-d748505a3339" width="45%"/>
-  </p>![image]()
-- 상품 목록 및 상세 페이지
-  <p>
-    <img src="https://github.com/user-attachments/assets/8300a342-9ec3-4bd1-afed-b126b955f8d8">    
-    <img src="https://github.com/user-attachments/assets/204fdaf0-501b-4fae-8f6d-80deb60abac5">
-  </p>
-- 장바구니 및 주문 프로세스
-- 관리자 통계 대시보드
-- 판매자 상품 등록 폼
-- 정산 명세서 발행 및 PDF 다운로드
+
+### 🏠 메인 페이지
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7370e4e5-3d81-45ec-96d7-a11fe02fc8b1" width="100%"/>
+</p>
 
 ---
+
+### 🔐 회원가입 및 로그인
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/33055e0f-9ded-49a5-a617-49cd23d7def0" width="48%"/>
+  <img src="https://github.com/user-attachments/assets/371975a9-798d-406b-90c1-d748505a3339" width="48%"/>
+</p>
+
+---
+
+### 🛍️ 상품 목록 및 상세 페이지
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8300a342-9ec3-4bd1-afed-b126b955f8d8" width="48%"/>
+  <img src="https://github.com/user-attachments/assets/204fdaf0-501b-4fae-8f6d-80deb60abac5" width="48%"/>
+</p>
+
+---
+
+### 🛒 장바구니 및 주문 프로세스
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8586b2b0-7a5e-4bf9-b5d8-411ffdc60fef" width="48%"/>
+  <img src="https://github.com/user-attachments/assets/0813499e-ed0c-4158-9b97-44120d55ecf5" width="48%"/>
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fcb64c73-99ac-46c4-974f-353cd90a7caf" width="48%"/>
+  <img src="https://github.com/user-attachments/assets/38701d19-67a8-4154-8f32-44c80172b2e3" width="48%"/>
+</p>
+
+---
+
+### 🧾 판매자 상품 등록 폼
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d91e56ec-476e-4e99-88fe-018fcf7f1368" width="48%"/>
+  <img src="https://github.com/user-attachments/assets/98a89a8e-f695-45dd-a785-19c5db79b54b" width="48%"/>
+</p>
+
+---
+
+### 📊 관리자 통계 대시보드
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f957a293-6353-4210-8ef7-b2fab50f4f3c" width="80%"/>
+</p>
+
+---
+
+### 📄 정산 명세서 PDF 발행
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/8625a8b4-0ae8-41aa-871d-25d9edea8c5c" width="80%"/>
+</p>
+
+---
+
+### 🎡 이벤트 룰렛
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/38a875d6-f0bf-428d-bd1f-9f8cd0b3c493" width="80%"/>
+</p>
 
 ## 📌 ERD
 https://www.erdcloud.com/d/3eWXvgssHCCTvfHoh
