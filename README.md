@@ -72,6 +72,7 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 ## 📸 주요 구현 화면
 
 - 회원가입 및 로그인
+
   ![image](https://github.com/user-attachments/assets/33055e0f-9ded-49a5-a617-49cd23d7def0)![image](https://github.com/user-attachments/assets/371975a9-798d-406b-90c1-d748505a3339)
 
 
