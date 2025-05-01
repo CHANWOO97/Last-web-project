@@ -71,8 +71,6 @@ public class SaleController {
 			String [] parts = selectItem.split("_");	
 			String i_id = parts[0];
 			Items item = is.select(i_id);
-			System.out.println(id);
-			System.out.println(i_id);
 			int quantity = cs.findCartByUserAndItem(id, i_id);
 			SaleItems si = new SaleItems();
 			si.setName(item.getName()); si.setPhoto(item.getPhoto());

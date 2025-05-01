@@ -49,8 +49,7 @@ public class HomeController {
 	@GetMapping("/itemsOrder/orderCancleList")
 	public String orderList(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		String id = (String)session.getAttribute("id");
-		String title = "취소 / 반품";
-		System.out.println("page"+page);
+		String title = "취소 / 반품";		
 		int pageSize = 12; // 한 페이지당 보여줄 상품 수
 		int offset = (page - 1) * pageSize;
 		
@@ -60,7 +59,6 @@ public class HomeController {
 		int blockSize = 10; // 보여줄 블록 패이지 수 1, 2, 3, 4
 		int startPage = ((page - 1) / blockSize) * blockSize + 1;
 		int endPage = Math.min(startPage + blockSize - 1, totalPage);
-		System.out.println("blockSize"+ blockSize);
 		
 		model.addAttribute("startPage", startPage);
 		model.addAttribute("endPage", endPage);
