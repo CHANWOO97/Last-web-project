@@ -19,9 +19,14 @@
 			<a href="/" class="text-decoration-none text-dark">Lupang</a>
 		</h1>
 		<div class="col-lg-10 mx-auto bg-white p-5 shadow rounded-4">
-
-			<h2 class="fw-bold mb-4">📦 주문 목록</h2>
-
+			<c:choose>
+			     <c:when test="${empty title}">
+			    	 <h2 class="fw-bold mb-4">📦 주문 목록</h2>
+				 </c:when>
+				 <c:otherwise>
+				 	 <h2 class="fw-bold mb-4">📦 ${title }</h2>
+				 </c:otherwise>			
+			</c:choose>
 			<c:forEach var="order" items="${orderList}">
 				<div class="card mb-3 shadow-sm">
 					<div class="card-body d-flex align-items-center">

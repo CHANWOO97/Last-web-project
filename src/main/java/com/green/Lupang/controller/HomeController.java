@@ -49,6 +49,7 @@ public class HomeController {
 	@GetMapping("/itemsOrder/orderCancleList")
 	public String orderList(HttpSession session, Model model, @RequestParam(value = "page", defaultValue = "1") int page) {
 		String id = (String)session.getAttribute("id");
+		String title = "취소 / 반품";
 		System.out.println("page"+page);
 		int pageSize = 12; // 한 페이지당 보여줄 상품 수
 		int offset = (page - 1) * pageSize;
@@ -62,14 +63,11 @@ public class HomeController {
 		System.out.println("blockSize"+ blockSize);
 		
 		model.addAttribute("startPage", startPage);
-		System.out.println("startPage"+ startPage);
 		model.addAttribute("endPage", endPage);
-		System.out.println("endPage"+ endPage);
 		model.addAttribute("currentPage", page);
-		System.out.println("currentPage"+ page);
 		model.addAttribute("totalPage", totalPage);
-		System.out.println("totalPage"+ totalPage);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("title", title);
 		return "itemsOrder/orderList";
 	}
 }

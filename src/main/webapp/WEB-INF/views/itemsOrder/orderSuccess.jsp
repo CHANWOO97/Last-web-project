@@ -16,7 +16,7 @@
 
 			<!-- 주문 완료 메시지 -->
 			<c:choose>	
-				<c:when test="${sale.s_status == 'c'}">
+				<c:when test="${sale.s_status == 'n'}">
 					<h2 class="text-danger fw-bold mb-4 text-center">❌ 주문이 취소 되었습니다.</h2>
 				</c:when>
 				<c:otherwise>
