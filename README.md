@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/aff2dae2-9704-41c6-960c-6ab78d01c073)# 🛒 Lupang - 쿠팡 클론 프로젝트
+# 🛒 Lupang - 쿠팡 클론 프로젝트
 
 > **안산 그린컴퓨터 아카데미 풀스택 개발과정 최종 프로젝트 (2025)**  
 > 실사용자 경험을 고려한 쇼핑몰 통합 시스템 구현
