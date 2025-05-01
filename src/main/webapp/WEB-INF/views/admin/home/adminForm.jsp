@@ -40,9 +40,9 @@
 	      },
 	      scales: {
 	        y: { beginAtZero: true, 
-	        	max:10,
+	        	max:${maxCount },
 	        	 ticks: {
-	                 stepSize: 1}
+	                 stepSize: ${stepSize }}
 	        }
 	      }
 	    }

@@ -312,7 +312,14 @@ public class AdminController {
 	@GetMapping("/admin/home/adminForm")
 	public String analytics1(Model model) {
 	    List<TopSaleItemDTO> topItems = ss.getTopSellingItems();
+	    int max= topItems.stream().mapToInt(TopSaleItemDTO::getCount).max().orElse(0); // 리스트가 비어있을 경우 0 반환
+	    // 적절한 Y축 최대값: maxCount보다 약간 여유를 두고 올림
+	    int niceMax = ((max + 9) / 10) * 10; // 예: 53 → 60
+	    // 적절한 stepSize: 눈금 5~10개 사이 유지
+	    int stepSize = (niceMax >= 50) ? 10 : 5;
 	    model.addAttribute("topItems", topItems);
+	    model.addAttribute("maxCount", niceMax);
+	    model.addAttribute("stepSize", stepSize);
 	    return "admin/home/adminForm";
 	}
 	@GetMapping("/admin/home/salemonthtab/analytics2")
