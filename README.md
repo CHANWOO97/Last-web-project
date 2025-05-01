@@ -78,8 +78,12 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
   <p align="center">
     <img src="https://github.com/user-attachments/assets/33055e0f-9ded-49a5-a617-49cd23d7def0" width="45%"/>
     <img src="https://github.com/user-attachments/assets/371975a9-798d-406b-90c1-d748505a3339" width="45%"/>
-  </p>
+  </p>![image]()
 - 상품 목록 및 상세 페이지
+  <p>
+    <img src="https://github.com/user-attachments/assets/8300a342-9ec3-4bd1-afed-b126b955f8d8">    
+    <img src="https://github.com/user-attachments/assets/204fdaf0-501b-4fae-8f6d-80deb60abac5">
+  </p>
 - 장바구니 및 주문 프로세스
 - 관리자 통계 대시보드
 - 판매자 상품 등록 폼
