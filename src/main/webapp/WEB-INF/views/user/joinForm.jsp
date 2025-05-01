@@ -135,8 +135,9 @@ to {
 			formData.append('address', frm.address.value);
 			
 			$.each(uploadfiles, function(i, file) {
-				if (file.upload != 'disable') // 사용하지 않는 파일은 제외하고
-					formData.append('file',file,file.name);
+				if (file.upload !== 'disable') {
+					formData.append('file[]', file, file.name); // 배열 형식으로 전달
+				}
 			});
 			$.ajax({
 				url:'/user/join', data:formData, type:'post',
@@ -183,10 +184,7 @@ to {
         <h2 class="text-primary mt-2">회원가입</h2>
       </div>
 
-      <!-- 회원가입 form 시작 -->
-      <%-- <form action="/admin/home/salemonthtab/issueAnInvoice?sr_id=${saleList.sr_id}&targetMonth=${targetMonth}" method="post" 
-      style="display:inline;"> --%>
-		<form action="/user/join" method="post" id="frm" enctype="multipart/form-data"s>
+		<form action="/user/join" method="post" id="frm" name="frm" enctype="multipart/form-data">
         <!-- 아이디 입력 -->
         <div class="mb-3 row align-items-center">
           <!-- 라벨 + 아이콘 -->
@@ -282,7 +280,7 @@ to {
         </div>
         <!-- 가입 버튼 -->
         <div class="text-center mb-3">
-          <input type="submit" value="가입하기" class="btn btn-primary px-4"/>
+          <input type="button" id="submit" value="가입하기" class="btn btn-primary px-4"/>
         </div>
         <!-- 로그인 이동 버튼 -->
         <div class="text-center">

@@ -74,7 +74,7 @@ public class UserController {
 		int result = 0;
 		User user2 = us.select(user.getU_id());
 		if (user2 == null) {
-			List<MultipartFile> list = mhr.getFiles("file");
+			List<MultipartFile> list = mhr.getFiles("file[]");
 			List<User> photo = new ArrayList<>();
 			String real = mhr.getServletContext().getRealPath("/resources/images/user_photo");
 			for (MultipartFile mf : list) {
