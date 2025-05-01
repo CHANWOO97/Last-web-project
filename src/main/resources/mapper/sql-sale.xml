@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            (select i.name from sale_items si JOIN items i ON si.i_id = i.i_id
 		             where si.s_id=s.s_id limit 1) as name,
 		            (select count(*) from sale_items where s_id = s.s_id) as item_count 
-		            FROM sale s where s_status != 'n'     			
+		            FROM sale s where s_status != 'n' and s.u_id = #{u_id}  			
 					order by s.s_date desc 
 					limit #{pageSize} offset #{offset}
 	</select>
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		            (select i.name from sale_items si JOIN items i ON si.i_id = i.i_id
 		             where si.s_id=s.s_id limit 1) as name,
 		            (select count(*) from sale_items where s_id = s.s_id) as item_count 
-		            FROM sale s where s_status = 'n' 	             			
+		            FROM sale s where s_status = 'n' and s.u_id = #{u_id} 	             			
 					order by s.s_date desc 
 					limit #{pageSize} offset #{offset}
 	</select>
