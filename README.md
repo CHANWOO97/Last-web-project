@@ -106,7 +106,15 @@ Lupang은 실제 이커머스 플랫폼 "쿠팡"의 구조와 기능을 참고�
 
 ---
 
-### 🧾 판매자 상품 등록 폼
+### 🧾 판매자 승인 신청
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/7ba69f04-c0ae-4d28-8386-2957c94f06dd" width="48%"/>
+  <img src="https://github.com/user-attachments/assets/05c2f8b7-683b-481b-8435-6f87f46b0684" width="48%"/>
+</p>
+
+---
+
+### 🧾 판매자 상품 등록
 <p align="center">
   <img src="https://github.com/user-attachments/assets/d91e56ec-476e-4e99-88fe-018fcf7f1368" width="48%"/>
   <img src="https://github.com/user-attachments/assets/98a89a8e-f695-45dd-a785-19c5db79b54b" width="48%"/>
